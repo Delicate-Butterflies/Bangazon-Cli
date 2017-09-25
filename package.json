@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "db:reset": "node db/database.js",
+    "db:reset": "node db/build-db.js",
     "start": "node bin/bangazon",
     "test": "mocha -R list --watch"
   },
@@ -25,6 +25,7 @@
     "eslint-config-airbnb": "^15.1.0",
     "eslint-config-airbnb-base": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
+    "faker": "^4.1.0",
     "mocha": "^3.5.3"
   }
 }
