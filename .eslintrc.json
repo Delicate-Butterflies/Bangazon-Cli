@@ -1,3 +1,10 @@
 {
-    "extends": "airbnb-base"
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "ecmaFeatures": {
+    "globalReturn": true,
+    "impliedStrict": false
+  }
 }

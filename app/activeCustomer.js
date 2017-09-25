@@ -2,10 +2,10 @@
 
 let activeCustomer = {
   id: null
-}
+};
 
-module.exports.setActiveCustomer = (id) => {
+module.exports.setActiveCustomer = id => {
   activeCustomer.id = id;
-}
+};
 
 module.exports.getActiveCustomer = () => activeCustomer;
