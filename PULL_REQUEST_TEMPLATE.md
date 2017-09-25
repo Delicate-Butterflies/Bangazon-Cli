@@ -1,9 +1,13 @@
 Related Issue:
 
-Changes:
+Description:
 
-Readme Info:
- - [ ] required packages (new)
- - [ ] API instructions
+Notes for Readme Info:
 
-Any other Testing Steps:
+Chai/Mocha Tests added:
+- [] isFunction()
+- []
+- []
+- []
+
+Any other PR Testing Steps:
