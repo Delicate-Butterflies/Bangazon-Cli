@@ -1,5 +1,3 @@
-
-
 // set up sqlite3 database
 const sqlite3 = require('sqlite3').verbose();
 
@@ -35,7 +33,6 @@ const orderProducts = generateOrderProducts();
 
 // one db.serialize to avoid table creation conflicts
 db.serialize(() => {
-
   // COMPANY DB INFO
   // employees table creation
   db.run(`DROP TABLE IF EXISTS employees`);
@@ -50,13 +47,24 @@ db.serialize(() => {
     street_address TEXT,
     city_address TEXT,
     state_code TEXT,
-    zip_code INT)`
-  );
+    zip_code INT)`);
 
-  employees.forEach(({ department_id, first_name, last_name, phone_number, job_title, street_address, city_address, state_code, zip_code }) => {
-    db.run(`INSERT INTO employees (department_id, first_name, last_name, phone_number, job_title, street_address, city_address, state_code, zip_code)
+  employees.forEach(
+    ({
+      department_id,
+      first_name,
+      last_name,
+      phone_number,
+      job_title,
+      street_address,
+      city_address,
+      state_code,
+      zip_code
+    }) => {
+      db.run(`INSERT INTO employees (department_id, first_name, last_name, phone_number, job_title, street_address, city_address, state_code, zip_code)
             VALUES (${department_id}, "${first_name}", "${last_name}", "${phone_number}", "${job_title}", "${street_address}", "${city_address}", "${state_code}", ${zip_code})`);
-  });
+    }
+  );
 
   // training_programs table creation
   db.run(`DROP TABLE IF EXISTS training_programs`);
@@ -66,13 +74,11 @@ db.serialize(() => {
     start_date TEXT,
     end_date TEXT,
     max_attendance INT,
-    title TEXT)`
-  );
+    title TEXT)`);
 
   trainingPrograms.forEach(({ start_date, end_date, max_attendance, title }) => {
     db.run(`INSERT INTO training_programs (start_date, end_date, max_attendance, title)
-            VALUES ("${start_date}", "${end_date}", ${max_attendance}, "${title}")`
-    );
+            VALUES ("${start_date}", "${end_date}", ${max_attendance}, "${title}")`);
   });
 
   // departments table creation
@@ -82,13 +88,11 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY,
     supervisor_employee_id INT,
     expense_budget INT NOT NULL,
-    name TEXT NOT NULL)`
-  );
+    name TEXT NOT NULL)`);
 
   departments.forEach(({ supervisor_employee_id, expense_budget, name }) => {
     db.run(`INSERT INTO departments (supervisor_employee_id, expense_budget, name)
-            VALUES (${supervisor_employee_id}, ${expense_budget}, "${name}")`
-    );
+            VALUES (${supervisor_employee_id}, ${expense_budget}, "${name}")`);
   });
 
   // computers table creation
@@ -98,13 +102,11 @@ db.serialize(() => {
     id INTEGER PRIMARY KEY,
     purchase_date TEXT NOT NULL,
     decommission_date TEXT,
-    serial_number TEXT NOT NULL)`
-  );
+    serial_number TEXT NOT NULL)`);
 
   computers.forEach(({ purchase_date, decommission_date, serial_number }) => {
     db.run(`INSERT INTO computers (purchase_date, decommission_date, serial_number)
-            VALUES ("${purchase_date}", "${decommission_date}", "${serial_number}")`
-    );
+            VALUES ("${purchase_date}", "${decommission_date}", "${serial_number}")`);
   });
 
   // employeesTrainings table creation
@@ -113,13 +115,11 @@ db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS employeesTrainings (
     id INTEGER PRIMARY KEY,
     program_id INT,
-    employee_id INT)`
-  );
+    employee_id INT)`);
 
   employeeTrainings.forEach(({ program_id, employee_id }) => {
     db.run(`INSERT INTO employeesTrainings (program_id, employee_id)
-            VALUES (${program_id}, ${employee_id})`
-    );
+            VALUES (${program_id}, ${employee_id})`);
   });
 
   // employeesComputers table creation
@@ -132,13 +132,11 @@ db.serialize(() => {
     assign_date TEXT,
     return_date TEXT,
     FOREIGN KEY(employee_id) REFERENCES employees(id) ON DELETE CASCADE,
-    FOREIGN KEY(computer_id) REFERENCES computers(id) ON DELETE CASCADE)`
-  );
+    FOREIGN KEY(computer_id) REFERENCES computers(id) ON DELETE CASCADE)`);
 
   employeeComputers.forEach(({ employee_id, computer_id, assign_date, return_date }) => {
     db.run(`INSERT INTO employeesComputers (employee_id, computer_id, assign_date, return_date)
-            VALUES (${employee_id}, ${computer_id}, '${assign_date}', '${return_date}')`
-    );
+            VALUES (${employee_id}, ${computer_id}, '${assign_date}', '${return_date}')`);
   });
 
   // CUSTOMER DB INFO
@@ -151,13 +149,11 @@ db.serialize(() => {
     payment_type_id INTEGER,
     order_date TEXT,
     FOREIGN KEY(customer_user_id) REFERENCES users(id),
-    FOREIGN KEY(payment_type_id) REFERENCES payment_types(id) )`
-  );
+    FOREIGN KEY(payment_type_id) REFERENCES payment_types(id) )`);
 
   orders.forEach(({ customer_user_id, payment_type_id, order_date }) => {
     db.run(`INSERT INTO orders (customer_user_id, payment_type_id, order_date)
-            VALUES('${customer_user_id}', '${payment_type_id}', '${order_date}')`
-    );
+            VALUES('${customer_user_id}', '${payment_type_id}', '${order_date}')`);
   });
 
   // payment types table creation
@@ -168,13 +164,11 @@ db.serialize(() => {
     customer_user_id INTEGER,
     type TEXT,
     account_number INTEGER,
-    FOREIGN KEY(customer_user_id) REFERENCES users(id))`
-  );
+    FOREIGN KEY(customer_user_id) REFERENCES users(id))`);
 
   payments.forEach(({ customer_user_id, type, account_number }) => {
     db.run(`INSERT INTO payment_types(customer_user_id, type, account_number)
-            VALUES('${customer_user_id}', '${type}', '${account_number}')`
-    );
+            VALUES('${customer_user_id}', '${type}', '${account_number}')`);
   });
 
   // products table creation
@@ -188,13 +182,11 @@ db.serialize(() => {
     description TEXT,
     original_quantity INTEGER,
     seller_user_id INTEGER,
-    FOREIGN KEY(product_type_id) REFERENCES product_types(id))`
-  );
+    FOREIGN KEY(product_type_id) REFERENCES product_types(id))`);
 
   products.forEach(({ type_id, price, title, description, original_quantity, seller_user_id }) => {
     db.run(`INSERT INTO products(product_type_id, price, title, description, original_quantity, seller_user_id)
-            VALUES('${type_id}', '${price}', '${title}', '${description}', '${original_quantity}', '${seller_user_id}')`
-    );
+            VALUES('${type_id}', '${price}', '${title}', '${description}', '${original_quantity}', '${seller_user_id}')`);
   });
 
   // users table creation
@@ -209,27 +201,34 @@ db.serialize(() => {
     street_address TEXT,
     city_address TEXT,
     state_code TEXT,
-    zip_code TEXT )`
-  );
+    zip_code TEXT )`);
 
-  users.forEach(({ first_name, last_name, account_created_date, last_login_date, address_street, address_city, address_state, address_zip }) => {
-    db.run(`INSERT INTO users (first_name, last_name, account_created_date, last_login_date, street_address, city_address, state_code, zip_code)
-            VALUES("${first_name}", "${last_name}", '${account_created_date}', '${last_login_date}', "${address_street}",  "${address_city}", '${address_state}', '${address_zip}')`
-    );
-  });
+  users.forEach(
+    ({
+      first_name,
+      last_name,
+      account_created_date,
+      last_login_date,
+      address_street,
+      address_city,
+      address_state,
+      address_zip
+    }) => {
+      db.run(`INSERT INTO users (first_name, last_name, account_created_date, last_login_date, street_address, city_address, state_code, zip_code)
+            VALUES("${first_name}", "${last_name}", '${account_created_date}', '${last_login_date}', "${address_street}",  "${address_city}", '${address_state}', '${address_zip}')`);
+    }
+  );
 
   // product types table creation
   db.run(`DROP TABLE IF EXISTS product_types`);
 
   db.run(`CREATE TABLE product_types (
           id INTEGER PRIMARY KEY,
-          name TEXT)`
-  );
+          name TEXT)`);
 
   productTypes.forEach(({ name }) => {
     db.run(`INSERT INTO product_types (name)
-            VALUES('${name}')`
-    );
+            VALUES('${name}')`);
   });
 
   // ordersProducts join table creation
@@ -240,17 +239,10 @@ db.serialize(() => {
           product_id INTEGER NOT NULL,
           order_id INTEGER NOT NULL,
           FOREIGN KEY(product_id) REFERENCES products(id),
-          FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE)`
-  );
+          FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE)`);
 
   orderProducts.forEach(({ product_id, order_id }) => {
     db.run(`INSERT INTO ordersProducts (product_id, order_id)
-      VALUES('${product_id}', ${order_id})`
-    );
+      VALUES('${product_id}', ${order_id})`);
   });
-
 });
-
-// TODO - products - prices $xx.xx
-// TODO - % of open orders (no payment type)
-// TODO - multiple products per order

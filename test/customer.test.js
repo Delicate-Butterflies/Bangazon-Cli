@@ -1,9 +1,9 @@
-const { assert: {equal} } = require('chai');
+const { assert: { equal } } = require('chai');
 
 // Placed here to confirm test file runs properly
 describe('just a test', () => {
   it('should be equal', () => {
-    equal( 3, 1 + 2)
+    equal(3, 1 + 2);
   });
 });
 

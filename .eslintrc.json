@@ -1,10 +1,8 @@
 {
   "env": {
     "node": true,
-    "es6": true
+    "es6": true,
+    "mocha": true
   },
-  "ecmaFeatures": {
-    "globalReturn": true,
-    "impliedStrict": false
-  }
+  "extends": "eslint:recommended"
 }
