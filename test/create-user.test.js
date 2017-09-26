@@ -8,7 +8,7 @@ let TIMEOUT = process.env.TIMEOUT;
 
 // Placed here to confirm test file runs properly
 describe('create a user', () => {
-	after(function() {
+	before(function() {
 		this.timeout(TIMEOUT);
 		return createTables().then(() => {
 			// console.log('Create Then', msg);
