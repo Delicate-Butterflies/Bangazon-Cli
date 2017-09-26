@@ -20,14 +20,25 @@ let mainMenuHandler = (err, userInput) => {
   console.log('user input', userInput);
   // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
-    case '3':
+
+    case '1':
+      promptNewCustomer().then(custData => {
+        console.log('customer data to save', custData);
+        //save customer to db
+      });
+      break;
+    case '2':
+      console.log('you chose', userInput.choice);
+      break;
+      case '3':
       promptAddPayment().then(custData => {
         console.log('customer data to save', custData);
       });
       break;
     default:
-      console.log('Invalid Selection');
+      console.log('no such option');
       module.exports.displayWelcome();
+      break;
   }
 };
 

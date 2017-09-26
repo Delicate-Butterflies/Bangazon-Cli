@@ -2,7 +2,7 @@
 
 const prompt = require('prompt');
 
-module.exports.promptNewCustomer = () => {
+module.exports.promptNewUser = () => {
   return new Promise((resolve, reject) => {
     prompt.get(
       [
@@ -43,10 +43,12 @@ module.exports.promptNewCustomer = () => {
           required: true
         }
       ],
-      function(err, results) {
+      function (err, results) {
         if (err) return reject(err);
         resolve(results);
       }
     );
   });
 };
+
+module.exports.getU

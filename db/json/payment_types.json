@@ -1,0 +1,1052 @@
+[
+    {
+        "account_number": "93520868",
+        "customer_user_id": "13",
+        "id": "1",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "10999644",
+        "customer_user_id": "13",
+        "id": "2",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "84823333",
+        "customer_user_id": "13",
+        "id": "3",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "13467887",
+        "customer_user_id": "15",
+        "id": "4",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "23116683",
+        "customer_user_id": "15",
+        "id": "5",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "75267878",
+        "customer_user_id": "14",
+        "id": "6",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "91530307",
+        "customer_user_id": "15",
+        "id": "7",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "7160974",
+        "customer_user_id": "5",
+        "id": "8",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "56370737",
+        "customer_user_id": "9",
+        "id": "9",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "30132372",
+        "customer_user_id": "12",
+        "id": "10",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "12273825",
+        "customer_user_id": "11",
+        "id": "11",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "99221827",
+        "customer_user_id": "10",
+        "id": "12",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "88259183",
+        "customer_user_id": "1",
+        "id": "13",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "90184684",
+        "customer_user_id": "8",
+        "id": "14",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "48081907",
+        "customer_user_id": "14",
+        "id": "15",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "15826055",
+        "customer_user_id": "9",
+        "id": "16",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "18097830",
+        "customer_user_id": "2",
+        "id": "17",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "96359285",
+        "customer_user_id": "4",
+        "id": "18",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "2347757",
+        "customer_user_id": "17",
+        "id": "19",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "59964764",
+        "customer_user_id": "3",
+        "id": "20",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "64240875",
+        "customer_user_id": "2",
+        "id": "21",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "99074823",
+        "customer_user_id": "11",
+        "id": "22",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "7769682",
+        "customer_user_id": "9",
+        "id": "23",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "29849196",
+        "customer_user_id": "7",
+        "id": "24",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "9919903",
+        "customer_user_id": "4",
+        "id": "25",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "43228207",
+        "customer_user_id": "9",
+        "id": "26",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "79725907",
+        "customer_user_id": "11",
+        "id": "27",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "30128023",
+        "customer_user_id": "8",
+        "id": "28",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "82067231",
+        "customer_user_id": "19",
+        "id": "29",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "55403903",
+        "customer_user_id": "4",
+        "id": "30",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "4613757",
+        "customer_user_id": "1",
+        "id": "31",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "73194008",
+        "customer_user_id": "10",
+        "id": "32",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "51672564",
+        "customer_user_id": "17",
+        "id": "33",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "84808147",
+        "customer_user_id": "7",
+        "id": "34",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "15747089",
+        "customer_user_id": "11",
+        "id": "35",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "26442904",
+        "customer_user_id": "8",
+        "id": "36",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "44297590",
+        "customer_user_id": "10",
+        "id": "37",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "4198377",
+        "customer_user_id": "5",
+        "id": "38",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "41871320",
+        "customer_user_id": "17",
+        "id": "39",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "81129688",
+        "customer_user_id": "15",
+        "id": "40",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "18384312",
+        "customer_user_id": "6",
+        "id": "41",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "74914469",
+        "customer_user_id": "5",
+        "id": "42",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "63699132",
+        "customer_user_id": "20",
+        "id": "43",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "73014257",
+        "customer_user_id": "9",
+        "id": "44",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "93023224",
+        "customer_user_id": "16",
+        "id": "45",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "19751653",
+        "customer_user_id": "6",
+        "id": "46",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "97400121",
+        "customer_user_id": "4",
+        "id": "47",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "40199128",
+        "customer_user_id": "8",
+        "id": "48",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "72052031",
+        "customer_user_id": "18",
+        "id": "49",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "37316176",
+        "customer_user_id": "13",
+        "id": "50",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "6341106",
+        "customer_user_id": "6",
+        "id": "51",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "67694928",
+        "customer_user_id": "8",
+        "id": "52",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "27897050",
+        "customer_user_id": "6",
+        "id": "53",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "6835875",
+        "customer_user_id": "10",
+        "id": "54",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "40045142",
+        "customer_user_id": "17",
+        "id": "55",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "90424476",
+        "customer_user_id": "2",
+        "id": "56",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "24727577",
+        "customer_user_id": "3",
+        "id": "57",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "94906809",
+        "customer_user_id": "16",
+        "id": "58",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "82853146",
+        "customer_user_id": "6",
+        "id": "59",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "74227680",
+        "customer_user_id": "5",
+        "id": "60",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "51168519",
+        "customer_user_id": "13",
+        "id": "61",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "28137043",
+        "customer_user_id": "17",
+        "id": "62",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "87139086",
+        "customer_user_id": "19",
+        "id": "63",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "47041664",
+        "customer_user_id": "9",
+        "id": "64",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "48070006",
+        "customer_user_id": "2",
+        "id": "65",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "29604139",
+        "customer_user_id": "12",
+        "id": "66",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "4632553",
+        "customer_user_id": "9",
+        "id": "67",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "82770613",
+        "customer_user_id": "14",
+        "id": "68",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "17149427",
+        "customer_user_id": "18",
+        "id": "69",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "62468489",
+        "customer_user_id": "16",
+        "id": "70",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "83799812",
+        "customer_user_id": "11",
+        "id": "71",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "27148429",
+        "customer_user_id": "6",
+        "id": "72",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "56873392",
+        "customer_user_id": "10",
+        "id": "73",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "12376914",
+        "customer_user_id": "8",
+        "id": "74",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "81742206",
+        "customer_user_id": "15",
+        "id": "75",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "32854384",
+        "customer_user_id": "6",
+        "id": "76",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "72902999",
+        "customer_user_id": "12",
+        "id": "77",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "6295598",
+        "customer_user_id": "17",
+        "id": "78",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "22852188",
+        "customer_user_id": "9",
+        "id": "79",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "29370716",
+        "customer_user_id": "12",
+        "id": "80",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "87071350",
+        "customer_user_id": "18",
+        "id": "81",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "22718182",
+        "customer_user_id": "3",
+        "id": "82",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "4977715",
+        "customer_user_id": "2",
+        "id": "83",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "7079146",
+        "customer_user_id": "7",
+        "id": "84",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "94817080",
+        "customer_user_id": "17",
+        "id": "85",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "52742320",
+        "customer_user_id": "3",
+        "id": "86",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "52808415",
+        "customer_user_id": "16",
+        "id": "87",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "62983369",
+        "customer_user_id": "3",
+        "id": "88",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "13221443",
+        "customer_user_id": "2",
+        "id": "89",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "60708958",
+        "customer_user_id": "3",
+        "id": "90",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "65967331",
+        "customer_user_id": "3",
+        "id": "91",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "68821854",
+        "customer_user_id": "17",
+        "id": "92",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "87894311",
+        "customer_user_id": "3",
+        "id": "93",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "40360059",
+        "customer_user_id": "16",
+        "id": "94",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "50640679",
+        "customer_user_id": "20",
+        "id": "95",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "29512100",
+        "customer_user_id": "11",
+        "id": "96",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "29767394",
+        "customer_user_id": "12",
+        "id": "97",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "51727559",
+        "customer_user_id": "9",
+        "id": "98",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "45420887",
+        "customer_user_id": "20",
+        "id": "99",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "98372786",
+        "customer_user_id": "6",
+        "id": "100",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "89451982",
+        "customer_user_id": "11",
+        "id": "101",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "34287730",
+        "customer_user_id": "7",
+        "id": "102",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "30426371",
+        "customer_user_id": "10",
+        "id": "103",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "29224768",
+        "customer_user_id": "3",
+        "id": "104",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "43267282",
+        "customer_user_id": "14",
+        "id": "105",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "25827419",
+        "customer_user_id": "4",
+        "id": "106",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "25335735",
+        "customer_user_id": "2",
+        "id": "107",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "81419159",
+        "customer_user_id": "11",
+        "id": "108",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "16010043",
+        "customer_user_id": "18",
+        "id": "109",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "98198383",
+        "customer_user_id": "17",
+        "id": "110",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "83972553",
+        "customer_user_id": "14",
+        "id": "111",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "29327475",
+        "customer_user_id": "5",
+        "id": "112",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "58681810",
+        "customer_user_id": "19",
+        "id": "113",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "85729767",
+        "customer_user_id": "6",
+        "id": "114",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "74183256",
+        "customer_user_id": "11",
+        "id": "115",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "44043935",
+        "customer_user_id": "18",
+        "id": "116",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "62317857",
+        "customer_user_id": "13",
+        "id": "117",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "10979215",
+        "customer_user_id": "15",
+        "id": "118",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "59610142",
+        "customer_user_id": "2",
+        "id": "119",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "59058112",
+        "customer_user_id": "9",
+        "id": "120",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "64693145",
+        "customer_user_id": "16",
+        "id": "121",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "66269142",
+        "customer_user_id": "15",
+        "id": "122",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "17425172",
+        "customer_user_id": "18",
+        "id": "123",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "76637433",
+        "customer_user_id": "10",
+        "id": "124",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "79835752",
+        "customer_user_id": "8",
+        "id": "125",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "800714",
+        "customer_user_id": "3",
+        "id": "126",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "5934173",
+        "customer_user_id": "14",
+        "id": "127",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "47364269",
+        "customer_user_id": "13",
+        "id": "128",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "54157745",
+        "customer_user_id": "14",
+        "id": "129",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "3437391",
+        "customer_user_id": "7",
+        "id": "130",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "20359535",
+        "customer_user_id": "17",
+        "id": "131",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "34823178",
+        "customer_user_id": "20",
+        "id": "132",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "71061694",
+        "customer_user_id": "10",
+        "id": "133",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "80562198",
+        "customer_user_id": "14",
+        "id": "134",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "1978410",
+        "customer_user_id": "11",
+        "id": "135",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "51877308",
+        "customer_user_id": "16",
+        "id": "136",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "49033300",
+        "customer_user_id": "20",
+        "id": "137",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "45264851",
+        "customer_user_id": "20",
+        "id": "138",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "73095796",
+        "customer_user_id": "20",
+        "id": "139",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "54384013",
+        "customer_user_id": "11",
+        "id": "140",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "68154031",
+        "customer_user_id": "20",
+        "id": "141",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "70386484",
+        "customer_user_id": "2",
+        "id": "142",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "65592706",
+        "customer_user_id": "2",
+        "id": "143",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "39599289",
+        "customer_user_id": "8",
+        "id": "144",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "50088871",
+        "customer_user_id": "14",
+        "id": "145",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "15117917",
+        "customer_user_id": "11",
+        "id": "146",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "26875340",
+        "customer_user_id": "19",
+        "id": "147",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "1086261",
+        "customer_user_id": "3",
+        "id": "148",
+        "type": "Checking Account"
+    },
+    {
+        "account_number": "2330721",
+        "customer_user_id": "19",
+        "id": "149",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "95861154",
+        "customer_user_id": "11",
+        "id": "150",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "8347911",
+        "customer_user_id": "3",
+        "id": "151",
+        "type": "Credit Card Account"
+    },
+    {
+        "account_number": "70746759",
+        "customer_user_id": "20",
+        "id": "152",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "43774195",
+        "customer_user_id": "8",
+        "id": "153",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "86234425",
+        "customer_user_id": "11",
+        "id": "154",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "35163666",
+        "customer_user_id": "20",
+        "id": "155",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "5805927",
+        "customer_user_id": "3",
+        "id": "156",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "71314313",
+        "customer_user_id": "8",
+        "id": "157",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "76093916",
+        "customer_user_id": "6",
+        "id": "158",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "50963968",
+        "customer_user_id": "17",
+        "id": "159",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "31033096",
+        "customer_user_id": "2",
+        "id": "160",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "82777810",
+        "customer_user_id": "17",
+        "id": "161",
+        "type": "Savings Account"
+    },
+    {
+        "account_number": "66466363",
+        "customer_user_id": "3",
+        "id": "162",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "38587716",
+        "customer_user_id": "16",
+        "id": "163",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "59896895",
+        "customer_user_id": "20",
+        "id": "164",
+        "type": "Personal Loan Account"
+    },
+    {
+        "account_number": "87614393",
+        "customer_user_id": "5",
+        "id": "165",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "58253092",
+        "customer_user_id": "6",
+        "id": "166",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "98926523",
+        "customer_user_id": "9",
+        "id": "167",
+        "type": "Auto Loan Account"
+    },
+    {
+        "account_number": "53640698",
+        "customer_user_id": "3",
+        "id": "168",
+        "type": "Investment Account"
+    },
+    {
+        "account_number": "88690588",
+        "customer_user_id": "6",
+        "id": "169",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "25454687",
+        "customer_user_id": "15",
+        "id": "170",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "65537051",
+        "customer_user_id": "12",
+        "id": "171",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "64896482",
+        "customer_user_id": "20",
+        "id": "172",
+        "type": "Money Market Account"
+    },
+    {
+        "account_number": "57219784",
+        "customer_user_id": "19",
+        "id": "173",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "58908769",
+        "customer_user_id": "12",
+        "id": "174",
+        "type": "Home Loan Account"
+    },
+    {
+        "account_number": "63175105",
+        "customer_user_id": "10",
+        "id": "175",
+        "type": "Checking Account"
+    }
+]
