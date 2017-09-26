@@ -7,12 +7,12 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('db/bangazon.sqlite');
 
-const { createTables, insertRows} = require('../db/buildDB');
+const { createTables, insertRows } = require('../db/buildDB');
 
 createTables()
-.then(() => {
-  insertRows();
-})
-.catch((err) => {
-  console.log('issue creating tables or inserting rows', err)
-});
+  .then(() => {
+    insertRows();
+  })
+  .catch((err) => {
+    console.error('issue creating tables or inserting rows', err)
+  });

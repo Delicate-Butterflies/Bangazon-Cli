@@ -7,11 +7,11 @@ describe('just a test', function () {
   beforeEach((done) => {
     createTables()
       .then((msg) => {
-        console.log('Create Then', msg);
+        // console.log('Create Then', msg);
         return insertRows()
       })
       .then((idArr) => {
-        console.log('idArr', idArr);
+        // console.log('idArr', idArr);
         done();
       });
   });

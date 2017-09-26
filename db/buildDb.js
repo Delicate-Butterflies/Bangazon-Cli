@@ -120,7 +120,7 @@ module.exports.createTables = () => {
     // payment types table creation
     db.run(`DROP TABLE IF EXISTS payment_types`);
 
-    db.run(`CREATE TABLE payment_types (
+    db.run(`CREATE TABLE IF NOT EXISTS payment_types (
       id INTEGER PRIMARY KEY,
       customer_user_id INTEGER,
       type TEXT,
@@ -145,7 +145,7 @@ module.exports.createTables = () => {
     // users table creation
     db.run(`DROP TABLE IF EXISTS users`);
 
-    db.run(`CREATE TABLE users (
+    db.run(`CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY,
       first_name TEXT,
       last_name TEXT,
@@ -160,7 +160,7 @@ module.exports.createTables = () => {
     // product types table creation
     db.run(`DROP TABLE IF EXISTS product_types`);
 
-    db.run(`CREATE TABLE product_types (
+    db.run(`CREATE TABLE IF NOT EXISTS product_types (
             id INTEGER PRIMARY KEY,
             name TEXT)`
     );
@@ -168,14 +168,13 @@ module.exports.createTables = () => {
     // ordersProducts join table creation
     db.run(`DROP TABLE IF EXISTS ordersProducts`);
 
-    db.run(`CREATE TABLE ordersProducts (
+    db.run(`CREATE TABLE IF NOT EXISTS ordersProducts (
             id INTEGER PRIMARY KEY,
             product_id INTEGER NOT NULL,
             order_id INTEGER NOT NULL,
             FOREIGN KEY(product_id) REFERENCES products(id),
             FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE)`, function (err) {
         if (err) return reject(err);
-        console('is this working?');
         resolve("createTables done");
       });
 
