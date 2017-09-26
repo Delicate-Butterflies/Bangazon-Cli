@@ -6,7 +6,7 @@ describe('just a test', () => {
 	beforeEach(() => {
 		return createTables().then(() => {
 			// console.log('Create Then', msg);
-			insertRows();
+			return insertRows();
 		});
 	});
 	it('should be equal', () => {
