@@ -7,9 +7,10 @@ const colors = require('colors/safe');
 const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/customerCtrl');
+const { promptNewCustomer } = require('./controllers/user-ctrl');
 
 const db = new Database('./db/bangazon.sqlite');
 
@@ -26,7 +27,9 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '2':
-      console.log('you chose', userInput.choice);
+      promptPrintUsers().then(userData => {
+        console.log('you chose', userData.activeUser);
+      });
       break;
     default:
       console.log('no such option');
