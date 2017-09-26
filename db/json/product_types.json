@@ -1,0 +1,42 @@
+[
+    {
+        "id": "1",
+        "name": "Sports"
+    },
+    {
+        "id": "2",
+        "name": "Electronics"
+    },
+    {
+        "id": "3",
+        "name": "Games"
+    },
+    {
+        "id": "4",
+        "name": "Home"
+    },
+    {
+        "id": "5",
+        "name": "Beauty"
+    },
+    {
+        "id": "6",
+        "name": "Beauty"
+    },
+    {
+        "id": "7",
+        "name": "Music"
+    },
+    {
+        "id": "8",
+        "name": "Music"
+    },
+    {
+        "id": "9",
+        "name": "Toys"
+    },
+    {
+        "id": "10",
+        "name": "Movies"
+    }
+]
