@@ -3,4 +3,4 @@
 
 'use strict';
 
-require('../app/cli')
+require('../app/cli');
