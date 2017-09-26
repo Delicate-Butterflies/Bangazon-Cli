@@ -16,10 +16,8 @@ module.exports.promptAddPayment = () => {
         {
           name: 'accountNumber',
           description: 'Enter Account Number(16 digits)',
-          type: 'number',
-          conform: function(accountNumber) {
-            if (accountNumber.length > 16) return 'a/c number greater than 16';
-          },
+          type: 'integer',
+          maxlength: 16,
           required: true
         }
       ],
