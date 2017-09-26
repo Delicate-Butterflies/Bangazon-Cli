@@ -1,0 +1,14 @@
+#!/usr/bin/env node
+// Must type `chmod +x <filename>` to make this possible
+
+'use strict';
+
+const { createTables, insertRows} = require('../db/buildDB');
+
+createTables()
+.then((resolveData) => {
+  insertRows();
+})
+.catch((err) => {
+  console.log('issue creating tables or inserting rows', err)
+});
