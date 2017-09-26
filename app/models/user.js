@@ -1,31 +1,30 @@
 'use strict';
-
-const sqlite3 = require('sqlite3').verbose();
-const db = new sqlite3.Database('./db/bangazon.sqlite');
-
+const { Database } = require('sqlite3').verbose();
 const { setActiveCustomer, getActiveCustomer } = require('../activeCustomer');
 
-module.exports.dbGetAllUsers = () => {
+const db = new Database('./db/bangazon.sqlite');
+
+module.exports.getAllUsers = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM users`, (err, userData) => {
-      if (err) return reject(err);
+      if (err) reject(err);
+      // console.log('userdata', userData);
       resolve(userData);
     });
   });
 };
 
-module.exports.dbGetOneUser = id => {
+module.exports.getUser = id => {
   return new Promise((resolve, reject) => {
-    db.all(
-      `SELECT * FROM users
-      WHERE id = ${id}`,
-      (err, userData) => {
-        if (err) return reject(err);
-        resolve(userData);
-      }
-    );
+    db.get(`SELECT * FROM users WHERE id = ${id}`, (err, userData) => {
+      if (err) reject(err);
+      // console.log('userdata', userData);
+      resolve(userData);
+    });
   });
 };
+
+module.exports.saveNewUser = () => {};
 
 module.exports.dbPostUser = req => {
   let user = req.body;
