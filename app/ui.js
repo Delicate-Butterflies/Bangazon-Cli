@@ -8,6 +8,7 @@ const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/user-ctrl');
@@ -28,7 +29,8 @@ let mainMenuHandler = (err, userInput) => {
       break;
     case '2':
       promptPrintUsers().then(userData => {
-        console.log('you chose', userData.activeUser);
+        setActiveCustomer(userData.activeUser);
+        console.log('active user?', getActiveCustomer());
       });
       break;
     default:
