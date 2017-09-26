@@ -4,7 +4,8 @@ const { getUser, saveNewUser } = require('../app/models/user.js');
 
 // Placed here to confirm test file runs properly
 describe('create a user', () => {
-  before(() => {
+  before(function () {
+    this.timeout(10000);
     return createTables().then(() => {
       // console.log('Create Then', msg);
       return insertRows();
