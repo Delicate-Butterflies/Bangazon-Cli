@@ -18,7 +18,7 @@ module.exports.promptAddPayment = () => {
           name: 'accountNumber',
           description: 'Enter Account Number(16 digits)',
           pattern: /^(\d{16})$/,
-          type: 'number',
+          type: 'string',
           message: 'account number must be 16 digits long',
           required: true
         }
