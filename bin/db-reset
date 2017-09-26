@@ -1,0 +1,18 @@
+#!/usr/bin/env node
+// Must type `chmod +x <filename>` to make this possible
+
+'use strict';
+
+// set up sqlite3 database
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('db/bangazon.sqlite');
+
+const { createTables, insertRows } = require('../db/buildDB');
+
+createTables()
+  .then(() => {
+    insertRows();
+  })
+  .catch((err) => {
+    console.error('issue creating tables or inserting rows', err)
+  });
