@@ -2,8 +2,7 @@ const { assert: { equal } } = require('chai');
 const { createTables, insertRows } = require('../db/buildDB')
 
 // Placed here to confirm test file runs properly
-describe('just a test', function () {
-  this.timeout(9000);
+describe('just a test', () => {
   beforeEach((done) => {
     createTables()
       .then((msg) => {
