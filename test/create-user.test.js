@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { assert: { equal, isFunction, isObject, isNotOk } } = require('chai');
 const { createTables, insertRows } = require('../db/buildDB');
-const { getUser, saveNewUser } = require('../app/models/user.js');
+const { dbGetOneUser } = require('../app/models/user.js');
 
 let TIMEOUT = process.env.TIMEOUT;
 
@@ -17,12 +17,12 @@ describe('create a user', () => {
 	});
 	describe('get a user', () => {
 		it('is a function', () => {
-			isFunction(getUser);
+			isFunction(dbGetOneUser);
 		});
 		it('should return an object', () => {
-			return getUser(1).then(data => {
-				console.log('this one', data);
-				isObject(data);
+			return dbGetOneUser(1).then(data => {
+				// console.log('this one', data[0]);
+				isObject(data[0]);
 			});
 		});
 	});
