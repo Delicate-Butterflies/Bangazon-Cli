@@ -10,19 +10,24 @@ prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/customerCtrl');
+const { promptAddPayment } = require('./controllers/add-payment-type-ctrl');
 
-const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
+const db = new Database('./db/bangazon.sqlite');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
   console.log('user input', userInput);
   // This could get messy quickly. Maybe a better way to parse the input?
-  if (userInput == '1') {
-    promptNewCustomer().then(custData => {
-      console.log('customer data to save', custData);
-      //save customer to db
-    });
+  switch (userInput.choice) {
+    case '3':
+      promptAddPayment().then(custData => {
+        console.log('customer data to save', custData);
+      });
+      break;
+    default:
+      console.log('Invalid Selection');
+      module.exports.displayWelcome();
   }
 };
 
