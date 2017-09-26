@@ -35,150 +35,151 @@ module.exports.createTables = () => {
 
   return new Promise((resolve, reject) => {
 
+    // employees table creation
+    db.run(`DROP TABLE IF EXISTS employees`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS employees (
+      id INTEGER PRIMARY KEY,
+      department_id INT,
+      first_name TEXT NOT NULL,
+      last_name TEXT NOT NULL,
+      phone_number TEXT,
+      job_title TEXT,
+      street_address TEXT,
+      city_address TEXT,
+      state_code TEXT,
+      zip_code INT)`
+    );
+
+    // training_programs table creation
+    db.run(`DROP TABLE IF EXISTS training_programs`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS training_programs (
+      id INTEGER PRIMARY KEY,
+      start_date TEXT,
+      end_date TEXT,
+      max_attendance INT,
+      title TEXT)`
+    );
+
+    // departments table creation
+    db.run(`DROP TABLE IF EXISTS departments`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS departments (
+      id INTEGER PRIMARY KEY,
+      supervisor_employee_id INT,
+      expense_budget INT NOT NULL,
+      name TEXT NOT NULL)`
+    );
+
+    // computers table creation
+    db.run(`DROP TABLE IF EXISTS computers`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS computers (
+      id INTEGER PRIMARY KEY,
+      purchase_date TEXT NOT NULL,
+      decommission_date TEXT,
+      serial_number TEXT NOT NULL)`
+    );
+
+    // employeesTrainings table creation
+    db.run(`DROP TABLE IF EXISTS employeesTrainings`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS employeesTrainings (
+      id INTEGER PRIMARY KEY,
+      program_id INT,
+      employee_id INT)`
+    );
+
+    // employeesComputers table creation
+    db.run(`DROP TABLE IF EXISTS employeesComputers`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS employeesComputers (
+      id INTEGER PRIMARY KEY,
+      employee_id INT,
+      computer_id INT,
+      assign_date TEXT,
+      return_date TEXT,
+      FOREIGN KEY(employee_id) REFERENCES employees(id) ON DELETE CASCADE,
+      FOREIGN KEY(computer_id) REFERENCES computers(id) ON DELETE CASCADE)`
+    );
+
+    // CUSTOMER DB INFO
+    // orders table creation
+    db.run(`DROP TABLE IF EXISTS orders`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS orders (
+      id INTEGER PRIMARY KEY,
+      customer_user_id INTEGER,
+      payment_type_id INTEGER,
+      order_date TEXT,
+      FOREIGN KEY(customer_user_id) REFERENCES users(id),
+      FOREIGN KEY(payment_type_id) REFERENCES payment_types(id) )`
+    );
+
+    // payment types table creation
+    db.run(`DROP TABLE IF EXISTS payment_types`);
+
+    db.run(`CREATE TABLE payment_types (
+      id INTEGER PRIMARY KEY,
+      customer_user_id INTEGER,
+      type TEXT,
+      account_number INTEGER,
+      FOREIGN KEY(customer_user_id) REFERENCES users(id))`
+    );
+
+    // products table creation
+    db.run(`DROP TABLE IF EXISTS products`);
+
+    db.run(`CREATE TABLE IF NOT EXISTS products(
+      id INTEGER PRIMARY KEY,
+      product_type_id INTEGER,
+      price REAL,
+      title TEXT,
+      description TEXT,
+      original_quantity INTEGER,
+      seller_user_id INTEGER,
+      FOREIGN KEY(product_type_id) REFERENCES product_types(id))`
+    );
+
+    // users table creation
+    db.run(`DROP TABLE IF EXISTS users`);
+
+    db.run(`CREATE TABLE users (
+      id INTEGER PRIMARY KEY,
+      first_name TEXT,
+      last_name TEXT,
+      account_created_date TEXT NOT NULL,
+      last_login_date TEXT NOT NULL,
+      street_address TEXT,
+      city_address TEXT,
+      state_code TEXT,
+      zip_code TEXT )`
+    );
+
+    // product types table creation
+    db.run(`DROP TABLE IF EXISTS product_types`);
+
+    db.run(`CREATE TABLE product_types (
+            id INTEGER PRIMARY KEY,
+            name TEXT)`
+    );
+
+    // ordersProducts join table creation
+    db.run(`DROP TABLE IF EXISTS ordersProducts`);
+
+    db.run(`CREATE TABLE ordersProducts (
+            id INTEGER PRIMARY KEY,
+            product_id INTEGER NOT NULL,
+            order_id INTEGER NOT NULL,
+            FOREIGN KEY(product_id) REFERENCES products(id),
+            FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE)`, function (err) {
+        if (err) return reject(err);
+        console('is this working?');
+        resolve("createTables done");
+      });
+
   });
-
-  // employees table creation
-  db.run(`DROP TABLE IF EXISTS employees`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS employees (
-    id INTEGER PRIMARY KEY,
-    department_id INT,
-    first_name TEXT NOT NULL,
-    last_name TEXT NOT NULL,
-    phone_number TEXT,
-    job_title TEXT,
-    street_address TEXT,
-    city_address TEXT,
-    state_code TEXT,
-    zip_code INT)`
-  );
-
-  // training_programs table creation
-  db.run(`DROP TABLE IF EXISTS training_programs`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS training_programs (
-    id INTEGER PRIMARY KEY,
-    start_date TEXT,
-    end_date TEXT,
-    max_attendance INT,
-    title TEXT)`
-  );
-
-  // departments table creation
-  db.run(`DROP TABLE IF EXISTS departments`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS departments (
-    id INTEGER PRIMARY KEY,
-    supervisor_employee_id INT,
-    expense_budget INT NOT NULL,
-    name TEXT NOT NULL)`
-  );
-
-  // computers table creation
-  db.run(`DROP TABLE IF EXISTS computers`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS computers (
-    id INTEGER PRIMARY KEY,
-    purchase_date TEXT NOT NULL,
-    decommission_date TEXT,
-    serial_number TEXT NOT NULL)`
-  );
-
-  // employeesTrainings table creation
-  db.run(`DROP TABLE IF EXISTS employeesTrainings`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS employeesTrainings (
-    id INTEGER PRIMARY KEY,
-    program_id INT,
-    employee_id INT)`
-  );
-
-  // employeesComputers table creation
-  db.run(`DROP TABLE IF EXISTS employeesComputers`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS employeesComputers (
-    id INTEGER PRIMARY KEY,
-    employee_id INT,
-    computer_id INT,
-    assign_date TEXT,
-    return_date TEXT,
-    FOREIGN KEY(employee_id) REFERENCES employees(id) ON DELETE CASCADE,
-    FOREIGN KEY(computer_id) REFERENCES computers(id) ON DELETE CASCADE)`
-  );
-
-  // CUSTOMER DB INFO
-  // orders table creation
-  db.run(`DROP TABLE IF EXISTS orders`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS orders (
-    id INTEGER PRIMARY KEY,
-    customer_user_id INTEGER,
-    payment_type_id INTEGER,
-    order_date TEXT,
-    FOREIGN KEY(customer_user_id) REFERENCES users(id),
-    FOREIGN KEY(payment_type_id) REFERENCES payment_types(id) )`
-  );
-
-  // payment types table creation
-  db.run(`DROP TABLE IF EXISTS payment_types`);
-
-  db.run(`CREATE TABLE payment_types (
-    id INTEGER PRIMARY KEY,
-    customer_user_id INTEGER,
-    type TEXT,
-    account_number INTEGER,
-    FOREIGN KEY(customer_user_id) REFERENCES users(id))`
-  );
-
-  // products table creation
-  db.run(`DROP TABLE IF EXISTS products`);
-
-  db.run(`CREATE TABLE IF NOT EXISTS products(
-    id INTEGER PRIMARY KEY,
-    product_type_id INTEGER,
-    price REAL,
-    title TEXT,
-    description TEXT,
-    original_quantity INTEGER,
-    seller_user_id INTEGER,
-    FOREIGN KEY(product_type_id) REFERENCES product_types(id))`
-  );
-
-  // users table creation
-  db.run(`DROP TABLE IF EXISTS users`);
-
-  db.run(`CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
-    first_name TEXT,
-    last_name TEXT,
-    account_created_date TEXT NOT NULL,
-    last_login_date TEXT NOT NULL,
-    street_address TEXT,
-    city_address TEXT,
-    state_code TEXT,
-    zip_code TEXT )`
-  );
-
-  // product types table creation
-  db.run(`DROP TABLE IF EXISTS product_types`);
-
-  db.run(`CREATE TABLE product_types (
-          id INTEGER PRIMARY KEY,
-          name TEXT)`
-  );
-
-  // ordersProducts join table creation
-  db.run(`DROP TABLE IF EXISTS ordersProducts`);
-
-  db.run(`CREATE TABLE ordersProducts (
-          id INTEGER PRIMARY KEY,
-          product_id INTEGER NOT NULL,
-          order_id INTEGER NOT NULL,
-          FOREIGN KEY(product_id) REFERENCES products(id),
-          FOREIGN KEY(order_id) REFERENCES orders(id) ON DELETE CASCADE)`, (err) => {
-      if (err) return reject(err);
-      resolve("createTables done");
-    });
 
 };
 
