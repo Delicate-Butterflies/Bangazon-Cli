@@ -3,7 +3,7 @@ const { createTables, insertRows } = require('../db/buildDB');
 
 // Placed here to confirm test file runs properly
 describe('just a test', () => {
-	beforeEach(() => {
+	after(() => {
 		return createTables().then(() => {
 			// console.log('Create Then', msg);
 			return insertRows();
