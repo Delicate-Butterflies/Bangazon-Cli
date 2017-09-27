@@ -14,7 +14,7 @@ module.exports.dbGetAllUsers = () => {
   });
 };
 
-module.exports.dbGetUser = id => {
+module.exports.dbGetOneUser = id => {
   return new Promise((resolve, reject) => {
     db.get(`SELECT * FROM users WHERE id = ${id}`, (err, userData) => {
       if (err) reject(err);
