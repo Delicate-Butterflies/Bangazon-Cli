@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-console */
 
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
@@ -9,14 +10,14 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/customerCtrl');
+const { promptNewCustomer } = require('./controllers/user-ctrl');
+const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 
 const db = new Database('./db/bangazon.sqlite');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  console.log('user input', userInput);
   // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
     case '1':
@@ -26,7 +27,12 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '2':
-      console.log('you chose', userInput.choice);
+      console.log();
+      promptNewProduct().then(() => {
+        console.log();
+        console.log(`Your product was added!\n`);
+        module.exports.displayWelcome();
+      });
       break;
     default:
       console.log('no such option');
@@ -48,7 +54,7 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!`);
+  ${magenta('7.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {
