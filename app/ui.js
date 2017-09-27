@@ -14,13 +14,13 @@ const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewCustomer } = require('./controllers/user-Ctrl');
+const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 
 const db = new Database('./db/bangazon.sqlite');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  console.log('user input', userInput);
   switch (userInput.choice) {
     case '1':
       promptNewCustomer().then(custData => {
@@ -41,6 +41,14 @@ let mainMenuHandler = (err, userInput) => {
           console.log('No active user. Please select option 2 to select a active user first');
           module.exports.displayWelcome();
         } else addPaymentType(getActiveCustomer().id, custData);
+      });
+      break;
+    case '4':
+      console.log();
+      promptNewProduct().then(() => {
+        console.log();
+        console.log(`Your product was added!\n`);
+        module.exports.displayWelcome();
       });
       break;
     case '7':
@@ -67,7 +75,7 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!`);
+  ${magenta('7.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {

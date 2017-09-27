@@ -4,7 +4,7 @@ const { setActiveCustomer, getActiveCustomer } = require('../activeCustomer');
 
 const db = new Database('./db/bangazon.sqlite');
 
-module.exports.getAllUsers = () => {
+module.exports.dbGetAllUsers = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM users`, (err, userData) => {
       if (err) reject(err);
@@ -14,7 +14,7 @@ module.exports.getAllUsers = () => {
   });
 };
 
-module.exports.getUser = id => {
+module.exports.dbGetOneUser = id => {
   return new Promise((resolve, reject) => {
     db.get(`SELECT * FROM users WHERE id = ${id}`, (err, userData) => {
       if (err) reject(err);
