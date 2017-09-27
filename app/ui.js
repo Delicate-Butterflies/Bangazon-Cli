@@ -8,6 +8,8 @@ const colors = require('colors/safe');
 const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/user-ctrl');
@@ -27,12 +29,22 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '2':
+      promptPrintUsers().then(userData => {
+        setActiveCustomer(userData.activeUser);
+        module.exports.displayWelcome();
+      });
+      break;
+    case '4':
       console.log();
       promptNewProduct().then(() => {
         console.log();
         console.log(`Your product was added!\n`);
         module.exports.displayWelcome();
       });
+      break;
+    case '7':
+      console.log(`Goodbye!`);
+      process.exit();
       break;
     default:
       console.log('no such option');
