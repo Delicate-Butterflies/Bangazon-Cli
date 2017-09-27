@@ -1,31 +1,46 @@
 'use strict';
+/* eslint-disable no-console */
 
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
 const colors = require('colors/safe');
-const path = require('path');
-const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
 const { promptNewUser } = require('./controllers/user-ctrl');
-
-const db = new Database('./db/bangazon.sqlite');
+const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-	console.log('user input', userInput);
 	// This could get messy quickly. Maybe a better way to parse the input?
 	switch (userInput.choice) {
 		case '1':
-			promptNewUser().then(custData => {
-				//save customer to db
+			promptNewUser().then(() => {
+				// saves customer to db
+				module.exports.displayWelcome();
 			});
 			break;
 		case '2':
-			console.log('you chose', userInput.choice);
+			promptPrintUsers().then(userData => {
+				setActiveCustomer(userData.activeUser);
+				module.exports.displayWelcome();
+			});
+			break;
+		case '4':
+			console.log();
+			promptNewProduct().then(() => {
+				console.log();
+				console.log(`Your product was added!\n`);
+				module.exports.displayWelcome();
+			});
+			break;
+		case '7':
+			console.log(`Goodbye!`);
+			process.exit();
 			break;
 		default:
 			console.log('no such option');
@@ -47,7 +62,7 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!`);
+  ${magenta('7.')} Leave Bangazon!\n`);
 		prompt.get(
 			[
 				{
