@@ -35,13 +35,21 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '3':
-      promptAddPayment().then(custData => {
-        console.log('customer data to save', custData);
-        if (getActiveCustomer().id === null) {
-          console.log('No active user. Please select option 2 to select a active user first');
+      if (getActiveCustomer().id == null) {
+        console.log('No active customer. Please select option 2 to select a active customer first');
+        module.exports.displayWelcome();
+      } else {
+        promptAddPayment().then(custData => {
+          let activeUser = getActiveCustomer().id;
+          let userObj = {
+            customer_user_id: activeUser,
+            type: custData.paymentType,
+            account_number: custData.accountNumber
+          };
+          addPaymentType(userObj);
           module.exports.displayWelcome();
-        } else addPaymentType(getActiveCustomer().id, custData);
-      });
+        });
+      }
       break;
     case '4':
       console.log();

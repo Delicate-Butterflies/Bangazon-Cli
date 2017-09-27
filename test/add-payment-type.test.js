@@ -43,9 +43,9 @@ describe('post new user payment type', () => {
         };
         return dbPostPaymentType(paymentTypeObj).then(data => {
           dbGetOnePaymentType(data.new_payment_type_id).then(receivedData => {
-            console.log(receivedData);
+            // console.log(receivedData);
             assert.deepEqual(receivedData, expected);
-            dbDeleteOnePaymentType(176);
+            dbDeleteOnePaymentType(179);
           });
         });
       });
