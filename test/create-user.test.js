@@ -22,7 +22,7 @@ describe('create a user', () => {
     it('should return an object', () => {
       return dbGetOneUser(1).then(data => {
         // console.log('this one', data[0]);
-        isObject(data[0]);
+        isObject(data);
       });
     });
   });
