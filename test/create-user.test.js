@@ -47,10 +47,11 @@ describe('create a user', () => {
 		});
 		describe('promptNewUser', () => {
 			it('should add correct data to db', () => {
-				// run prompt, then equals with getUser
+				// prompt info is input to dbPostUser, test info from dbGetUser is the same
 				return dbPostUser(newUserObj).then(postData => {
 					return dbGetOneUser(postData.id).then(data => {
-						assert.isObject(data);
+						// can't use deepEqual due to account_creation_date, last_login_date added by dbPostUser
+						// check for input properties
 						assert.equal(data.first_name, newUserObj.first_name);
 						assert.equal(data.last_name, newUserObj.last_name);
 						assert.equal(data.street_address, newUserObj.street_address);
