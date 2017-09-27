@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-console */
 
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
