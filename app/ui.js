@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-console */
 
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
@@ -7,32 +8,46 @@ const colors = require('colors/safe');
 const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/customerCtrl');
 const { promptCompleteOrder } = require('./controllers/complete-order.js');
 
-const db = new Database(path.join(__dirname, '..', 'db', 'bangazon.sqlite'));
+const db = new Database('./db/bangazon.sqlite');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
   console.log('user input', userInput);
+  // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
-    case '3':
-      promptAddPayment().then(custData => {
+    case '1':
+      promptNewCustomer().then(custData => {
         console.log('customer data to save', custData);
+        //save customer to db
+      });
+      break;
+    case '2':
+      promptPrintUsers().then(userData => {
+        setActiveCustomer(userData.activeUser);
+        module.exports.displayWelcome();
       });
       break;
     case '5':
       promptCompleteOrder().then(orderData => {
         console.log('order data to update', orderData);
-      })
+      });
+      break;
+    case '7':
+      console.log(`Goodbye!`);
+      process.exit();
+      break;
     default:
-      console.log('Invalid Selection');
+      console.log('no such option');
       module.exports.displayWelcome();
-  }
-    });
+      break;
   }
 };
 
