@@ -1,15 +1,15 @@
 const { assert } = require('chai');
 const { createTables, insertRows } = require('../db/buildDB');
-const { getAllUsers } = require('../app/models/user.js');
+const { dbGetAllUsers } = require('../app/models/User.js');
 const { setActiveCustomer, getActiveCustomer } = require('../app/activeCustomer.js');
 
 describe('Get an active user', () => {
-  describe('getAllUsers', () => {
+  describe('dbGetAllUsers', () => {
     it('is a function', () => {
-      assert.isFunction(getAllUsers);
+      assert.isFunction(dbGetAllUsers);
     });
     it('should return an array of objects', () => {
-      return getAllUsers().then(data => {
+      return dbGetAllUsers().then(data => {
         assert.isArray(data);
       });
     });

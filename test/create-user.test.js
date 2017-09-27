@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const { assert: { equal, isFunction, isObject, isNotOk } } = require('chai');
 const { createTables, insertRows } = require('../db/buildDB');
-const { dbGetOneUser } = require('../app/models/user.js');
+const { dbGetOneUser } = require('../app/models/User.js');
 
 let TIMEOUT = process.env.TIMEOUT;
 
