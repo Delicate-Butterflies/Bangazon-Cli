@@ -5,28 +5,25 @@
 const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
 const colors = require('colors/safe');
-const path = require('path');
-const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
-const { promptPrintUsers } = require('./controllers/active-user-ctrl');
-const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/user-ctrl');
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
+const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
+const { promptNewUser } = require('./controllers/user-ctrl');
+const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
-
-const db = new Database('./db/bangazon.sqlite');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  console.log('user input', userInput);
   // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
     case '1':
-      promptNewCustomer().then(custData => {
-        console.log('customer data to save', custData);
-        //save customer to db
+      promptNewUser().then(() => {
+        // saves customer to db
+        module.exports.displayWelcome();
       });
       break;
     case '2':
@@ -35,6 +32,7 @@ let mainMenuHandler = (err, userInput) => {
         module.exports.displayWelcome();
       });
       break;
+<<<<<<< HEAD
     case '5':
       if (getActiveCustomer().id == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
@@ -42,6 +40,32 @@ let mainMenuHandler = (err, userInput) => {
       }
       promptCompleteOrder(getActiveCustomer().id).then(orderData => {
         console.log('order data to update', orderData);
+=======
+    case '3':
+      if (getActiveCustomer().id == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      } else {
+        promptAddPayment().then(custData => {
+          let activeUser = getActiveCustomer().id;
+          let userObj = {
+            customer_user_id: activeUser,
+            type: custData.paymentType,
+            account_number: custData.accountNumber
+          };
+          addPaymentType(userObj).then(() => {
+            module.exports.displayWelcome();
+          });
+        });
+      }
+      break;
+    case '4':
+      console.log();
+      promptNewProduct().then(() => {
+        console.log();
+        console.log(`Your product was added!\n`);
+        module.exports.displayWelcome();
+>>>>>>> master
       });
       break;
     case '7':
@@ -68,7 +92,7 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!`);
+  ${magenta('7.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {

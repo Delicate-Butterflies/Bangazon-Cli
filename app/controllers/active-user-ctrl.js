@@ -1,11 +1,11 @@
 'use strict';
 
 const prompt = require('prompt');
-const { getAllUsers } = require('../models/user');
+const { dbGetAllUsers } = require('../models/User');
 
 module.exports.promptPrintUsers = () => {
   return new Promise((resolve, reject) => {
-    getAllUsers().then(data => {
+    dbGetAllUsers().then(data => {
       for (let i = 0; i < data.length; i++) {
         console.log(`${data[i].id}: ${data[i].first_name} ${data[i].last_name}`);
       }
