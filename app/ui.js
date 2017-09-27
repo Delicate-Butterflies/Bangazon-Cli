@@ -12,7 +12,7 @@ const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/user-ctrl');
+const { promptNewCustomer } = require('./controllers/user-Ctrl');
 
 const db = new Database('./db/bangazon.sqlite');
 
@@ -33,6 +33,10 @@ let mainMenuHandler = (err, userInput) => {
         setActiveCustomer(userData.activeUser);
         module.exports.displayWelcome();
       });
+      break;
+    case '7':
+      console.log(`Goodbye!`);
+      process.exit();
       break;
     default:
       console.log('no such option');
