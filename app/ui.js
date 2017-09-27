@@ -8,10 +8,10 @@ const colors = require('colors/safe');
 const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
-const { promptPrintUsers } = require('./controllers/active-user-ctrl');
-const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment } = require('./controllers/add-payment-type-ctrl');
 const { promptNewCustomer } = require('./controllers/user-Ctrl');
 
@@ -21,7 +21,6 @@ prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
   console.log('user input', userInput);
-  // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
 
     case '1':
@@ -36,14 +35,14 @@ let mainMenuHandler = (err, userInput) => {
         module.exports.displayWelcome();
       });
       break;
-    case '7':
-      console.log(`Goodbye!`);
-      process.exit();
-      break;
-      case '3':
+    case '3':
       promptAddPayment().then(custData => {
         console.log('customer data to save', custData);
       });
+      break;
+    case '7':
+      console.log(`Goodbye!`);
+      process.exit();
       break;
     default:
       console.log('no such option');
