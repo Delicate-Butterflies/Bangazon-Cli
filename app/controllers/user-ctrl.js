@@ -50,5 +50,3 @@ module.exports.promptNewUser = () => {
     );
   });
 };
-
-module.exports.getU
