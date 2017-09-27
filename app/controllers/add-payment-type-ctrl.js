@@ -33,7 +33,9 @@ module.exports.promptAddPayment = () => {
 };
 
 module.exports.addPaymentType = paymentObj => {
-  dbPostPaymentType(paymentObj).then(data => {
-    console.log(data);
+  return new Promise((resolve, reject) => {
+    dbPostPaymentType(paymentObj).then(data => {
+      resolve(data);
+    });
   });
 };
