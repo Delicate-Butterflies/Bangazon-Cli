@@ -12,14 +12,14 @@ const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/user-Ctrl');
+const { promptNewCustomer } = require('./controllers/user-ctrl');
+const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 
 const db = new Database('./db/bangazon.sqlite');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  console.log('user input', userInput);
   // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
     case '1':
@@ -31,6 +31,14 @@ let mainMenuHandler = (err, userInput) => {
     case '2':
       promptPrintUsers().then(userData => {
         setActiveCustomer(userData.activeUser);
+        module.exports.displayWelcome();
+      });
+      break;
+    case '4':
+      console.log();
+      promptNewProduct().then(() => {
+        console.log();
+        console.log(`Your product was added!\n`);
         module.exports.displayWelcome();
       });
       break;
@@ -58,7 +66,7 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!`);
+  ${magenta('7.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {
