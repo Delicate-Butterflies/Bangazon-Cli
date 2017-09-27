@@ -9,7 +9,7 @@ const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/customerCtrl');
+const { promptNewCustomer } = require('./controllers/user-Ctrl');
 
 const db = new Database('./db/bangazon.sqlite');
 
@@ -27,6 +27,10 @@ let mainMenuHandler = (err, userInput) => {
       break;
     case '2':
       console.log('you chose', userInput.choice);
+      break;
+    case '7':
+      console.log(`Goodbye!`);
+      process.exit();
       break;
     default:
       console.log('no such option');
