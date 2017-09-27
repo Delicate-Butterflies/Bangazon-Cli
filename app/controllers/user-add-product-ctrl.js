@@ -4,6 +4,7 @@
 const prompt = require('prompt');
 const { dbGetAllProductTypes } = require('../models/Product-Type');
 const { dbPostProduct } = require('../models/Product');
+const { getActiveCustomer } = require('../activeCustomer');
 
 module.exports.promptNewProduct = () => {
   return new Promise((resolve, reject) => {
@@ -49,7 +50,7 @@ module.exports.promptNewProduct = () => {
         ],
         function(err, results) {
           if (err) return reject(err);
-          results.seller_user_id = 51;
+          results.seller_user_id = getActiveCustomer().id;
           dbPostProduct(results).then(prodData => {
             if (err) return reject(err);
             resolve(prodData);
