@@ -12,8 +12,8 @@ const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/customerCtrl');
-const { promptCompleteOrder } = require('./controllers/complete-order.js');
+const { promptNewCustomer } = require('./controllers/user-ctrl');
+const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
 
 const db = new Database('./db/bangazon.sqlite');
 
@@ -36,7 +36,11 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '5':
-      promptCompleteOrder().then(orderData => {
+      if (getActiveCustomer().id == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      }
+      promptCompleteOrder(getActiveCustomer().id).then(orderData => {
         console.log('order data to update', orderData);
       });
       break;
