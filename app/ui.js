@@ -5,36 +5,37 @@
 const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
 const colors = require('colors/safe');
-const path = require('path');
-const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
+<<<<<<< HEAD
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewCustomer } = require('./controllers/user-Ctrl');
+=======
+const { promptNewUser } = require('./controllers/user-ctrl');
+>>>>>>> master
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
-
-const db = new Database('./db/bangazon.sqlite');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  switch (userInput.choice) {
-    case '1':
-      promptNewCustomer().then(custData => {
-        console.log('customer data to save', custData);
-        //save customer to db
-      });
+	// This could get messy quickly. Maybe a better way to parse the input?
+	switch (userInput.choice) {
+		case '1':
+			promptNewUser().then(() => {
+				// saves customer to db
+				module.exports.displayWelcome();
+			});
+			break;
+		case '2':
+			promptPrintUsers().then(userData => {
+				setActiveCustomer(userData.activeUser);
+				module.exports.displayWelcome();
+			});
       break;
-    case '2':
-      promptPrintUsers().then(userData => {
-        setActiveCustomer(userData.activeUser);
-        module.exports.displayWelcome();
-      });
-      break;
-    case '3':
+      case '3':
       if (getActiveCustomer().id == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
@@ -51,29 +52,29 @@ let mainMenuHandler = (err, userInput) => {
         });
       }
       break;
-    case '4':
-      console.log();
-      promptNewProduct().then(() => {
-        console.log();
-        console.log(`Your product was added!\n`);
-        module.exports.displayWelcome();
-      });
-      break;
-    case '7':
-      console.log(`Goodbye!`);
-      process.exit();
-      break;
-    default:
-      console.log('no such option');
-      module.exports.displayWelcome();
-      break;
-  }
+		case '4':
+			console.log();
+			promptNewProduct().then(() => {
+				console.log();
+				console.log(`Your product was added!\n`);
+				module.exports.displayWelcome();
+			});
+			break;
+		case '7':
+			console.log(`Goodbye!`);
+			process.exit();
+			break;
+		default:
+			console.log('no such option');
+			module.exports.displayWelcome();
+			break;
+	}
 };
 
 module.exports.displayWelcome = () => {
-  let headerDivider = `${magenta('*********************************************************')}`;
-  return new Promise((resolve, reject) => {
-    console.log(`
+	let headerDivider = `${magenta('*********************************************************')}`;
+	return new Promise((resolve, reject) => {
+		console.log(`
   ${headerDivider}
   ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
   ${headerDivider}
@@ -84,14 +85,14 @@ module.exports.displayWelcome = () => {
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
   ${magenta('7.')} Leave Bangazon!\n`);
-    prompt.get(
-      [
-        {
-          name: 'choice',
-          description: 'Please make a selection'
-        }
-      ],
-      mainMenuHandler
-    );
-  });
+		prompt.get(
+			[
+				{
+					name: 'choice',
+					description: 'Please make a selection'
+				}
+			],
+			mainMenuHandler
+		);
+	});
 };
