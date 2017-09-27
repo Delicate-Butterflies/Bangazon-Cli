@@ -61,7 +61,6 @@ module.exports.promptNewUser = () => {
 				if (err) return reject(err);
 				dbPostUser(results)
 					.then(data => {
-						console.log(data);
 						resolve(data);
 					})
 					.catch(err => {
