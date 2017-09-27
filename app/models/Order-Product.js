@@ -40,7 +40,7 @@ module.exports.dbPutOrderProduct = (order_id, product_id, quantity) => {
       db.run(`INSERT INTO ordersProducts
             (order_id, product_id)
             VALUES (${order_id}, ${product_id})`, function (err) {
-          if (err) return return reject(err);
+          if (err) return reject(err);
         });
     }
     resolve(`${quantity} quantity of product ${product_id} added to order ${order_id} `);
