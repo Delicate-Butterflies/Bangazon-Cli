@@ -1,6 +1,7 @@
 'use strict';
-/* eslint-disable no-console */ v
+/* eslint-disable no-console */
 const prompt = require('prompt');
+const { postPaymentType } = require('../models/Payment-Types');
 
 module.exports.promptAddPayment = () => {
   return new Promise((resolve, reject) => {
@@ -29,4 +30,8 @@ module.exports.promptAddPayment = () => {
       }
     );
   });
+};
+
+module.exports.addPaymentType = (id, paymentData) => {
+  // postPaymentType()
 };

@@ -12,7 +12,7 @@ prompt.message = colors.blue('Bangazon Corp');
 // app modules
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
-const { promptAddPayment } = require('./controllers/add-payment-type-ctrl');
+const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewCustomer } = require('./controllers/user-Ctrl');
 
 const db = new Database('./db/bangazon.sqlite');
@@ -22,7 +22,6 @@ prompt.start();
 let mainMenuHandler = (err, userInput) => {
   console.log('user input', userInput);
   switch (userInput.choice) {
-
     case '1':
       promptNewCustomer().then(custData => {
         console.log('customer data to save', custData);
@@ -38,6 +37,10 @@ let mainMenuHandler = (err, userInput) => {
     case '3':
       promptAddPayment().then(custData => {
         console.log('customer data to save', custData);
+        if (getActiveCustomer().id === null) {
+          console.log('No active user. Please select option 2 to select a active user first');
+          module.exports.displayWelcome();
+        } else addPaymentType(getActiveCustomer().id, custData);
       });
       break;
     case '7':
