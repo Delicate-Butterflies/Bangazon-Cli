@@ -31,7 +31,6 @@ let mainMenuHandler = (err, userInput) => {
     case '2':
       promptPrintUsers().then(userData => {
         setActiveCustomer(userData.activeUser);
-        console.log('active user?', getActiveCustomer());
         module.exports.displayWelcome();
       });
       break;
