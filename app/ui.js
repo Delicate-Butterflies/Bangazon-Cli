@@ -36,7 +36,7 @@ let mainMenuHandler = (err, userInput) => {
       break;
     case '3':
       if (getActiveCustomer().id == null) {
-        console.log('No active customer. Please select option 2 to select a active customer first');
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
         promptAddPayment().then(custData => {
