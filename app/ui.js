@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-console */
 
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
@@ -7,6 +8,8 @@ const colors = require('colors/safe');
 const path = require('path');
 const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
 const { promptNewCustomer } = require('./controllers/user-Ctrl');
@@ -26,7 +29,10 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '2':
-      console.log('you chose', userInput.choice);
+      promptPrintUsers().then(userData => {
+        setActiveCustomer(userData.activeUser);
+        module.exports.displayWelcome();
+      });
       break;
     case '7':
       console.log(`Goodbye!`);
