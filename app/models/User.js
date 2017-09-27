@@ -16,7 +16,7 @@ module.exports.dbGetAllUsers = () => {
 
 module.exports.dbGetOneUser = id => {
 	return new Promise((resolve, reject) => {
-		db.all(
+		db.get(
 			`SELECT * FROM users
       WHERE id = ${id}`,
 			(err, userData) => {
@@ -27,16 +27,16 @@ module.exports.dbGetOneUser = id => {
 	});
 };
 
-module.exports.dbPostUser = req => {
-	let user = req.body;
+module.exports.dbPostUser = user => {
 	return new Promise((resolve, reject) => {
+		let current_date = new Date().toISOString();
 		db.run(
 			`INSERT INTO users
       (first_name, last_name, account_created_date, last_login_date, street_address, city_address, state_code, zip_code)
-      VALUES('${user.first_name}', '${user.last_name}', '${user.account_created_date}', '${user.last_login_date}', '${user.street_address}',  '${user.city_address}', '${user.state_code}', '${user.zip_code}')`,
-			(err, userData) => {
+      VALUES('${user.first_name}', '${user.last_name}', '${current_date}', '${current_date}', '${user.street_address}',  '${user.city_address}', '${user.state_code}', '${user.zip_code}')`,
+			function(err, userData) {
 				if (err) return reject(err);
-				resolve('New field inserted');
+				resolve({ message: 'new user', id: this.lastID });
 			}
 		);
 	});

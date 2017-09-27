@@ -65,7 +65,7 @@ module.exports.dbPostOrder = (customer_user_id, payment_type_id, product_id) => 
       (customer_user_id, payment_type_id, order_date)
       VALUES (${customer_user_id}, ${payment_type_id}, '${order_date}')`, function (err) {
         if (err) return reject(err);
-        resolve(this.lastID); // returns ID of new order
+        resolve({ message: 'new user', id: this.lastID }); // returns ID of new order
       });
   });
 };
