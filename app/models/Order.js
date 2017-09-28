@@ -73,3 +73,12 @@ module.exports.dbPostOrder = (customer_user_id, payment_type_id, product_id) => 
     );
   });
 };
+
+module.exports.dbGetOpenOrderByUser = userId => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM orders WHERE customer_user_id = ${userId} AND payment_type_id = 'null'`, function(err, data) {
+      if (err) return reject(err);
+      resolve(data[0]);
+    });
+  });
+};
