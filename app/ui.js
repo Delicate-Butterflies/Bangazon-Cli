@@ -63,9 +63,15 @@ let mainMenuHandler = (err, userInput) => {
         console.log(`${red('>> No! active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
-        promptCompleteOrder(getActiveCustomer()).then(orderData => {
-          console.log('order data to update', orderData);
-        });
+        promptCompleteOrder(getActiveCustomer())
+          .then(data => {
+            console.log(data);
+            module.exports.displayWelcome();
+          })
+          .catch(error => {
+            console.log(error);
+            module.exports.displayWelcome();
+          });
       }
       break;
     case '7':
