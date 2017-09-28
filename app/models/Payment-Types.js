@@ -60,7 +60,7 @@ module.exports.dbPostPaymentType = paymentTypeReq => {
             VALUES(${paymentType.customer_user_id}, '${paymentType.type}', '${paymentType.account_number}')`,
       function(err) {
         if (err) return reject(err);
-        resolve({ message: 'new payment type successfully added', new_payment_type_id: this.lastID });
+        resolve({ message: 'new payment type successfully added', id: this.lastID });
       }
     );
   });

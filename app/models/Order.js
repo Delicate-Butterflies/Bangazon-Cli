@@ -18,7 +18,7 @@ module.exports.dbGetOneOrder = id => {
   return new Promise((resolve, reject) => {
     db.get(
       `SELECT * FROM orders
-			WHERE id = ${id}`,
+      WHERE id = ${id}`,
       function(err, orderData) {
         if (err) return reject(err);
         resolve(orderData);
@@ -47,10 +47,10 @@ module.exports.dbDeleteOrder = id => {
   return new Promise((resolve, reject) => {
     db.run(
       `DELETE FROM orders
-			WHERE id = ${id}`,
+      WHERE id = ${id}`,
       function(err) {
         if (err) return reject(err);
-        resolve({ message: 'delete successful', rows_deleted: this.changes });
+        resolve({ message: 'order deleted', id: this.lastID });
       }
     );
   });
@@ -68,7 +68,7 @@ module.exports.dbPostOrder = (customer_user_id, payment_type_id, product_id) => 
 			VALUES (${customer_user_id}, ${payment_type_id}, '${order_date}')`,
       function(err) {
         if (err) return reject(err);
-        resolve(this.lastID); // returns ID of new order
+        resolve({ message: 'new order', id: this.lastID }); // returns ID of new order
       }
     );
   });
