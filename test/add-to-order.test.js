@@ -8,7 +8,7 @@ const { dbPostOrderProduct } = require('../app/models/Order-Product');
 const { dbGetOpenOrderByUser, dbPostOrder } = require('../app/models/Order');
 
 describe('Add product to customer order', () => {
-  beforeEach(function () {
+  before(function () {
     this.timeout(TIMEOUT);
     return createTables().then(() => {
       // console.log('Create Then', msg);
