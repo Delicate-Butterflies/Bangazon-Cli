@@ -59,7 +59,7 @@ describe('Add product to customer order', () => {
       return dbPostOrder(4, 'null', 50)
         .then((data) => {
           //returns id of order created
-          assert.strictEqual(data, 101);
+          assert.strictEqual(data.id, 101);
         })
     });
   });

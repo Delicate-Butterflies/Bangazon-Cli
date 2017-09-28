@@ -5,28 +5,27 @@
 const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
 const colors = require('colors/safe');
-const path = require('path');
-const { Database } = require('sqlite3').verbose();
 prompt.message = colors.blue('Bangazon Corp');
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
-const { promptNewCustomer } = require('./controllers/user-Ctrl');
-
-const db = new Database('./db/bangazon.sqlite');
+const { promptPrintUsers } = require('./controllers/active-user-ctrl');
+const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
+const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
+const { promptNewUser } = require('./controllers/user-ctrl');
+const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  console.log('user input', userInput);
   // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
     case '1':
-      promptNewCustomer().then(custData => {
-        console.log('customer data to save', custData);
-        //save customer to db
+      promptNewUser().then(() => {
+        // saves customer to db
+        module.exports.displayWelcome();
       });
       break;
     case '2':
@@ -34,6 +33,24 @@ let mainMenuHandler = (err, userInput) => {
         setActiveCustomer(userData.activeUser);
         module.exports.displayWelcome();
       });
+      break;
+    case '3':
+      if (getActiveCustomer().id == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      } else {
+        promptAddPayment().then(custData => {
+          let activeUser = getActiveCustomer().id;
+          let userObj = {
+            customer_user_id: activeUser,
+            type: custData.paymentType,
+            account_number: custData.accountNumber
+          };
+          addPaymentType(userObj).then(() => {
+            module.exports.displayWelcome();
+          });
+        });
+      }
       break;
     case '4':
       if (getActiveCustomer().id === null) {
@@ -75,7 +92,7 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!`);
+  ${magenta('7.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {
