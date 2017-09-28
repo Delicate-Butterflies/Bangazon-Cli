@@ -1,10 +1,20 @@
+require('dotenv').config();
+let TIMEOUT = process.env.TIMEOUT;
+
 const { assert } = require('chai');
+
 const { createTables, insertRows } = require('../db/buildDB');
 const { dbGetUsersPaymentTypes } = require('../app/models/Payment-Types.js');
 const { dbGetOpenOrderByUser, dbOrderTotal, dbPutOrder } = require('../app/models/Order.js');
-const { getActiveCustomer } = require('../app/activeCustomer.js');
+// const { getActiveCustomer } = require('../app/activeCustomer.js');
 
 describe('user can complete customer order', () => {
+  before(function() {
+    this.timeout(TIMEOUT);
+    return createTables().then(() => {
+      return insertRows();
+    });
+  });
   describe('dbGetOpenOrderByUser', () => {
     it('should be a function', () => {
       assert.isFunction(dbGetOpenOrderByUser);
@@ -47,7 +57,10 @@ describe('user can complete customer order', () => {
     });
 
     it('should return a string', () => {
-      return dbPutOrder().then(data => {
+      let order = {
+        payment_type_id: 56
+      };
+      return dbPutOrder(3, order).then(data => {
         assert.isString(data);
       });
     });

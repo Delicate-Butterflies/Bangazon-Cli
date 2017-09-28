@@ -59,13 +59,14 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '5':
-      if (getActiveCustomer().id == null) {
-        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+      if (getActiveCustomer() == null) {
+        console.log(`${red('>> No! active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
+      } else {
+        promptCompleteOrder(getActiveCustomer()).then(orderData => {
+          console.log('order data to update', orderData);
+        });
       }
-      promptCompleteOrder(getActiveCustomer().id).then(orderData => {
-        console.log('order data to update', orderData);
-      });
       break;
     case '7':
       console.log(`Goodbye!`);
