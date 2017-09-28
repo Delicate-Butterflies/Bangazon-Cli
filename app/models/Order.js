@@ -73,3 +73,24 @@ module.exports.dbPostOrder = (customer_user_id, payment_type_id, product_id) => 
 		);
 	});
 };
+
+module.exports.dbGetSellerOrders = user_id => {
+	// gets all paid orders with a product from seller
+	return new Promise((resolve, reject) => {
+		db.all(
+			`SELECT u.first_name, u.last_name,  o.id as order_id
+			FROM users u, orders o, ordersProducts op, products p
+			WHERE u.id = ${user_id}
+			AND u.id = p.seller_user_id
+			AND op.product_id = p.id
+			AND op.order_id = o.id
+			AND o.payment_type_id != 'null'
+			GROUP BY o.id`,
+			(err, orders) => {
+				if (err) return reject(err);
+				console.log('model orders', orders);
+				resolve(orders);
+			}
+		);
+	});
+};

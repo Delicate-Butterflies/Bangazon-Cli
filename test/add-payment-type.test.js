@@ -1,10 +1,17 @@
 require('dotenv').config();
+let TIMEOUT = process.env.TIMEOUT;
 
 const { assert } = require('chai');
-// const { createTables, insertRows } = require('../db/buildDB');
+const { createTables, insertRows } = require('../db/buildDB');
 const { dbPostPaymentType, dbGetOnePaymentType, dbDeleteOnePaymentType } = require('../app/models/Payment-Types.js');
 
 describe('post new user payment type', () => {
+	before(function() {
+		this.timeout(TIMEOUT);
+		return createTables().then(() => {
+			return insertRows();
+		});
+	});
 	let paymentTypeObj = {
 		customer_user_id: 3,
 		type: 'visa',
@@ -29,9 +36,9 @@ describe('post new user payment type', () => {
 			it('should add new payment type and should have expected id', () => {
 				let expected = 176;
 				return dbPostPaymentType(paymentTypeObj).then(data => {
-					let returnedData = data.new_payment_type_id;
+					let returnedData = data.id;
 					assert.equal(returnedData, expected);
-					dbDeleteOnePaymentType(176);
+					dbDeleteOnePaymentType(expected);
 				});
 			});
 
@@ -39,13 +46,13 @@ describe('post new user payment type', () => {
 				let expected = {
 					customer_user_id: 3,
 					type: 'visa',
-					account_number: 1234123412341234,
-					id: 176
+					account_number: 1234123412341234
 				};
 				return dbPostPaymentType(paymentTypeObj).then(data => {
-					dbGetOnePaymentType(data.new_payment_type_id).then(receivedData => {
+					expected.id = data.id;
+					return dbGetOnePaymentType(data.id).then(receivedData => {
 						assert.deepEqual(receivedData, expected);
-						dbDeleteOnePaymentType(data.new_payment_type_id);
+						dbDeleteOnePaymentType(data.id);
 					});
 				});
 			});

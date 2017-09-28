@@ -59,11 +59,12 @@ let mainMenuHandler = (err, userInput) => {
 			});
 			break;
 		case '10':
-			console.log(getActiveCustomer());
-			let data = sellerRevenueReport(getActiveCustomer());
-			console.log(data);
-			console.log(revenueData);
-			module.exports.displayWelcome();
+			sellerRevenueReport(getActiveCustomer()).then(data => {
+				console.log(`Revenue report for ${data[0].first_name} ${data[0].last_name}`);
+				console.log(data);
+				// cycle through orders print order number, the products, quantity, prices for each
+				module.exports.displayWelcome();
+			});
 			break;
 		case '12':
 			console.log(`Goodbye!`);
