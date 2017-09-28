@@ -13,12 +13,12 @@ const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
     case '1':
       promptNewUser().then(() => {
@@ -33,7 +33,7 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '3':
-      if (getActiveCustomer() == null) {
+      if (getActiveCustomer().id == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
@@ -51,7 +51,6 @@ let mainMenuHandler = (err, userInput) => {
       }
       break;
 
-    // adding a new product
     case '4':
       // check if there is an active user
       if (getActiveCustomer() == null) {
@@ -85,7 +84,18 @@ let mainMenuHandler = (err, userInput) => {
       }
       break;
 
-    case '7':
+    case '10':
+      sellerRevenueReport(getActiveCustomer())
+        .then(data => {
+          console.log(data);
+          module.exports.displayWelcome();
+        })
+        .catch(err => {
+          console.log(err);
+          module.exports.displayWelcome();
+        });
+      break;
+    case '12':
       console.log(`Goodbye!`);
       process.exit();
       break;
@@ -109,7 +119,8 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!\n`);
+  ${magenta('10.')} Show customer revenue report
+  ${magenta('12.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {
