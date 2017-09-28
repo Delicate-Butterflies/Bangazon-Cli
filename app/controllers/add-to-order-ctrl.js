@@ -33,8 +33,8 @@ module.exports.promptAddToOrder = (userId) => {
                   //using our current data, this part of the if() will never get hit, need to update db:reset
                   //customer ID 4 has it for now
                   dbPostOrder(userId, 'null', results.product)
-                    .then((orderId) => {
-                      return dbPostOrderProduct(orderId, results.product, results.quantity);
+                    .then((order) => {
+                      return dbPostOrderProduct(order.id, results.product, results.quantity);
                     })
                     .then((postOrderProductResponse) => {
                       resolve(postOrderProductResponse);
