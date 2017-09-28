@@ -71,3 +71,25 @@ module.exports.dbGetInactiveUsers = () => {
 		);
 	});
 };
+
+module.exports.dbSellerRevenue = user_id => {
+	return new Promise((resolve, reject) => {
+		db.all(
+			`SELECT u.first_name, u.last_name, p.title, p.price, count(p.id) as quantity, o.id as 'order_id'
+			FROM users u
+			JOIN orders o
+			JOIN ordersProducts op
+			JOIN products p
+			WHERE u.id = ${user_id}
+			AND u.id = p.seller_user_id
+			AND p.id = op.product_id
+			AND o.id = op.order_id
+			AND o.payment_type_id != 'null'
+			GROUP BY o.id, p.id`,
+			(err, revenueData) => {
+				if (err) return reject(err);
+				resolve(revenueData);
+			}
+		);
+	});
+};

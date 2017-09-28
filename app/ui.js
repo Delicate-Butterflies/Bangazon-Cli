@@ -14,11 +14,12 @@ const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 const { displayPopularProducts } = require('./controllers/popular-product-ctrl');
+const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
+const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-  // This could get messy quickly. Maybe a better way to parse the input?
   switch (userInput.choice) {
     case '1':
       promptNewUser().then(() => {
@@ -51,21 +52,40 @@ let mainMenuHandler = (err, userInput) => {
       }
       break;
     case '4':
-      promptNewProduct().then(() => {
-        console.log();
-        console.log(`Your product was added!\n`);
+      if (getActiveCustomer().id === null) {
+        console.log('no active customer, please select option 2 at the main menu');
         module.exports.displayWelcome();
-      });
+      } else {
+        promptAddToOrder(getActiveCustomer())
+          .then(resolutionData => {
+            console.log(resolutionData);
+            module.exports.displayWelcome();
+          })
+          .catch(err => {
+            console.log(err);
+            module.exports.displayWelcome();
+          });
+      }
       break;
-    case '7':
-      console.log(`Goodbye!`);
-      process.exit();
+    case '10':
+      sellerRevenueReport(getActiveCustomer())
+        .then(data => {
+          console.log(data);
+          module.exports.displayWelcome();
+        })
+        .catch(err => {
+          console.log(err);
+          module.exports.displayWelcome();
+        });
       break;
-
     case '11':
       displayPopularProducts().then(data => {
         console.log('data?', data);
       });
+      break;
+    case '12':
+      console.log(`Goodbye!`);
+      process.exit();
       break;
     default:
       console.log('no such option');
@@ -87,7 +107,8 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!\n`);
+  ${magenta('10.')} Show customer revenue report
+  ${magenta('12.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {
