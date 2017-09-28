@@ -80,7 +80,7 @@ module.exports.dbSellerRevenue = user_id => {
 			JOIN orders o
 			JOIN ordersProducts op
 			JOIN products p
-			WHERE u.id = 1
+			WHERE u.id = ${user_id}
 			AND u.id = p.seller_user_id
 			AND p.id = op.product_id
 			AND o.id = op.order_id
