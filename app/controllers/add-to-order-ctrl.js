@@ -6,6 +6,7 @@ const { dbPostOrderProduct } = require('../models/Order-Product');
 const { dbGetOpenOrderByUser, dbPostOrder } = require('../models/Order');
 
 //gets all products, lists them, and prompts user to type an id and then quantity
+//TODO: Doing way too much in this one function
 module.exports.promptAddToOrder = (userId) => {
   return new Promise((resolve, reject) => {
     dbGetAllProducts()
@@ -17,7 +18,7 @@ module.exports.promptAddToOrder = (userId) => {
           [
             {
               name: 'product',
-              description: 'Choose a product to add to the order?'
+              description: 'Choose a product ID to add to the order?'
             },
             {
               name: 'quantity',
