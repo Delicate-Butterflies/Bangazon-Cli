@@ -6,9 +6,6 @@ const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
 const colors = require('colors/safe');
 prompt.message = colors.blue('Bangazon Corp');
-const { promptPrintUsers } = require('./controllers/active-user-ctrl');
-const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
-const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 
 // app modules
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
@@ -16,6 +13,7 @@ const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 
 prompt.start();
 
@@ -57,7 +55,7 @@ let mainMenuHandler = (err, userInput) => {
         console.log('no active customer, please select option 2 at the main menu');
         module.exports.displayWelcome();
       } else {
-        promptAddToOrder(getActiveCustomer().id)
+        promptAddToOrder(getActiveCustomer())
           .then((resolutionData) => {
             console.log(resolutionData);
             module.exports.displayWelcome();

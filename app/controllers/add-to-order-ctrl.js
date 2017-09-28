@@ -50,6 +50,9 @@ module.exports.promptAddToOrder = (userId) => {
                       reject(err);
                     });
                 }
+              })
+              .catch((err) => {
+                reject(err);
               });
           }
         );
