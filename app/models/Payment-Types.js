@@ -65,3 +65,8 @@ module.exports.dbPostPaymentType = paymentTypeReq => {
     );
   });
 };
+
+module.exports.dbGetUsersPaymentTypes = () => {
+  let userPaymentTypes = [];
+  return userPaymentTypes;
+};

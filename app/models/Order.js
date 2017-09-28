@@ -18,7 +18,7 @@ module.exports.dbGetOneOrder = id => {
   return new Promise((resolve, reject) => {
     db.get(
       `SELECT * FROM orders
-      WHERE id = ${id}`,
+			WHERE id = ${id}`,
       function(err, orderData) {
         if (err) return reject(err);
         resolve(orderData);
@@ -47,7 +47,7 @@ module.exports.dbDeleteOrder = id => {
   return new Promise((resolve, reject) => {
     db.run(
       `DELETE FROM orders
-      WHERE id = ${id}`,
+			WHERE id = ${id}`,
       function(err) {
         if (err) return reject(err);
         resolve({ message: 'delete successful', rows_deleted: this.changes });
@@ -64,8 +64,8 @@ module.exports.dbPostOrder = (customer_user_id, payment_type_id, product_id) => 
     let order_date = new Date().toISOString();
     db.run(
       `INSERT INTO orders
-      (customer_user_id, payment_type_id, order_date)
-      VALUES (${customer_user_id}, ${payment_type_id}, '${order_date}')`,
+			(customer_user_id, payment_type_id, order_date)
+			VALUES (${customer_user_id}, ${payment_type_id}, '${order_date}')`,
       function(err) {
         if (err) return reject(err);
         resolve(this.lastID); // returns ID of new order
@@ -81,4 +81,9 @@ module.exports.dbGetOpenOrderByUser = userId => {
       resolve(data[0]);
     });
   });
+};
+
+module.exports.dbOrderTotal = () => {
+  let orderTotal = '$123.45';
+  return orderTotal;
 };
