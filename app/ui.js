@@ -14,11 +14,11 @@ const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
+const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 
 prompt.start();
 
 let mainMenuHandler = (err, userInput) => {
-	// This could get messy quickly. Maybe a better way to parse the input?
 	switch (userInput.choice) {
 		case '1':
 			promptNewUser().then(() => {
@@ -33,12 +33,12 @@ let mainMenuHandler = (err, userInput) => {
 			});
 			break;
 		case '3':
-			if (getActiveCustomer() == null) {
+			if (getActiveCustomer().id == null) {
 				console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
 				module.exports.displayWelcome();
 			} else {
 				promptAddPayment().then(custData => {
-					let activeUser = getActiveCustomer();
+					let activeUser = getActiveCustomer().id;
 					let userObj = {
 						customer_user_id: activeUser,
 						type: custData.paymentType,
@@ -51,12 +51,20 @@ let mainMenuHandler = (err, userInput) => {
 			}
 			break;
 		case '4':
-			console.log();
-			promptNewProduct().then(() => {
-				console.log();
-				console.log(`Your product was added!\n`);
+			if (getActiveCustomer().id === null) {
+				console.log('no active customer, please select option 2 at the main menu');
 				module.exports.displayWelcome();
-			});
+			} else {
+				promptAddToOrder(getActiveCustomer())
+					.then(resolutionData => {
+						console.log(resolutionData);
+						module.exports.displayWelcome();
+					})
+					.catch(err => {
+						console.log(err);
+						module.exports.displayWelcome();
+					});
+			}
 			break;
 		case '10':
 			sellerRevenueReport(getActiveCustomer())
