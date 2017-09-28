@@ -1,11 +1,13 @@
 'use strict';
 
 let activeCustomer = {
-  id: null
+	id: null
 };
 
 module.exports.setActiveCustomer = id => {
-  activeCustomer.id = id;
+	activeCustomer.id = id;
 };
 
-module.exports.getActiveCustomer = () => activeCustomer;
+module.exports.getActiveCustomer = () => {
+	return activeCustomer.id;
+};

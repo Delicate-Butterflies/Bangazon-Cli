@@ -14,6 +14,7 @@ const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 const { promptUpdateProdInfo } = require('./controllers/update-product-info-ctrl');
+const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 
 prompt.start();
 
@@ -51,12 +52,20 @@ let mainMenuHandler = (err, userInput) => {
       }
       break;
     case '4':
-      console.log();
-      promptNewProduct().then(() => {
-        console.log();
-        console.log(`Your product was added!\n`);
+      if (getActiveCustomer().id === null) {
+        console.log('no active customer, please select option 2 at the main menu');
         module.exports.displayWelcome();
-      });
+      } else {
+        promptAddToOrder(getActiveCustomer())
+          .then(resolutionData => {
+            console.log(resolutionData);
+            module.exports.displayWelcome();
+          })
+          .catch(err => {
+            console.log(err);
+            module.exports.displayWelcome();
+          });
+      }
       break;
     case '6':
       console.log('Product popularity:');
