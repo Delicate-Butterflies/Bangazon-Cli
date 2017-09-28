@@ -13,6 +13,7 @@ const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { displayPopularProducts } = require('./controllers/popular-product-ctrl');
 
 prompt.start();
 
@@ -50,7 +51,6 @@ let mainMenuHandler = (err, userInput) => {
       }
       break;
     case '4':
-      console.log();
       promptNewProduct().then(() => {
         console.log();
         console.log(`Your product was added!\n`);
@@ -60,6 +60,12 @@ let mainMenuHandler = (err, userInput) => {
     case '7':
       console.log(`Goodbye!`);
       process.exit();
+      break;
+
+    case '11':
+      displayPopularProducts().then(data => {
+        console.log('data?', data);
+      });
       break;
     default:
       console.log('no such option');
