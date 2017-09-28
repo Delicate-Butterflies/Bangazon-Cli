@@ -22,8 +22,10 @@ describe('user can complete customer order', () => {
       assert.isFunction(dbOrderTotal);
     });
 
-    it('should return a string', () => {
-      assert.isString(dbOrderTotal());
+    it('should return a number', () => {
+      return dbOrderTotal(3).then(data => {
+        assert.isNumber(data);
+      });
     });
   });
 

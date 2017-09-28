@@ -27,7 +27,7 @@ module.exports.promptCompleteOrder = userId => {
         };
     } else {
       //if there are products in the order
-      dbOrderTotal()
+      dbOrderTotal(orderId)
       .then ( (orderTotal) => {
         console.log(`Your order total is ${orderTotal}. Ready to purchase?`);
         prompt.get([

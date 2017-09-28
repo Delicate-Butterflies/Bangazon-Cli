@@ -83,7 +83,18 @@ module.exports.dbGetOpenOrderByUser = userId => {
   });
 };
 
-module.exports.dbOrderTotal = () => {
-  let orderTotal = '$123.45';
-  return orderTotal;
+module.exports.dbOrderTotal = orderId => {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `SELECT round(SUM(p.Price), 2) AS orderTotal
+            FROM products p, ordersProducts r, orders o
+            WHERE p.id IS r.product_id
+            AND r.order_id = o.id
+            And o.id = ${orderId}`,
+      function(err, data) {
+        if (err) return reject(err);
+        resolve(data[0].orderTotal);
+      }
+    );
+  });
 };
