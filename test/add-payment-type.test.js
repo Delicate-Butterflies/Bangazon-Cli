@@ -37,9 +37,8 @@ describe('post new user payment type', () => {
 		it('should add new payment type and should have expected id', () => {
 			let expected = 176;
 			return dbPostPaymentType(paymentTypeObj).then(data => {
-				let returnedData = data.id;
-				assert.equal(returnedData, expected);
-				dbDeleteOnePaymentType(expected);
+				assert.equal(data.id, expected);
+				return dbDeleteOnePaymentType(data.id);
 			});
 		});
 
@@ -53,7 +52,7 @@ describe('post new user payment type', () => {
 				expected.id = data.id;
 				return dbGetOnePaymentType(data.id).then(receivedData => {
 					assert.deepEqual(receivedData, expected);
-					dbDeleteOnePaymentType(data.id);
+					return dbDeleteOnePaymentType(data.id);
 				});
 			});
 		});

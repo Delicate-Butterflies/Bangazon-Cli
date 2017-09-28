@@ -1,9 +1,19 @@
+require('dotenv').config();
+let TIMEOUT = process.env.TIMEOUT;
+
 const { assert } = require('chai');
+
 const { createTables, insertRows } = require('../db/buildDB');
 const { dbGetAllUsers } = require('../app/models/User.js');
 const { setActiveCustomer, getActiveCustomer } = require('../app/activeCustomer.js');
 
 describe('Get an active user', () => {
+	before(function() {
+		this.timeout(TIMEOUT);
+		return createTables().then(() => {
+			return insertRows();
+		});
+	});
 	describe('dbGetAllUsers', () => {
 		it('is a function', () => {
 			assert.isFunction(dbGetAllUsers);
