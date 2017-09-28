@@ -13,6 +13,7 @@ const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { promptUpdateProdInfo } = require('./controllers/update-product-info-ctrl');
 
 prompt.start();
 
@@ -57,10 +58,27 @@ let mainMenuHandler = (err, userInput) => {
         module.exports.displayWelcome();
       });
       break;
+    case '6':
+      console.log('Product popularity:');
+      break;
     case '7':
+      // Update product information
+      // Get active user
+      // If non-active user is selected, kick back to main menu for user to select an active user
+      if (getActiveCustomer().id == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      } else {
+        promptUpdateProdInfo(getActiveCustomer().id);
+      }
+      // Note: Currently database lets customer have multiple active orders
+      // Need to fix at a later time
+      break;
+    case '8':
       console.log(`Goodbye!`);
       process.exit();
       break;
+
     default:
       console.log('no such option');
       module.exports.displayWelcome();
@@ -72,16 +90,17 @@ module.exports.displayWelcome = () => {
   let headerDivider = `${magenta('*********************************************************')}`;
   return new Promise((resolve, reject) => {
     console.log(`
-  ${headerDivider}
-  ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
-  ${headerDivider}
-  ${magenta('1.')} Create a customer account
-  ${magenta('2.')} Choose active customer
-  ${magenta('3.')} Create a payment option
-  ${magenta('4.')} Add product to shopping cart
-  ${magenta('5.')} Complete an order
-  ${magenta('6.')} See product popularity
-  ${magenta('7.')} Leave Bangazon!\n`);
+	${headerDivider}
+	${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
+	${headerDivider}
+	${magenta('1.')} Create a customer account
+	${magenta('2.')} Choose active customer
+	${magenta('3.')} Create a payment option
+	${magenta('4.')} Add product to shopping cart
+	${magenta('5.')} Complete an order
+	${magenta('6.')} See product popularity
+	${magenta('7.')} Update Product Information
+	${magenta('8.')} Leave Bangazon!\n`);
     prompt.get(
       [
         {
