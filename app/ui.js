@@ -32,15 +32,6 @@ let mainMenuHandler = (err, userInput) => {
         module.exports.displayWelcome();
       });
       break;
-<<<<<<< HEAD
-    case '5':
-      if (getActiveCustomer().id == null) {
-        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
-        module.exports.displayWelcome();
-      }
-      promptCompleteOrder(getActiveCustomer().id).then(orderData => {
-        console.log('order data to update', orderData);
-=======
     case '3':
       if (getActiveCustomer().id == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
@@ -65,7 +56,15 @@ let mainMenuHandler = (err, userInput) => {
         console.log();
         console.log(`Your product was added!\n`);
         module.exports.displayWelcome();
->>>>>>> master
+      });
+      break;
+    case '5':
+      if (getActiveCustomer().id == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      }
+      promptCompleteOrder(getActiveCustomer().id).then(orderData => {
+        console.log('order data to update', orderData);
       });
       break;
     case '7':
