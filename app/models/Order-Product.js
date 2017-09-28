@@ -13,7 +13,7 @@ module.exports.dbPostOrderProduct = (order_id, product_id, product_qty) => {
           if (err) return reject(err); // TODO need to delete new order, too?
         });
     }
-    resolve(`${product_qty} quantity of product ${product_id} added to order ${order_id} `);
+    resolve(`${product_qty} quantity of product ${product_id} added to order ${order_id}`);
   });
 };
 
