@@ -71,3 +71,23 @@ module.exports.dbGetInactiveUsers = () => {
 		);
 	});
 };
+
+module.exports.dbUserRevenue = user_id => {
+	// TODO - this is set up as seller revenue, should it be buyer revenue ?
+	// u.id = o.customer_user_id vs u.id = p.seller_user_id
+	return new Promise((resolve, reject) => {
+		db.all(
+			`SELECT u.first_name, u.last_name, p.title, p.price, count(p.id) as Quantity, o.id as 'order_id'
+			FROM users u, orders o, ordersProducts op, products p
+			WHERE u.id = 2
+			AND u.id = p.seller_user_id
+			AND o.id = op.order_id
+			AND p.id = op.product_id
+			GROUP BY o.id`,
+			(err, revenueData) => {
+				if (err) return reject(err);
+				resolve(revenueData);
+			}
+		);
+	});
+};
