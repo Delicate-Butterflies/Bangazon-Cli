@@ -28,7 +28,8 @@ module.exports.promptNewProduct = () => {
             name: 'product_type_id',
             description: 'Select product type from the listed types (by number)',
             type: 'string',
-            required: true
+            required: true,
+            pattern: /^[1-9]\d*$/
           },
           {
             name: 'price',
