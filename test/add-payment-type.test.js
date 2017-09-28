@@ -48,10 +48,10 @@ describe('post new user payment type', () => {
 					account_number: 1234123412341234
 				};
 				return dbPostPaymentType(paymentTypeObj).then(data => {
-					dbGetOnePaymentType(data.new_payment_type_id).then(receivedData => {
-						// console.log(receivedData);
+					expected.id = data.id;
+					return dbGetOnePaymentType(data.id).then(receivedData => {
 						assert.deepEqual(receivedData, expected);
-						dbDeleteOnePaymentType(data.new_payment_type_id);
+						return dbDeleteOnePaymentType(data.id);
 					});
 				});
 			});
