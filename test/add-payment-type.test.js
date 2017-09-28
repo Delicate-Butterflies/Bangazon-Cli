@@ -27,32 +27,32 @@ describe('post new user payment type', () => {
 				assert.isObject(data);
 			});
 		});
+	});
 
-		describe('postPaymentType', () => {
-			it('should be a function', () => {
-				assert.isFunction(dbPostPaymentType);
+	describe('postPaymentType', () => {
+		it('should be a function', () => {
+			assert.isFunction(dbPostPaymentType);
+		});
+
+		it('should add new payment type and should have expected id', () => {
+			let expected = 176;
+			return dbPostPaymentType(paymentTypeObj).then(data => {
+				assert.equal(data.id, expected);
+				return dbDeleteOnePaymentType(data.id);
 			});
+		});
 
-			it('should add new payment type and should have expected id', () => {
-				let expected = 176;
-				return dbPostPaymentType(paymentTypeObj).then(data => {
-					assert.equal(data.id, expected);
+		it('should confirm that the data is added by using getter', () => {
+			let expected = {
+				customer_user_id: 3,
+				type: 'visa',
+				account_number: 1234123412341234
+			};
+			return dbPostPaymentType(paymentTypeObj).then(data => {
+				expected.id = data.id;
+				return dbGetOnePaymentType(data.id).then(receivedData => {
+					assert.deepEqual(receivedData, expected);
 					return dbDeleteOnePaymentType(data.id);
-				});
-			});
-
-			it('should confirm that the data is added by using getter', () => {
-				let expected = {
-					customer_user_id: 3,
-					type: 'visa',
-					account_number: 1234123412341234
-				};
-				return dbPostPaymentType(paymentTypeObj).then(data => {
-					expected.id = data.id;
-					return dbGetOnePaymentType(data.id).then(receivedData => {
-						assert.deepEqual(receivedData, expected);
-						return dbDeleteOnePaymentType(data.id);
-					});
 				});
 			});
 		});
