@@ -1,0 +1,37 @@
+,,Small Wooden Cheese,57.1,4,26
+Brandon,Walker,Small Wooden Cheese,57.1,2,42
+Brandon,Walker,Practical Soft Fish,93.8,1,84
+Brandon,Walker,Small Wooden Cheese,57.1,5,85
+
+[{
+first_name: 'Brandon',
+last_name: 'Walker',
+title: 'Small Wooden Cheese',
+price: '57.1',
+quantity: '4',
+order_id: '26'
+},
+{
+first_name: 'Brandon',
+last_name: 'Walker',
+title: 'Small Wooden Cheese',
+price: '57.1',
+quantity: '2',
+order_id: '42'
+},
+{
+first_name: 'Brandon',
+last_name: 'Walker',
+title: 'Practical Soft Fish',
+price: '93.8',
+quantity: '1',
+order_id: '84'
+},
+{
+first_name: 'Brandon',
+last_name: 'Walker',
+title: 'Small Wooden Cheese',
+price: '57.1',
+quantity: '5',
+order_id: '85'
+}]

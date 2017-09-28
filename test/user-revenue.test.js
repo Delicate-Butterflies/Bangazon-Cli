@@ -23,11 +23,46 @@ describe('Getting user sales revenue:', () => {
 				assert.isArray(data);
 			});
 		});
-		// it('should get correct user info', () => {
-		// 	return dbSellerRevenue(1).then(data => {
-		//     // TODO not sure what to compare here
-		// 	});
-		// });
+		it('should get correct user info', () => {
+			// exported from db browser for user id 1
+			let expected = [
+				{
+					first_name: 'Brandon',
+					last_name: 'Walker',
+					title: 'Small Wooden Cheese',
+					price: 57.1,
+					quantity: 4,
+					order_id: 26
+				},
+				{
+					first_name: 'Brandon',
+					last_name: 'Walker',
+					title: 'Small Wooden Cheese',
+					price: 57.1,
+					quantity: 2,
+					order_id: 42
+				},
+				{
+					first_name: 'Brandon',
+					last_name: 'Walker',
+					title: 'Practical Soft Fish',
+					price: 93.8,
+					quantity: 1,
+					order_id: 84
+				},
+				{
+					first_name: 'Brandon',
+					last_name: 'Walker',
+					title: 'Small Wooden Cheese',
+					price: 57.1,
+					quantity: 5,
+					order_id: 85
+				}
+			];
+			return dbSellerRevenue(1).then(data => {
+				assert.deepEqual(data, expected);
+			});
+		});
 	});
 	// describe('promptUserRevenue', () => {
 	// 	it('should pass error', () => {
