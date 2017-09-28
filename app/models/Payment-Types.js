@@ -66,7 +66,11 @@ module.exports.dbPostPaymentType = paymentTypeReq => {
   });
 };
 
-module.exports.dbGetUsersPaymentTypes = () => {
-  let userPaymentTypes = [];
-  return userPaymentTypes;
+module.exports.dbGetUsersPaymentTypes = userId => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT id, type FROM payment_types WHERE customer_user_id = ${userId}`, function(err, data) {
+      if (err) return reject(err);
+      resolve(data);
+    });
+  });
 };

@@ -35,7 +35,9 @@ describe('user can complete customer order', () => {
     });
 
     it('should be an array', () => {
-      assert.isArray(dbGetUsersPaymentTypes());
+      return dbGetUsersPaymentTypes(3).then(data => {
+        assert.isArray(data);
+      });
     });
   });
 
