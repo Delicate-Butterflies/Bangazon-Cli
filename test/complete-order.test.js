@@ -15,24 +15,36 @@ describe('user can complete customer order', () => {
         assert.isObject(data);
       });
     });
+  });
 
-    describe('dbOrderTotal', () => {
-      it('should be a function', () => {
-        assert.isFunction(dbOrderTotal);
-      });
+  describe('dbOrderTotal', () => {
+    it('should be a function', () => {
+      assert.isFunction(dbOrderTotal);
+    });
 
-      it('should return a string', () => {
-        assert.isString(dbOrderTotal());
-      });
+    it('should return a string', () => {
+      assert.isString(dbOrderTotal());
+    });
+  });
 
-      describe('dbGetUsersPaymentTypes', () => {
-        it('should be a function', () => {
-          assert.isFunction(dbGetUsersPaymentTypes);
-        });
+  describe('dbGetUsersPaymentTypes', () => {
+    it('should be a function', () => {
+      assert.isFunction(dbGetUsersPaymentTypes);
+    });
 
-        it('should be an array', () => {
-          assert.isArray(dbGetUsersPaymentTypes());
-        });
+    it('should be an array', () => {
+      assert.isArray(dbGetUsersPaymentTypes());
+    });
+  });
+
+  describe('dbPutOrder', () => {
+    it('should be a function', () => {
+      assert.isFunction(dbPutOrder);
+    });
+
+    it('should return a string', () => {
+      return dbPutOrder().then(data => {
+        assert.isString(data);
       });
     });
   });
