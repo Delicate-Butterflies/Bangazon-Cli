@@ -13,6 +13,7 @@ const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 
 prompt.start();
 
@@ -66,6 +67,24 @@ let mainMenuHandler = (err, userInput) => {
         });
       }
       break;
+
+    case '5':
+      if (getActiveCustomer() === null) {
+        console.log('no active customer, please select option 2 at the main menu');
+        module.exports.displayWelcome();
+      } else {
+        promptAddToOrder(getActiveCustomer())
+          .then(resolutionData => {
+            console.log(resolutionData);
+            module.exports.displayWelcome();
+          })
+          .catch(err => {
+            console.log(err);
+            module.exports.displayWelcome();
+          });
+      }
+      break;
+
     case '7':
       console.log(`Goodbye!`);
       process.exit();
