@@ -58,7 +58,6 @@ module.exports.promptNewProduct = () => {
         // callback
         function(err, results) {
           if (err) return reject(err);
-          results.product_type_id -= 1; //MUST SUBTRACT BY 1. Options were +1'd to make options more user readable (i.e. didnt start at 0)
           results.seller_user_id = getActiveCustomer(); //active user becomes seller of new product
           dbPostProduct(results).then(prodData => {
             if (err) return reject(err);
