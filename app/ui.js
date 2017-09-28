@@ -32,7 +32,7 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '3':
-      if (getActiveCustomer().id == null) {
+      if (getActiveCustomer() == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
@@ -49,13 +49,22 @@ let mainMenuHandler = (err, userInput) => {
         });
       }
       break;
+
+    // adding a new product
     case '4':
-      console.log();
-      promptNewProduct().then(() => {
-        console.log();
-        console.log(`Your product was added!\n`);
+      // check if there is an active user
+      if (getActiveCustomer() == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
-      });
+      } else {
+        // else run the prompt
+        console.log();
+        promptNewProduct().then(() => {
+          console.log();
+          console.log(`Your product was added!\n`);
+          module.exports.displayWelcome();
+        });
+      }
       break;
     case '7':
       console.log(`Goodbye!`);
