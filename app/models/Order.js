@@ -7,7 +7,7 @@ db.run('PRAGMA foreign_keys = ON');
 
 module.exports.dbGetAllOrders = () => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM orders`, function(err, allOrderData) {
+    db.all(`SELECT * FROM orders`, function (err, allOrderData) {
       if (err) return reject(err);
       resolve(allOrderData);
     });
@@ -19,7 +19,7 @@ module.exports.dbGetOneOrder = id => {
     db.get(
       `SELECT * FROM orders
       WHERE id = ${id}`,
-      function(err, orderData) {
+      function (err, orderData) {
         if (err) return reject(err);
         resolve(orderData);
       }
@@ -36,7 +36,7 @@ module.exports.dbPutOrder = (order_id, order) => {
     });
     query = query.slice(0, -1);
     query += ` WHERE id = ${order_id}`;
-    db.run(query, function(err) {
+    db.run(query, function (err) {
       if (err) return reject(err);
       resolve('order updated');
     });
@@ -48,7 +48,7 @@ module.exports.dbDeleteOrder = id => {
     db.run(
       `DELETE FROM orders
       WHERE id = ${id}`,
-      function(err) {
+      function (err) {
         if (err) return reject(err);
         resolve({ message: 'order deleted', id: this.lastID });
       }
@@ -66,10 +66,19 @@ module.exports.dbPostOrder = (customer_user_id, payment_type_id, product_id) => 
       `INSERT INTO orders
       (customer_user_id, payment_type_id, order_date)
       VALUES (${customer_user_id}, ${payment_type_id}, '${order_date}')`,
-      function(err) {
+      function (err) {
         if (err) return reject(err);
         resolve({ message: 'new order', id: this.lastID }); // returns ID of new order
       }
     );
+  });
+};
+
+module.exports.dbGetOpenOrderByUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM orders WHERE customer_user_id = ${userId} AND payment_type_id = 'null'`, function (err, data) {
+      if (err) return reject(err);
+      resolve(data[0]);
+    });
   });
 };
