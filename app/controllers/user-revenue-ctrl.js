@@ -1,4 +1,5 @@
 'use strict';
+/* eslint-disable no-console */
 
 // TODO colorize output
 // const { red, magenta, blue } = require('chalk');
@@ -25,8 +26,8 @@ module.exports.sellerRevenueReport = user_id => {
 						}
 						// log info for each product on order
 						console.log(
-							`${product.title}, ${product.quantity}, ${product.price.toFixed(2)}, total ${product.price *
-								product.quantity}`
+							`${product.title}, ${product.quantity}, ${product.price.toFixed(2)}, total ${(product.price *
+								product.quantity).toFixed(2)}`
 						);
 						totalSales += product.price * product.quantity;
 					});
