@@ -7,6 +7,12 @@ const { dbGetOpenOrderByUser, dbPostOrder } = require('../models/Order');
 
 //gets all products, lists them, and prompts user to type an id and then quantity
 //TODO: Doing way too much in this one function
+
+/**
+ * Module to handle option 5 at main menu
+ * @module promptAddToOrder
+ * @param {number} userId - The id of the user in the user table.
+ */
 module.exports.promptAddToOrder = (userId) => {
   return new Promise((resolve, reject) => {
     dbGetAllProducts()
