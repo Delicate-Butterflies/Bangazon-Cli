@@ -77,7 +77,7 @@ module.exports.dbDeleteOpenOrderByProduct = product_id => {
       WHERE exists
       (SELECT *
       FROM products p, orders o
-      WHERE p.id = 4
+      WHERE p.id = ${product_id}
       AND p.id = ordersProducts.product_id
       AND ordersProducts.order_id = o.id
       AND o.payment_type_id = 'null')`,

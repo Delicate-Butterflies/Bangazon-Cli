@@ -8,6 +8,7 @@ const prompt = require('prompt');
 // const colors = require('colors/safe');
 
 let { dbCheckForProductSales, dbDeleteProduct, dbGetSingleProduct } = require('../models/Product.js');
+let { dbDeleteOpenOrderByProduct } = require('../models/Order-Product.js');
 
 // list all sellers products?
 
@@ -19,8 +20,13 @@ module.exports.removeUserProduct = product_id => {
 				// TODO add sold < original quantity case
 				dbDeleteProduct(product_id)
 					.then(() => {
-						resolve(`Product id ${product_id} removed`);
-						// TODO if none, remove from open orders (cascade?)
+						dbDeleteOpenOrderByProduct(product_id)
+							.then(data => {
+								resolve(`Product id ${product_id} removed`);
+							})
+							.catch(err => {
+								reject(err);
+							});
 					})
 					.catch(err => {
 						return reject(err);

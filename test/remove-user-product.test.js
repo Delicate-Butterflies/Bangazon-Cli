@@ -10,8 +10,8 @@ const {
 	dbGetSingleProduct,
 	dbPostProduct
 } = require('../app/models/Product.js');
-const { removeUserProduct } = require('../app/controllers/remove-user-product-ctrl.js');
 const { dbDeleteOpenOrderByProduct } = require('../app/models/Order-Product');
+const { removeUserProduct } = require('../app/controllers/remove-user-product-ctrl.js');
 
 describe('Removing user product:', () => {
 	before(function() {
