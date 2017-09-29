@@ -88,19 +88,20 @@ let mainMenuHandler = (err, userInput) => {
       console.log('Product popularity:');
       break;
     case '7':
+
+      break;
+    case '8':
       // Update product information
       // Get active user
       // If non-active user is selected, kick back to main menu for user to select an active user
-      if (getActiveCustomer().id == null) {
+      if (getActiveCustomer() == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
-        promptUpdateProdInfo(getActiveCustomer().id);
+        promptUpdateProdInfo(getActiveCustomer());
       }
       // Note: Currently database lets customer have multiple active orders
       // Need to fix at a later time
-      break;
-    case '8':
       break;
     case '10':
       sellerRevenueReport(getActiveCustomer())
@@ -138,6 +139,7 @@ module.exports.displayWelcome = () => {
   ${magenta('4.')} Add product to shopping cart
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
+  ${magenta('8.')} Update product information
   ${magenta('10.')} Show customer revenue report
   ${magenta('12.')} Leave Bangazon!\n`);
     prompt.get(

@@ -70,7 +70,6 @@ module.exports.dbGetAllProductsBySellerID = seller_ID => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM products WHERE seller_user_id = ${seller_ID}`, (err, rows) => {
       if (err) return reject(err);
-      console.log(rows);
       resolve(rows);
     });
   });
