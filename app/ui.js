@@ -19,7 +19,7 @@ const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 
 prompt.start();
 
-let mainMenuHandler = (err, userInput) => {
+let mainMenuHandler = userInput => {
   switch (userInput.choice) {
     case '1':
       promptNewUser().then(() => {
@@ -34,7 +34,7 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '3':
-      if (getActiveCustomer().id == null) {
+      if (getActiveCustomer() == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
@@ -79,9 +79,15 @@ let mainMenuHandler = (err, userInput) => {
         });
       break;
     case '11':
-      displayPopularProducts().then(data => {
-        console.log('data?', data);
-      });
+      displayPopularProducts()
+        .then(data => {
+          console.log(data);
+          module.exports.displayWelcome();
+        })
+        .catch(err => {
+          console.log(err);
+          module.exports.displayWelcome();
+        });
       break;
     case '12':
       console.log(`Goodbye!`);
@@ -108,6 +114,7 @@ module.exports.displayWelcome = () => {
   ${magenta('5.')} Complete an order
   ${magenta('6.')} See product popularity
   ${magenta('10.')} Show customer revenue report
+  ${magenta('11.')} Show popular products
   ${magenta('12.')} Leave Bangazon!\n`);
     prompt.get(
       [
@@ -116,7 +123,10 @@ module.exports.displayWelcome = () => {
           description: 'Please make a selection'
         }
       ],
-      mainMenuHandler
+      function(err, choice) {
+        if (err) return reject(err);
+        else mainMenuHandler(choice);
+      }
     );
   });
 };

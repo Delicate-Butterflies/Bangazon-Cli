@@ -1,21 +1,34 @@
 'use strict';
 /* eslint-disable no-console */
-const prompt = require('prompt');
-const { displayWelcome } = require('../ui');
+const { getPopularProducts } = require('../models/Order-Product');
+let orderTotal = 0;
+let purchasersTotal = 0;
+let revenueTotal = 0;
+let starLine = '*'.repeat(61);
 module.exports.displayPopularProducts = () => {
   return new Promise((resolve, reject) => {
-    prompt.get([
-      {
-        name: 'anyKey',
-        description: 'press any key to return',
-        pattern: '/^[a-zA-Z\x08?]$/'
-      },
-      function(err, results) {
-        if (err) return reject(err);
-        displayWelcome().then(() => {
-          resolve(results);
-        });
-      }
-    ]);
+    console.log('Product             Orders     Purchasers     Revenue        ');
+    console.log(starLine);
+    getPopularProducts().then(data => {
+      data.forEach(prod => {
+        orderTotal += prod.total_products;
+        purchasersTotal += prod.purchasers;
+        revenueTotal += prod.revenue;
+        if (prod.title.length > 18) {
+          prod.title = prod.title.slice(0, 16).concat('...');
+          prod.revenue = prod.revenue.toFixed(2);
+          console.log(`${prod.title} ${prod.total_products}          ${prod.purchasers}           $${prod.revenue}`);
+        }
+      });
+      revenueTotal = revenueTotal.toFixed(2);
+      console.log(starLine);
+      console.log(`Total:              ${orderTotal}          ${purchasersTotal}          $${revenueTotal}`);
+      console.log('Press any key to continue.'); //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
+      process.stdin.setRawMode(true);
+      process.stdin.resume();
+      process.stdin.on('data', () => {
+        resolve('data');
+      });
+    });
   });
 };
