@@ -59,7 +59,6 @@ describe('Getting user sales revenue:', () => {
 				}
 			];
 			return dbSellerRevenue(1).then(data => {
-				console.log(data);
 				assert.deepEqual(data, expected);
 			});
 		});

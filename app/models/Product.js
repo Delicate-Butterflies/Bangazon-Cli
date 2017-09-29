@@ -78,12 +78,14 @@ module.exports.dbCheckForProductSales = product_id => {
 			AND o.payment_type_id != 'null'`,
 			(err, data) => {
 				if (err) return reject(err);
-				// console.log(data);
+				console.log('data from queary', data);
 				resolve(data);
 			}
 		);
 	});
 };
+
+module.exports.removeProductFromOpenOrders = () => {};
 
 /*
 	TODO - db currently has no products that have not sold, according to following query:

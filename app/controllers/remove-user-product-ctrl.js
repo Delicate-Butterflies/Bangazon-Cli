@@ -9,16 +9,32 @@ const prompt = require('prompt');
 
 let { dbCheckForProductSales, dbDeleteProduct, dbGetSingleProduct } = require('../models/Product.js');
 
+// list all sellers products?
+
 module.exports.removeUserProduct = product_id => {
-	// check for product on closed orders - remove 'extra'quantity
-	dbCheckForProductSales().then((sold, original_quantity) => {
-		// if product has sold - reject (change to adjust quantity at some point)
-		if (sold > 0) {
-			return reject('Cannot remove product, it is associated with orders\n');
-		} else if (sold < original_quantity) {
-		}
+	return new Promise((resolve, reject) => {
+		console.log(product_id);
+		dbCheckForProductSales(product_id).then(data => {
+			console.log('rm data', data);
+			// console.log('sold', data.sold, 'q', data.original_quantity);
+			// if product has sold - reject (change to adjust quantity at some point)
+			if (data.sold === 0) {
+				// TODO add sold < original quantity case
+				dbDeleteProduct(product_id)
+					.then(() => {
+						resolve(`Product id ${product_id} removed`);
+						// TODO if none, remove from open orders (cascade?)
+					})
+					.catch(err => {
+						return reject(err);
+					});
+			} else if (data.sold > 0) {
+				// TODO - change original quantity to # sold? (available)
+				resolve('Cannot remove product, it is associated with orders');
+			} else {
+				// TODO - remove from all open orders
+				resolve('Removing product unsuccessfull');
+			}
+		});
 	});
-	// if none, remove from open orders (cascade?)
-	// then remove from products
-	// if product has sold, reject request (or change quantities somehow?)
 };
