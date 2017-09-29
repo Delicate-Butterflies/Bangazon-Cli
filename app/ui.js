@@ -132,10 +132,14 @@ module.exports.displayWelcome = () => {
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
-  ${magenta('4.')} Add product to shopping cart
-  ${magenta('5.')} Complete an order
-  ${magenta('6.')} See product popularity
+  ${magenta('4.')} Add product to sell
+  ${magenta('5.')} Add a product to shopping cart
+  ${magenta('6.')} Complete an order
+  ${magenta('7.')} Remove customer product
+  ${magenta('8.')} Update product information
+  ${magenta('9.')} Show stale products
   ${magenta('10.')} Show customer revenue report
+  ${magenta('11.')} Show overall product popularity
   ${magenta('12.')} Leave Bangazon!\n`);
     prompt.get(
       [
