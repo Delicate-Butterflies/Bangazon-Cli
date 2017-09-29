@@ -13,10 +13,7 @@ let { dbCheckForProductSales, dbDeleteProduct, dbGetSingleProduct } = require('.
 
 module.exports.removeUserProduct = product_id => {
 	return new Promise((resolve, reject) => {
-		console.log(product_id);
 		dbCheckForProductSales(product_id).then(data => {
-			console.log('rm data', data);
-			// console.log('sold', data.sold, 'q', data.original_quantity);
 			// if product has sold - reject (change to adjust quantity at some point)
 			if (data.sold === 0) {
 				// TODO add sold < original quantity case

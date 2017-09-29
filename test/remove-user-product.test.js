@@ -11,6 +11,7 @@ const {
 	dbPostProduct
 } = require('../app/models/Product.js');
 const { removeUserProduct } = require('../app/controllers/remove-user-product-ctrl.js');
+const { dbDeleteOpenOrderByProduct } = require('../app/models/Order-Product');
 
 describe('Removing user product:', () => {
 	before(function() {
@@ -79,6 +80,10 @@ describe('Removing user product:', () => {
 				assert.equal(data, expected);
 			});
 		});
-		it('should delete any ordersProducts rows from open order', () => {});
+		it('should delete any ordersProducts rows from open order', () => {
+			return dbDeleteOpenOrderByProduct(4).then(data => {
+				assert.equal(data.rows_deleted, 5);
+			});
+		});
 	});
 });
