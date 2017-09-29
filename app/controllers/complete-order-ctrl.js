@@ -4,6 +4,10 @@ const prompt = require('prompt');
 const { dbOrderTotal, dbGetOpenOrderByUser, dbPutOrder } = require('../models/Order.js');
 const { dbGetUsersPaymentTypes } = require('../models/Payment-Types.js');
 
+/**
+ * Checks for open orders, then prompts user to decide whether to proceed with adding a payment type
+ * @param {number} userId - userId from users table representing current active user
+ */
 module.exports.promptCompleteOrder = userId => {
   return new Promise((resolve, reject) => {
     // returns order object, active user id is passed in
@@ -26,7 +30,8 @@ module.exports.promptCompleteOrder = userId => {
         } else {
           //if there are products in the customers open order
           let orderId = data.id;
-          dbOrderTotal(orderId).then(orderTotal => {
+          dbOrderTotal(orderId).then(data => {
+            let orderTotal = data.toFixed(2);
             console.log(`Your order total is $${orderTotal}. Ready to purchase?`);
             prompt.get(
               [
@@ -62,7 +67,11 @@ module.exports.promptCompleteOrder = userId => {
       });
   });
 };
-
+/**
+ * Prompts the user to choose a payment type, updates order with payment type in database
+ * @param {number} userId - user id from users table representing current active user to then get that user's payment types
+ * @param {number} orderId - order id from orders table that will be updated with user's payment type choice
+ */
 // if user enters Y
 function promptChoosePaymentOption(userId, orderId) {
   return new Promise((resolve, reject) => {
@@ -80,8 +89,6 @@ function promptChoosePaymentOption(userId, orderId) {
         ],
         function(err, results) {
           if (err) return reject(err);
-          console.log('order id for put payment', orderId);
-          console.log('results of payment choice for put payment', results.paymentChoice);
           dbPutOrder(orderId, { payment_type_id: results.paymentChoice })
             .then(data => {
               resolve(data);

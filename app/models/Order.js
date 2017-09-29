@@ -27,6 +27,12 @@ module.exports.dbGetOneOrder = id => {
   });
 };
 
+/**
+ * Updates the current order with the user's selected payment type. This action completes the order.
+ * @param {number} - order ID from order table representing current active user's open order
+ * @param {object} - object containing key/value to be updated in the order object
+ * @return {promise} - resolves with a message that the order has been successfully updated
+ */
 module.exports.dbPutOrder = (order_id, order) => {
   return new Promise((resolve, reject) => {
     let query = `UPDATE orders SET `;
@@ -94,7 +100,11 @@ module.exports.dbGetSellerOrders = user_id => {
     );
   });
 };
-
+/**
+ * Queries the database to select user's open order (currently, there are multiple open orders for individual users, so we are only taking the first order from the returned array)
+ * @param {number} - user ID from user table representing current active user
+ * @return {promise} - resolves with the first user's open order
+ */
 module.exports.dbGetOpenOrderByUser = userId => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM orders WHERE customer_user_id = ${userId} AND payment_type_id = 'null'`, function(err, data) {
@@ -103,7 +113,11 @@ module.exports.dbGetOpenOrderByUser = userId => {
     });
   });
 };
-
+/**
+ * Queries the database to calculate the order total
+ * @param {number} orderId - order ID from order table representing current active user's open order
+ * @returns {promise} - resolves the current order's total
+ */
 module.exports.dbOrderTotal = orderId => {
   return new Promise((resolve, reject) => {
     db.all(
