@@ -72,14 +72,14 @@ module.exports.dbCheckForProductSales = product_id => {
 		db.get(
 			`SELECT count(op.product_id) as sold, p.original_quantity
     FROM products p, orders o, ordersProducts op
-    WHERE  p.id = 3
+    WHERE  p.id = ${product_id}
     AND p.id = op.product_id
     AND op.order_id = o.id
     AND o.payment_type_id != 'null'`,
 			(err, data) => {
 				if (err) return reject(err);
-				console.log(data);
-				return data;
+				// console.log(data);
+				resolve(data);
 			}
 		);
 	});
@@ -92,6 +92,4 @@ module.exports.dbCheckForProductSales = product_id => {
   TODO: db product has original quantity, not quantity remaining.
   new property? other way to display remaining after sales?
 */
-module.exports.dbDeleteRemainingProductQuantity = product_id => {};
-
-// TODO - function that checks for quantity of remaining product by product_id
+// module.exports.dbDeleteRemainingProductQuantity = product_id => {};
