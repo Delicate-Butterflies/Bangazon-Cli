@@ -5,7 +5,6 @@ const { assert } = require('chai');
 
 const { createTables, insertRows } = require('../db/buildDB');
 const { dbSellerRevenue } = require('../app/models/User.js');
-const { promptNewUser } = require('../app/controllers/user-ctrl');
 
 describe('Getting user sales revenue:', () => {
 	before(function() {
