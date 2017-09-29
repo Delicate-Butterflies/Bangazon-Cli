@@ -51,7 +51,11 @@ describe('Removing user product:', () => {
 		it('should be a function', () => {
 			assert.isFunction(removeUserProduct);
 		});
-		it('should return quantity of products removed', () => {});
+		// the following will not currently return any products with current db setup - see models/Products
+		it('should return quantity of products removed', () => {
+			let id = 1;
+			return removeUserProduct(id).then(data => {});
+		});
 		it('should not remove product attached to closed order', () => {});
 	});
 });

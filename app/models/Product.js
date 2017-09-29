@@ -86,6 +86,17 @@ module.exports.dbCheckForProductSales = product_id => {
 };
 
 /*
+	TODO - db currently has no products that have not sold, according to following query:
+	SELECT count(op.product_id) as sold, p.original_quantity
+	FROM products p, orders o, ordersProducts op
+	WHERE p.id = op.product_id
+	AND op.order_id = o.id
+	AND o.payment_type_id != 'null'
+	GROUP BY p.id
+	having count(p.id = op.product_id) = 0
+*/
+
+/*
   dbDeleteRemainingProductQuantity
   ARGS: product_id (from product table)
   takes a product id, removes the remaining quantity
