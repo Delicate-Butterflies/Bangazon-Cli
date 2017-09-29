@@ -88,7 +88,3 @@ module.exports.getPopularProducts = () => {
     );
   });
 };
-
-module.exports.getTotalOrders = () => {
-  // you were here!!
-};
