@@ -16,6 +16,7 @@ const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
 const { displayPopularProducts } = require('./controllers/popular-product-ctrl');
 const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
+const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
 
 prompt.start();
 
@@ -34,7 +35,7 @@ let mainMenuHandler = userInput => {
       });
       break;
     case '3':
-      if (getActiveCustomer() == null) {
+      if (getActiveCustomer().id == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
@@ -51,8 +52,25 @@ let mainMenuHandler = userInput => {
         });
       }
       break;
+
     case '4':
-      if (getActiveCustomer().id === null) {
+      // check if there is an active user
+      if (getActiveCustomer() == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      } else {
+        // else run the prompt
+        console.log();
+        promptNewProduct().then(() => {
+          console.log();
+          console.log(`Your product was added!\n`);
+          module.exports.displayWelcome();
+        });
+      }
+      break;
+
+    case '5':
+      if (getActiveCustomer() === null) {
         console.log('no active customer, please select option 2 at the main menu');
         module.exports.displayWelcome();
       } else {
@@ -63,6 +81,22 @@ let mainMenuHandler = userInput => {
           })
           .catch(err => {
             console.log(err);
+            module.exports.displayWelcome();
+          });
+      }
+      break;
+    case '6':
+      if (getActiveCustomer() == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      } else {
+        promptCompleteOrder(getActiveCustomer())
+          .then(data => {
+            console.log(data);
+            module.exports.displayWelcome();
+          })
+          .catch(error => {
+            console.log(error);
             module.exports.displayWelcome();
           });
       }
@@ -110,11 +144,14 @@ module.exports.displayWelcome = () => {
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
-  ${magenta('4.')} Add product to shopping cart
-  ${magenta('5.')} Complete an order
-  ${magenta('6.')} See product popularity
+  ${magenta('4.')} Add product to sell
+  ${magenta('5.')} Add a product to shopping cart
+  ${magenta('6.')} Complete an order
+  ${magenta('7.')} Remove customer product
+  ${magenta('8.')} Update product information
+  ${magenta('9.')} Show stale products
   ${magenta('10.')} Show customer revenue report
-  ${magenta('11.')} Show popular products
+  ${magenta('11.')} Show overall product popularity
   ${magenta('12.')} Leave Bangazon!\n`);
     prompt.get(
       [
