@@ -71,11 +71,11 @@ module.exports.dbCheckForProductSales = product_id => {
 	return new Promise((resolve, reject) => {
 		db.get(
 			`SELECT count(op.product_id) as sold, p.original_quantity
-    FROM products p, orders o, ordersProducts op
-    WHERE  p.id = ${product_id}
-    AND p.id = op.product_id
-    AND op.order_id = o.id
-    AND o.payment_type_id != 'null'`,
+			FROM products p, orders o, ordersProducts op
+			WHERE  p.id = ${product_id}
+			AND p.id = op.product_id
+			AND op.order_id = o.id
+			AND o.payment_type_id != 'null'`,
 			(err, data) => {
 				if (err) return reject(err);
 				// console.log(data);
