@@ -5,8 +5,7 @@ const { assert } = require('chai');
 
 const { createTables, insertRows } = require('../db/buildDB');
 const { dbGetUsersPaymentTypes } = require('../app/models/Payment-Types.js');
-const { dbGetOpenOrderByUser, dbOrderTotal, dbPutOrder } = require('../app/models/Order.js');
-// const { getActiveCustomer } = require('../app/activeCustomer.js');
+const { dbGetOneOrder, dbGetOpenOrderByUser, dbOrderTotal, dbPutOrder } = require('../app/models/Order.js');
 
 describe('user can complete customer order', () => {
   before(function() {
@@ -37,6 +36,12 @@ describe('user can complete customer order', () => {
         assert.isNumber(data);
       });
     });
+
+    it('should return the order total', () => {
+      return dbOrderTotal(7).then(data => {
+        assert.strictEqual(data, 196.6);
+      });
+    });
   });
 
   describe('dbGetUsersPaymentTypes', () => {
@@ -52,16 +57,24 @@ describe('user can complete customer order', () => {
   });
 
   describe('dbPutOrder', () => {
+    let expected = {
+      payment_type_id: 56
+    };
     it('should be a function', () => {
       assert.isFunction(dbPutOrder);
     });
 
     it('should return a string', () => {
-      let order = {
-        payment_type_id: 56
-      };
-      return dbPutOrder(3, order).then(data => {
+      return dbPutOrder(3, expected).then(data => {
         assert.isString(data);
+      });
+    });
+
+    it('should add updated payment type to db', () => {
+      return dbPutOrder(3, expected).then(paymentAdded => {
+        dbGetOneOrder(3).then(newPayment => {
+          assert.equal(expected.payment_type_id, newPayment.payment_type_id);
+        });
       });
     });
   });

@@ -107,7 +107,7 @@ module.exports.dbGetOpenOrderByUser = userId => {
 module.exports.dbOrderTotal = orderId => {
   return new Promise((resolve, reject) => {
     db.all(
-      `SELECT round(SUM(p.Price), 2) AS orderTotal
+      `SELECT SUM(p.Price) AS orderTotal
             FROM products p, ordersProducts r, orders o
             WHERE p.id IS r.product_id
             AND r.order_id = o.id
