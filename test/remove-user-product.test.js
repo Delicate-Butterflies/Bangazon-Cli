@@ -5,6 +5,7 @@ const { assert } = require('chai');
 
 const { createTables, insertRows } = require('../db/buildDB');
 const { dbCheckForProductSales, dbDeleteProduct, dbGetSingleProduct } = require('../app/models/Product.js');
+const { removeUserProduct } = require('../app/controllers/remove-user-product-ctrl.js');
 
 describe('Removing user product:', () => {
 	before(function() {
@@ -45,5 +46,12 @@ describe('Removing user product:', () => {
 				});
 			});
 		});
+	});
+	describe('removeUserProduct (ctrl)', () => {
+		it('should be a function', () => {
+			assert.isFunction(removeUserProduct);
+		});
+		it('should return quantity of products removed', () => {});
+		it('should not remove product attached to closed order', () => {});
 	});
 });
