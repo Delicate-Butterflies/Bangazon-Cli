@@ -64,3 +64,12 @@ module.exports.dbPutProduct = (req, product_id) => {
     });
   });
 };
+
+module.exports.dbGetAllProductsByUser = userId => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM products WHERE seller_user_id = ${userId}`, (err, productdata) => {
+      if (err) return reject(err);
+      resolve(productdata);
+    });
+  });
+};
