@@ -34,7 +34,7 @@ let mainMenuHandler = (err, userInput) => {
       });
       break;
     case '3':
-      if (getActiveCustomer().id == null) {
+      if (getActiveCustomer() == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
@@ -51,7 +51,6 @@ let mainMenuHandler = (err, userInput) => {
         });
       }
       break;
-
     case '4':
       // check if there is an active user
       if (getActiveCustomer() == null) {

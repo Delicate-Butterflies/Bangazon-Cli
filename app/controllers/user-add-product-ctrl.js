@@ -33,7 +33,7 @@ module.exports.promptNewProduct = () => {
           },
           {
             name: 'price',
-            description: 'Set unit price',
+            description: 'Set unit price (number up to two decimals)',
             type: 'string',
             required: true
           },
@@ -51,7 +51,7 @@ module.exports.promptNewProduct = () => {
           },
           {
             name: 'original_quantity',
-            description: 'How many do you have for sale?',
+            description: 'How many do you have for sale? (number)',
             type: 'string',
             required: true
           }
