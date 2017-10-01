@@ -4,10 +4,12 @@ const prompt = require('prompt');
 const { dbGetAllUsers } = require('../models/User');
 
 module.exports.promptPrintUsers = () => {
+  let activeUserIDs = [];
   return new Promise((resolve, reject) => {
     dbGetAllUsers().then(data => {
       for (let i = 0; i < data.length; i++) {
         console.log(`${data[i].id}: ${data[i].first_name} ${data[i].last_name}`);
+        activeUserIDs.push(data[i].id);
       }
       prompt.get(
         [
@@ -18,7 +20,13 @@ module.exports.promptPrintUsers = () => {
         ],
         function(err, results) {
           if (err) return reject(err);
-          resolve(results);
+          if (activeUserIDs.indexOf(results.activeUser) > 0) {
+            results.exists = true;
+            resolve(results);
+          } else {
+            results.exists = false;
+            resolve(results);
+          }
         }
       );
     });
