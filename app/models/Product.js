@@ -31,15 +31,9 @@ module.exports.dbPostProduct = newProduct => {
     db.run(
       `INSERT INTO products(product_type_id, price, title, description, original_quantity, seller_user_id)
       VALUES('${product_type_id}', '${price}', '${title}', '${description}', '${original_quantity}', '${seller_user_id}')`,
-<<<<<<< HEAD
-      err => {
-        if (err) return reject(err);
-        resolve('New field inserted');
-=======
       function(err) {
         if (err) return reject(err);
         resolve({ message: 'new product', id: this.lastID });
->>>>>>> master
       }
     );
   });
@@ -49,11 +43,7 @@ module.exports.dbDeleteProduct = id => {
   return new Promise((resolve, reject) => {
     db.run(`DELETE FROM products WHERE id = ${id}`, function(err) {
       if (err) return reject(err);
-<<<<<<< HEAD
       resolve({ message: 'delete successful', rows_deleted: this.changes });
-=======
-      resolve({ message: 'product deleted', id: this.lastID });
->>>>>>> master
     });
   });
 };
@@ -80,7 +70,7 @@ module.exports.dbGetAllProductsBySellerID = seller_ID => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM products WHERE seller_user_id = ${seller_ID}`, (err, rows) => {
       if (err) return reject(err);
-      console.log(rows);
+      // console.log(rows);
       resolve(rows);
     });
   });

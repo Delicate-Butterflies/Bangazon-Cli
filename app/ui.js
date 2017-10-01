@@ -74,11 +74,11 @@ let mainMenuHandler = (err, userInput) => {
       // Update product information
       // Get active user
       // If non-active user is selected, kick back to main menu for user to select an active user
-      if (getActiveCustomer().id == null) {
+      if (getActiveCustomer() == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
-        promptUpdateProdInfo(getActiveCustomer().id);
+        promptUpdateProdInfo(getActiveCustomer());
       }
       // Note: Currently database lets customer have multiple active orders
       // Need to fix at a later time
