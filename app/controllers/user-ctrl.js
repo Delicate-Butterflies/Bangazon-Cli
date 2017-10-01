@@ -17,56 +17,56 @@ const prompt = require('prompt');
 let { dbPostUser } = require('../models/User.js');
 
 module.exports.promptNewUser = () => {
-	return new Promise((resolve, reject) => {
-		prompt.get(
-			[
-				{
-					name: 'first_name',
-					description: "Enter customer's first name",
-					type: 'string',
-					required: true
-				},
-				{
-					name: 'last_name',
-					description: "Enter customer's last Name",
-					type: 'string',
-					required: true
-				},
-				{
-					name: 'street_address',
-					description: 'Enter street address',
-					type: 'string',
-					required: true
-				},
-				{
-					name: 'city_address',
-					description: 'Enter city',
-					type: 'string',
-					required: true
-				},
-				{
-					name: 'state_code',
-					description: 'Enter state (KY)',
-					type: 'string',
-					required: true
-				},
-				{
-					name: 'zip_code',
-					description: 'Enter postal code',
-					type: 'string',
-					required: true
-				}
-			],
-			function(err, results) {
-				if (err) return reject(err);
-				dbPostUser(results)
-					.then(data => {
-						resolve(data);
-					})
-					.catch(err => {
-						return reject(err);
-					});
-			}
-		);
-	});
+  return new Promise((resolve, reject) => {
+    prompt.get(
+      [
+        {
+          name: 'first_name',
+          description: "Enter customer's first name",
+          type: 'string',
+          required: true
+        },
+        {
+          name: 'last_name',
+          description: "Enter customer's last name",
+          type: 'string',
+          required: true
+        },
+        {
+          name: 'street_address',
+          description: 'Enter street address',
+          type: 'string',
+          required: true
+        },
+        {
+          name: 'city_address',
+          description: 'Enter city',
+          type: 'string',
+          required: true
+        },
+        {
+          name: 'state_code',
+          description: 'Enter state (KY)',
+          type: 'string',
+          required: true
+        },
+        {
+          name: 'zip_code',
+          description: 'Enter postal code',
+          type: 'string',
+          required: true
+        }
+      ],
+      function(err, results) {
+        if (err) return reject(err);
+        dbPostUser(results)
+          .then(data => {
+            resolve(data);
+          })
+          .catch(err => {
+            return reject(err);
+          });
+      }
+    );
+  });
 };
