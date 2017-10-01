@@ -86,6 +86,15 @@ module.exports.dbCheckForProductSales = product_id => {
 
 module.exports.removeProductFromOpenOrders = () => {};
 
+module.exports.dbGetAllProductsByUser = userId => {
+	return new Promise((resolve, reject) => {
+		db.all(`SELECT * FROM products WHERE seller_user_id = ${userId}`, (err, productdata) => {
+			if (err) return reject(err);
+			resolve(productdata);
+		});
+	});
+};
+
 /*
 	TODO - db currently has no products that have not sold, according to following query:
 	SELECT count(op.product_id) as sold, p.original_quantity
