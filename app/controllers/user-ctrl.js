@@ -52,7 +52,7 @@ module.exports.promptNewUser = () => {
           name: 'state_code',
           description: 'Enter state (KY)',
           type: 'string',
-          pattern: /^[a-zA-Z{2}]+$/,
+          pattern: /^(\w{2})$/,
           message: 'it has to be a 2 letter state code',
           required: true
         },
@@ -60,6 +60,8 @@ module.exports.promptNewUser = () => {
           name: 'zip_code',
           description: 'Enter postal code',
           type: 'string',
+          pattern: /^(\d{5})$/,
+          message: 'invalid postal code. Should be 5 digits long only',
           required: true
         }
       ],

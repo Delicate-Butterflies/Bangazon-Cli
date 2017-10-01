@@ -9,7 +9,7 @@ prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
-const { setActiveCustomer, getActiveCustomer, checkActiveCustomer } = require('./activeCustomer');
+const { setActiveCustomer, getActiveCustomer, getDetailedActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
@@ -32,14 +32,14 @@ let mainMenuHandler = userInput => {
       promptPrintUsers().then(userData => {
         console.log(userData);
         if (userData.exists == true) {
-          setActiveCustomer(userData.activeUser);
+          setActiveCustomer(userData.activeUser, userData.userName);
         } else console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
         module.exports.displayWelcome();
       });
 
       break;
     case '3':
-      if (getActiveCustomer().id == null) {
+      if (getActiveCustomer() == null) {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
@@ -56,7 +56,6 @@ let mainMenuHandler = userInput => {
         });
       }
       break;
-
     case '4':
       // check if there is an active user
       if (getActiveCustomer() == null) {
@@ -141,6 +140,12 @@ let mainMenuHandler = userInput => {
 module.exports.displayWelcome = () => {
   let headerDivider = `${magenta('*********************************************************')}`;
   return new Promise((resolve, reject) => {
+    if (getActiveCustomer() !== null)
+      console.log(
+        `\n ${magenta(' Current Active Customer: ')}`,
+        getDetailedActiveCustomer().id,
+        getDetailedActiveCustomer().name
+      );
     console.log(`
   ${headerDivider}
   ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}

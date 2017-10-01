@@ -20,8 +20,12 @@ module.exports.promptPrintUsers = () => {
         ],
         function(err, results) {
           if (err) return reject(err);
-          if (activeUserIDs.toString().indexOf(`${results.activeUser}`) > 0) results.exists = true;
-          else results.exists = false;
+          if (activeUserIDs.indexOf(results.activeUser) > 0) {
+            results.exists = true;
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].id == results.activeUser) results.userName = `${data[i].first_name} ${data[i].last_name}`;
+            }
+          } else results.exists = false;
           resolve(results);
         }
       );
