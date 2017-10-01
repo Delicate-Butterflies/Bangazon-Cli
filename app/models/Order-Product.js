@@ -81,9 +81,9 @@ module.exports.getPopularProducts = () => {
       group by op.product_id
       order by total_products desc
       limit 3`,
-      (err, data) => {
+      function(err, popularProductData) {
         if (err) return reject(err);
-        resolve(data);
+        resolve(popularProductData);
       }
     );
   });

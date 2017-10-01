@@ -1,7 +1,17 @@
+require('dotenv').config();
 const { assert } = require('chai');
 const { getPopularProducts } = require('../app/models/Order-Product.js');
+const { createTables, insertRows } = require('../db/buildDB');
+
+let TIMEOUT = process.env.TIMEOUT;
 
 describe('see top 3 overall popular product', () => {
+  before(function() {
+    this.timeout(TIMEOUT);
+    return createTables().then(() => {
+      return insertRows();
+    });
+  });
   it('should be a function', () => {
     assert.isFunction(getPopularProducts);
   });
