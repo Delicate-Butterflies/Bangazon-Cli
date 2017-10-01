@@ -9,16 +9,18 @@ prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
-const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
+const { setActiveCustomer, getActiveCustomer, getDetailedActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { displayPopularProducts } = require('./controllers/popular-product-ctrl');
 const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
+const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
 
 prompt.start();
 
-let mainMenuHandler = (err, userInput) => {
+let mainMenuHandler = userInput => {
 	switch (userInput.choice) {
 		case '1':
 			promptNewUser().then(() => {
@@ -28,12 +30,15 @@ let mainMenuHandler = (err, userInput) => {
 			break;
 		case '2':
 			promptPrintUsers().then(userData => {
-				setActiveCustomer(userData.activeUser);
+				if (userData.exists == true) {
+					setActiveCustomer(userData.activeUser, userData.userName);
+				} else console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
 				module.exports.displayWelcome();
 			});
+
 			break;
 		case '3':
-			if (getActiveCustomer().id == null) {
+			if (getActiveCustomer() == null) {
 				console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
 				module.exports.displayWelcome();
 			} else {
@@ -50,7 +55,6 @@ let mainMenuHandler = (err, userInput) => {
 				});
 			}
 			break;
-
 		case '4':
 			// check if there is an active user
 			if (getActiveCustomer() == null) {
@@ -79,6 +83,22 @@ let mainMenuHandler = (err, userInput) => {
 					})
 					.catch(err => {
 						console.log(err);
+						module.exports.displayWelcome();
+					});
+			}
+			break;
+		case '6':
+			if (getActiveCustomer() == null) {
+				console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+				module.exports.displayWelcome();
+			} else {
+				promptCompleteOrder(getActiveCustomer())
+					.then(data => {
+						console.log(data);
+						module.exports.displayWelcome();
+					})
+					.catch(error => {
+						console.log(error);
 						module.exports.displayWelcome();
 					});
 			}
@@ -113,6 +133,17 @@ let mainMenuHandler = (err, userInput) => {
 					module.exports.displayWelcome();
 				});
 			break;
+		case '11':
+			displayPopularProducts()
+				.then(data => {
+					console.log(data);
+					module.exports.displayWelcome();
+				})
+				.catch(err => {
+					console.log(err);
+					module.exports.displayWelcome();
+				});
+			break;
 		case '12':
 			console.log(`Goodbye!`);
 			process.exit();
@@ -127,6 +158,12 @@ let mainMenuHandler = (err, userInput) => {
 module.exports.displayWelcome = () => {
 	let headerDivider = `${magenta('*********************************************************')}`;
 	return new Promise((resolve, reject) => {
+		if (getActiveCustomer() !== null)
+			console.log(
+				`\n ${magenta(' Current Active Customer: ')}`,
+				getDetailedActiveCustomer().id,
+				getDetailedActiveCustomer().name
+			);
 		console.log(`
   ${headerDivider}
   ${magenta('**  Welcome to Bangazon! Command Line Ordering System  **')}
@@ -134,11 +171,14 @@ module.exports.displayWelcome = () => {
   ${magenta('1.')} Create a customer account
   ${magenta('2.')} Choose active customer
   ${magenta('3.')} Create a payment option
-  ${magenta('4.')} Add product to shopping cart
-  ${magenta('5.')} Complete an order
-  ${magenta('6.')} See product popularity
+  ${magenta('4.')} Add product to sell
+  ${magenta('5.')} Add a product to shopping cart
+  ${magenta('6.')} Complete an order
   ${magenta('7.')} Remove customer product
+  ${magenta('8.')} Update product information
+  ${magenta('9.')} Show stale products
   ${magenta('10.')} Show customer revenue report
+  ${magenta('11.')} Show overall product popularity
   ${magenta('12.')} Leave Bangazon!\n`);
 		prompt.get(
 			[
@@ -147,7 +187,10 @@ module.exports.displayWelcome = () => {
 					description: 'Please make a selection'
 				}
 			],
-			mainMenuHandler
+			function(err, choice) {
+				if (err) return reject(err);
+				else mainMenuHandler(choice);
+			}
 		);
 	});
 };

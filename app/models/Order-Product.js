@@ -88,3 +88,20 @@ module.exports.dbDeleteOpenOrderByProduct = product_id => {
 		);
 	});
 };
+
+module.exports.getPopularProducts = () => {
+	return new Promise((resolve, reject) => {
+		db.all(
+			`select count(*) as total_products,p.title, p.id productId,count(distinct order_id) as purchasers, sum(p.price) as revenue
+      from ordersProducts op, products p
+      where p.id = op.product_id
+      group by op.product_id
+      order by total_products desc
+      limit 3`,
+			function(err, popularProductData) {
+				if (err) return reject(err);
+				resolve(popularProductData);
+			}
+		);
+	});
+};
