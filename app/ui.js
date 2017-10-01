@@ -13,13 +13,14 @@ const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { displayPopularProducts } = require('./controllers/popular-product-ctrl');
 const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
 
 prompt.start();
 
-let mainMenuHandler = (err, userInput) => {
+let mainMenuHandler = userInput => {
   switch (userInput.choice) {
     case '1':
       promptNewUser().then(() => {
@@ -110,6 +111,17 @@ let mainMenuHandler = (err, userInput) => {
           module.exports.displayWelcome();
         });
       break;
+    case '11':
+      displayPopularProducts()
+        .then(data => {
+          console.log(data);
+          module.exports.displayWelcome();
+        })
+        .catch(err => {
+          console.log(err);
+          module.exports.displayWelcome();
+        });
+      break;
     case '12':
       console.log(`Goodbye!`);
       process.exit();
@@ -147,7 +159,10 @@ module.exports.displayWelcome = () => {
           description: 'Please make a selection'
         }
       ],
-      mainMenuHandler
+      function(err, choice) {
+        if (err) return reject(err);
+        else mainMenuHandler(choice);
+      }
     );
   });
 };
