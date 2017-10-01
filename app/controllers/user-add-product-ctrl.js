@@ -20,7 +20,7 @@ module.exports.promptNewProduct = () => {
         if (typeIndex === productTypes.length - 1) console.log(`Option ${typeIndex + 1}: ${type.name}\n`);
         else console.log(`Option ${typeIndex + 1}: ${type.name}`);
       });
-      // dynamic regex
+      // creates dynamic regex depending on the total product type.
       let splitNum = productTypes.length.toString().split('');
       if (splitNum.length == 1) productTypeRegex = `^([1-${splitNum[0]}])$`;
       else if (splitNum.length > 1) {
@@ -29,7 +29,6 @@ module.exports.promptNewProduct = () => {
         }
         productTypeRegex += ')$';
       }
-      console.log(productTypeRegex);
       // begin user prompt
       prompt.get(
         [
@@ -39,7 +38,7 @@ module.exports.promptNewProduct = () => {
             type: 'string',
             required: true,
             pattern: productTypeRegex,
-            message: 'Only numbers from the menu are accepted.'
+            message: 'Only numbers displayed in the menu are accepted.'
           },
           {
             name: 'price',
