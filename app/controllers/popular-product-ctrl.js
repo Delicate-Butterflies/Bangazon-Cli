@@ -12,25 +12,24 @@ module.exports.displayPopularProducts = () => {
     getPopularProducts().then(data => {
       if (data) {
         data.forEach(prod => {
-          orderTotal += prod.total_products;
+          orderTotal += prod.total_products; //calculate total
           purchasersTotal += prod.purchasers;
           revenueTotal += prod.revenue;
           if (prod.title.length > 18) {
+            //to add dynamic spaces
             prod.title = prod.title.slice(0, 16).concat('... ');
           } else prod.title = prod.title.concat(' '.repeat(20 - prod.title.length));
-          let lengthOfTotalProducts = prod.total_products.toString().length;
-          let lengthOfPurchasers = prod.purchasers.toString().length;
-          prod.total_products = prod.total_products.toString().concat(' '.repeat(11 - lengthOfTotalProducts));
-          prod.purchasers = prod.purchasers.toString().concat(' '.repeat(15 - lengthOfPurchasers));
+          prod.total_products = prod.total_products
+            .toString()
+            .concat(' '.repeat(11 - prod.total_products.toString().length)); // convert integer to string to get the length and to concat the spaces dynamically
+          prod.purchasers = prod.purchasers.toString().concat(' '.repeat(15 - prod.purchasers.toString().length));
           prod.revenue = prod.revenue.toFixed(2);
           console.log(`${prod.title}${prod.total_products}${prod.purchasers}$${prod.revenue}`);
         });
         revenueTotal = revenueTotal.toFixed(2);
         console.log(starLine);
-        let lengthOforderTotal = orderTotal.toString().length;
-        let lengthOfpurchasersTotal = purchasersTotal.toString().length;
-        orderTotal = orderTotal.toString().concat(' '.repeat(11 - lengthOforderTotal));
-        purchasersTotal = purchasersTotal.toString().concat(' '.repeat(15 - lengthOfpurchasersTotal));
+        orderTotal = orderTotal.toString().concat(' '.repeat(11 - orderTotal.toString().length));
+        purchasersTotal = purchasersTotal.toString().concat(' '.repeat(15 - purchasersTotal.toString().length));
         console.log(`Total:              ${orderTotal}${purchasersTotal}$${revenueTotal}`);
         console.log('Press any key to continue.'); //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
         process.stdin.setRawMode(true);
