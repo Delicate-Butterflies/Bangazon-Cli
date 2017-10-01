@@ -46,6 +46,8 @@ module.exports.promptNewUser = () => {
           name: 'city_address',
           description: 'Enter city',
           type: 'string',
+          pattern: /^[a-zA-Z]+$/,
+          messgae: 'No special characters allowed',
           required: true
         },
         {
@@ -53,7 +55,7 @@ module.exports.promptNewUser = () => {
           description: 'Enter state (KY)',
           type: 'string',
           pattern: /^(\w{2})$/,
-          message: 'it has to be a 2 letter state code',
+          message: 'Enter the 2 letter state code',
           required: true
         },
         {
@@ -61,7 +63,7 @@ module.exports.promptNewUser = () => {
           description: 'Enter postal code',
           type: 'string',
           pattern: /^(\d{5})$/,
-          message: 'invalid postal code. Should be 5 digits long only',
+          message: 'Invalid postal code! Should be 5 digits long only',
           required: true
         }
       ],
