@@ -4,6 +4,7 @@ let TIMEOUT = process.env.TIMEOUT;
 const { assert } = require('chai');
 
 const { createTables, insertRows } = require('../db/buildDB');
+
 const {
 	dbCheckForProductSales,
 	dbDeleteProduct,
