@@ -10,8 +10,8 @@ This ordering system allows a user to create an account, add payment options, ad
 1. [Insallation](#installation)
 1. [Get Started](#get-started)
 1. [Helper Applications](#helper-applications)
-1. [Usage Directions](#usage-directions)
 1. [Third Party Libraries](#third-party-libraries)
+1. [Usage Directions](#usage-directions)
 1. [Credits](#credits)
 1. [Contribute to the CLI](#contribute-to-cli)
 
@@ -113,6 +113,7 @@ Users access this prompt to add a product to their order by selecting option 5. 
 Choose a product ID to add to the order:
 How many do you want? (number):
 ```
+
 ### Complete an Order Menu (#6)
 Users access this prompt to complete an order by selecting option 6. If no products have been selected yet, the user will be prompted to return to the main menu. If products have been added, the user will be given the order total and the option to proceed. If the user chooses no, he/she will be returned to the main menu. If the user chooses yes, the user is presented with his/her saved payment types. The user can complete the order by choosing a payment type to add to the order.
 
@@ -176,6 +177,7 @@ Users access this prompt to show stale products. A stale product:
 
 ### Show Customer Revenue Report (#10)
 Users access this prompt to show the current active customer's revenue report.
+
 ```
 Revenue report for Svetlana:
 
@@ -204,7 +206,6 @@ Totals:             190         60            $1,902.81
 
 -> Press any key to return to main menu
 ```
-
 
 ## Credits
 ### Project Manager
