@@ -20,7 +20,7 @@ module.exports.promptPrintUsers = () => {
         ],
         function(err, results) {
           if (err) return reject(err);
-          if (activeUserIDs.toString().includes(results.activeUser)) {
+          if (activeUserIDs.indexOf(results.activeUser) > 0) {
             results.exists = true;
             resolve(results);
           } else {
