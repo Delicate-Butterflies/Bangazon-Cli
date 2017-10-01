@@ -9,7 +9,7 @@ prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
-const { setActiveCustomer, getActiveCustomer } = require('./activeCustomer');
+const { setActiveCustomer, getActiveCustomer, checkActiveCustomer } = require('./activeCustomer');
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
@@ -30,9 +30,12 @@ let mainMenuHandler = userInput => {
       break;
     case '2':
       promptPrintUsers().then(userData => {
-        setActiveCustomer(userData.activeUser);
+        if (userData.exists == true) {
+          setActiveCustomer(userData.activeUser);
+        } else console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
         module.exports.displayWelcome();
       });
+
       break;
     case '3':
       if (getActiveCustomer().id == null) {
