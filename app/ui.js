@@ -30,6 +30,7 @@ let mainMenuHandler = userInput => {
       break;
     case '2':
       promptPrintUsers().then(userData => {
+        console.log(userData);
         if (userData.exists == true) {
           setActiveCustomer(userData.activeUser);
         } else console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
