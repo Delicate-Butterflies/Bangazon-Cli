@@ -98,7 +98,14 @@ let mainMenuHandler = (err, userInput) => {
         console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
         module.exports.displayWelcome();
       } else {
-        promptUpdateProdInfo(getActiveCustomer());
+        promptUpdateProdInfo(getActiveCustomer())
+          .then((resolveFromUpdate) => {
+            console.log(`${resolveFromUpdate.message}`);
+            module.exports.displayWelcome();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       }
       // Note: Currently database lets customer have multiple active orders
       // Need to fix at a later time

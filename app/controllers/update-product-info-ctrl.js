@@ -24,12 +24,11 @@ module.exports.promptUpdateProdInfo = seller_ID => {
             productUpdate.product_id = results.productId;
             dbGetSingleProduct(results.productId)
               .then((productData) => {
-                console.log(
-                  `
-                1. Change Title "${productData.title}"
-                2. Change Description "${productData.description}"
-                3. Change Price "${productData.price}"
-                4. Change Quantity "${productData.original_quantity}"
+                console.log(`
+1. Change Title "${productData.title}"
+2. Change Description "${productData.description}"
+3. Change Price "${productData.price}"
+4. Change Quantity "${productData.original_quantity}"
                 `);
                 prompt.get(
                   [
