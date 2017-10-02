@@ -52,7 +52,6 @@ module.exports.promptUpdateProdInfo = seller_ID => {
                     results.productProperty--;
                     let columnNameArr = ['title', 'description', 'price', 'original_quantity'];
                     productUpdate[columnNameArr[results.productProperty]] = null;
-                    console.log('productUpdate', productUpdate);
                     let columnToUpdate = columnNameArr[results.productProperty];
                     let choiceTextArr = ['Title', 'Description', 'Price', 'Quantity'];
                     prompt.get(
