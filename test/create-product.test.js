@@ -13,7 +13,8 @@ const productObj = {
 	title: 'Rubber Duck',
 	description: 'Its a duck',
 	original_quantity: 5,
-	seller_user_id: 3
+	seller_user_id: 3,
+	created_on: '2017-05-24T03:04:11.035Z'
 };
 
 // start of testing
@@ -47,8 +48,8 @@ describe('Adding a product', () => {
 			assert.isFunction(dbPostProduct);
 		});
 		it('returns an object after a post', () => {
-			return dbPostProduct(productObj).then(response => {
-				assert.isObject(response);
+			return dbPostProduct(productObj).then(dbPostResponse => {
+				assert.isObject(dbPostResponse);
 			});
 		});
 		it('returns a response object after a post', () => {
