@@ -44,7 +44,7 @@ let mainMenuHandler = userInput => {
         module.exports.displayWelcome();
       } else {
         promptAddPayment().then(custData => {
-          let activeUser = getActiveCustomer().id;
+          let activeUser = getActiveCustomer();
           let userObj = {
             customer_user_id: activeUser,
             type: custData.paymentType,
