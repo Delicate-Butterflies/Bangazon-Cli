@@ -17,8 +17,14 @@ const { displayPopularProducts } = require('./controllers/popular-product-ctrl')
 const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
+const { removeUserProduct } = require('./controllers/remove-user-product-ctrl');
 
 prompt.start();
+
+function noActiveCustomerError() {
+	console.log(`\n ${red('>> No Customer. Please select customer (#2) or create new customer (#1) <<')}`);
+	module.exports.displayWelcome();
+}
 
 let mainMenuHandler = userInput => {
 	switch (userInput.choice) {
@@ -105,21 +111,19 @@ let mainMenuHandler = userInput => {
 			break;
 
 		case '7':
-			getUserProducts()
-				.then(data => {
-					getActiveCustomer().then(seller_id => {
-						removeUserProduct(seller_id)
-							.then(message => {
-								console.log(message);
-								module.exports.displayWelcome();
-							})
-							.catch(err);
+			if (getActiveCustomer() == null) {
+				noActiveCustomerError();
+			} else
+				removeUserProduct(getActiveCustomer())
+					.then(data => {
+						console.log(data);
+						module.exports.displayWelcome();
+					})
+					.catch(err => {
+						console.log(err);
+						module.exports.displayWelcome();
 					});
-				})
-				.catch(err => {
-					console.log(err);
-					module.exports.displayWelcome();
-				});
+
 			break;
 
 		case '10':
