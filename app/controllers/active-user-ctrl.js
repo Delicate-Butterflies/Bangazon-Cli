@@ -18,9 +18,10 @@ module.exports.promptPrintUsers = () => {
             description: 'Which customer will be active?'
           }
         ],
-        function(err, results) {
+        function (err, results) {
           if (err) return reject(err);
-          if (activeUserIDs.indexOf(results.activeUser) > 0) {
+          results.activeUser = parseInt(results.activeUser);
+          if (activeUserIDs.indexOf(results.activeUser) > -1) {
             results.exists = true;
             for (let i = 0; i < data.length; i++) {
               if (data[i].id == results.activeUser) results.userName = `${data[i].first_name} ${data[i].last_name}`;

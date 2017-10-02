@@ -44,7 +44,7 @@ let mainMenuHandler = userInput => {
         module.exports.displayWelcome();
       } else {
         promptAddPayment().then(custData => {
-          let activeUser = getActiveCustomer().id;
+          let activeUser = getActiveCustomer();
           let userObj = {
             customer_user_id: activeUser,
             type: custData.paymentType,
@@ -169,7 +169,7 @@ module.exports.displayWelcome = () => {
           description: 'Please make a selection'
         }
       ],
-      function(err, choice) {
+      function (err, choice) {
         if (err) return reject(err);
         else mainMenuHandler(choice);
       }
