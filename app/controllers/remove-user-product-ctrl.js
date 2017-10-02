@@ -17,7 +17,7 @@ module.exports.removeUserProduct = user_id => {
 			console.log(`Customer #${user_id} - all Products:`);
 			data.forEach((product, index) => {
 				productArr.push(product);
-				console.log(`${index + 1}. ${product.title} (#${product.id})`);
+				console.log(`${index + 1}. ${product.title} (product ID ${product.id})`);
 			});
 			prompt.get(
 				[
