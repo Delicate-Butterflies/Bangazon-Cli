@@ -13,13 +13,14 @@ describe('Update product information', () => {
     });
     it('returns expexted content, which is products', () => {
       let expected = {
-        id: 1,
-        product_type_id: 5,
-        price: 94.3,
-        title: 'Awesome Wooden Chair',
-        description: 'Similique aspernatur ex soluta rerum quo est.',
-        original_quantity: 88,
-        seller_user_id: 6
+        id: 31,
+        product_type_id: 10,
+        price: 98.3,
+        title: 'Rustic Fresh Gloves',
+        description: 'In nihil qui animi ipsa maiores non atque et.',
+        original_quantity: 51,
+        seller_user_id: 6,
+        created_on: '2017-02-11T03:07:21.035Z'
       };
       return dbGetAllProductsBySellerID(6).then(data => {
         assert.deepEqual(data[0], expected);
@@ -38,7 +39,8 @@ describe('Update product information', () => {
         title: 'Practical Soft Fish',
         description: 'Voluptas et culpa nobis a incidunt.',
         original_quantity: 81,
-        seller_user_id: 1
+        seller_user_id: 1,
+        created_on: '2016-11-29T08:16:03.439Z'
       };
       return dbGetSingleProduct(4).then(data => {
         assert.deepEqual(data, expected);
@@ -66,7 +68,8 @@ describe('Update product information', () => {
         title: 'Large Soft Cheese',
         description: 'it is tasty',
         original_quantity: 99,
-        seller_user_id: 1
+        seller_user_id: 1,
+        created_on: '2017-09-30T03:07:21.035Z'
       };
       return dbPutProduct({ title: 'Large Soft Cheese', description: 'it is tasty', original_quantity: 99 }, 10)
         .then(() => {
