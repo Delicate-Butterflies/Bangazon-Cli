@@ -221,7 +221,6 @@ Totals:             190         60            $1,902.81
 
 ## Contribute to CLI
 - fork - issue tickets and pull requests are welcome
-- use [airbnb style](https://github.com/airbnb/javascript)
 - follow the template for PR requests
 - tab size 2
 
