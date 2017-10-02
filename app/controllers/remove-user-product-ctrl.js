@@ -7,6 +7,12 @@ const { red, blue } = require('chalk');
 let { dbCheckForProductSales, dbDeleteProduct, dbGetAllProductsByUser } = require('../models/Product.js');
 let { dbDeleteOpenOrderByProduct } = require('../models/Order-Product.js');
 
+/**
+ * Updates the current order with the user's selected payment type. This action completes the order.
+ * @param {number} - order ID from order table representing current active user's open order
+ * @param {object} - object containing key/value to be updated in the order object
+ * @return {promise} - resolves with a message that the order has been successfully updated
+ */
 module.exports.removeUserProduct = user_id => {
 	return new Promise((resolve, reject) => {
 		dbGetAllProductsByUser(user_id).then(data => {
@@ -42,7 +48,7 @@ module.exports.removeUserProduct = user_id => {
 									.then(() => {
 										dbDeleteOpenOrderByProduct(productId)
 											.then(() => {
-												resolve(`${blue(`\n Product id ${productId} removed`)}`);
+												resolve(`${blue(`\n Product id ${productId} removed from database`)}`);
 											})
 											.catch(err => {
 												return reject(err);
@@ -58,7 +64,7 @@ module.exports.removeUserProduct = user_id => {
 								// resolve (`${blue(`\n Removed product ${} from open orders, available quantity to zero`)}`);
 								resolve(`${red(`\n >>Cannot remove product id #${productId}, it is associated with orders<<`)}`);
 							} else {
-								resolve(`${red('\n >>Removing product unsuccessfull<<')}`);
+								return reject(`${red('\n >>Removing product unsuccessfull; database error, please contact admin<<')}`);
 							}
 						});
 					}
