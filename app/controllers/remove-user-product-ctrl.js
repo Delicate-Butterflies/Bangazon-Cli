@@ -70,7 +70,7 @@ module.exports.removeUserProduct = user_id => {
 									.then(OPdata => {
 										console.log(OPdata);
 									})
-									.catch(() => {
+									.catch(err => {
 										return reject(err);
 									});
 								// resolve (`${blue(`\n Removed product ${} from open orders, available quantity to zero`)}`);
