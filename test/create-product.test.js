@@ -49,7 +49,6 @@ describe('Adding a product', () => {
 		});
 		it('returns an object after a post', () => {
 			return dbPostProduct(productObj).then(dbPostResponse => {
-				console.log('post response', dbPostResponse);
 				assert.isObject(dbPostResponse);
 			});
 		});
