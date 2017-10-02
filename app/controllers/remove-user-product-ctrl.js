@@ -29,6 +29,8 @@ module.exports.removeUserProduct = user_id => {
 				function(err, choice) {
 					if (err) {
 						return reject(err);
+					} else if (choice.number > productArr.length) {
+						return reject(`${red(`\n  >>No product #${choice.number} listed<<`)}`);
 					} else {
 						let productId = productArr[choice.number - 1].id;
 						dbCheckForProductSales(productId).then(data => {
@@ -39,7 +41,7 @@ module.exports.removeUserProduct = user_id => {
 									.then(() => {
 										dbDeleteOpenOrderByProduct(productId)
 											.then(() => {
-												resolve(`${blue(`Product id ${productId} removed`)}`);
+												resolve(`${blue(`\n Product id ${productId} removed`)}`);
 											})
 											.catch(err => {
 												reject(err);
@@ -51,9 +53,9 @@ module.exports.removeUserProduct = user_id => {
 							} else if (data.sold > 0) {
 								// TODO - change original quantity to # sold? (available)
 								// TODO - OR remove from all open orders, but do not delete product or closed orderProduct
-								resolve(`${red(`Cannot remove product id #${productId}, it is associated with orders`)}`);
+								resolve(`${red(`\n >>Cannot remove product id #${productId}, it is associated with orders<<`)}`);
 							} else {
-								resolve(`${red('Removing product unsuccessfull')}`);
+								resolve(`${red('\n >>Removing product unsuccessfull<<')}`);
 							}
 						});
 					}
