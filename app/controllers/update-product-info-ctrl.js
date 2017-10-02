@@ -3,6 +3,11 @@
 const prompt = require('prompt');
 const { dbGetAllProductsBySellerID, dbGetSingleProduct, dbPutProduct } = require('../models/Product');
 
+
+/**
+ * Prompts the user to select one of their products to update
+ * @param {number} seller_ID - userId from users table representing current active user
+ */
 module.exports.promptUpdateProdInfo = seller_ID => {
   let productUpdate = { body: {} };
   return new Promise((resolve, reject) => {
