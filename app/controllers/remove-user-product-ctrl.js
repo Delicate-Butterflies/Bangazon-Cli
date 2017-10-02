@@ -2,8 +2,7 @@
 /* eslint-disable no-console */
 
 const prompt = require('prompt');
-const { red, magenta, blue } = require('chalk');
-const colors = require('colors/safe');
+const { red, blue } = require('chalk');
 
 let { dbCheckForProductSales, dbDeleteProduct, dbGetAllProductsByUser } = require('../models/Product.js');
 let { dbDeleteOpenOrderByProduct } = require('../models/Order-Product.js');
