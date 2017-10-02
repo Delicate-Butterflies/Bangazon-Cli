@@ -38,7 +38,6 @@ describe('Adding a product', () => {
 		});
 		it('returns a product object', () => {
 			return dbGetSingleProduct(1).then(data => {
-				console.log(data);
 				assert.hasAllKeys(data, productObj);
 			});
 		});
@@ -49,8 +48,9 @@ describe('Adding a product', () => {
 			assert.isFunction(dbPostProduct);
 		});
 		it('returns an object after a post', () => {
-			return dbPostProduct(productObj).then(response => {
-				assert.isObject(response);
+			return dbPostProduct(productObj).then(dbPostResponse => {
+				console.log('post response', dbPostResponse);
+				assert.isObject(dbPostResponse);
 			});
 		});
 		it('returns a response object after a post', () => {
