@@ -1,5 +1,5 @@
 const { assert } = require('chai');
-const { dbGetAllProductsBySellerID, dbGetSingleProduct, dbPutProduct } = require('../app/models/product.js');
+const { dbGetAllProductsBySellerID, dbGetSingleProduct, dbPutProduct, dbCheckForProductSales } = require('../app/models/Product');
 
 describe('Update product information', () => {
   describe('dbGetAllProductsBySellerID', () => {
@@ -45,6 +45,15 @@ describe('Update product information', () => {
       });
     });
   });
+  describe('dbCheckForProductSales', () => {
+    it('should get the original amount and ammount sold', () => {
+      return dbCheckForProductSales(10)
+        .then((productQuantities) => {
+          assert.propertyVal(productQuantities, 'original_quantity', 94);
+          assert.propertyVal(productQuantities, 'sold', 11);
+        });
+    });
+  });
   describe('dbPutProduct', () => {
     it('is a function', () => {
       assert.isFunction(dbPutProduct);
@@ -59,7 +68,7 @@ describe('Update product information', () => {
         original_quantity: 99,
         seller_user_id: 1
       };
-      return dbPutProduct({ body: { title: 'Large Soft Cheese', description: 'it is tasty', original_quantity: 99 } }, 10)
+      return dbPutProduct({ title: 'Large Soft Cheese', description: 'it is tasty', original_quantity: 99 }, 10)
         .then(() => {
           return dbGetSingleProduct(10);
         })

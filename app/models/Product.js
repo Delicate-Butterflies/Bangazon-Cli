@@ -21,6 +21,7 @@ module.exports.dbGetAllProducts = () => {
  * @param {number} id - the primary key of the product
  */
 module.exports.dbGetSingleProduct = id => {
+  // TODO check that there is still inventory available
   return new Promise((resolve, reject) => {
     db.get(
       `SELECT * FROM products
@@ -59,7 +60,7 @@ module.exports.dbDeleteProduct = id => {
   return new Promise((resolve, reject) => {
     db.run(`DELETE FROM products WHERE id = ${id}`, function (err) {
       if (err) return reject(err);
-      resolve({ message: 'delete successful', rows_deleted: this.changes });
+      resolve({ message: 'product deleted', id: this.lastID });
     });
   });
 };
@@ -69,13 +70,12 @@ module.exports.dbDeleteProduct = id => {
  * @param {object} req - Object with body that contains one or more keys:  price, title, description, original_quantity, seller_user_id
  * @param {number} product_id - Primary key of the product to be modified
  */
-module.exports.dbPutProduct = (req, product_id) => {
-  let product = req.body;
+module.exports.dbPutProduct = (productUpdateObj, product_id) => {
   return new Promise((resolve, reject) => {
     let query = `UPDATE products SET `;
-    let keys = Object.keys(product);
+    let keys = Object.keys(productUpdateObj);
     keys.forEach(key => {
-      query += `"${key}" = "${product[key]}",`;
+      query += `"${key}" = "${productUpdateObj[key]}",`;
     });
     query = query.slice(0, -1);
     query += ` WHERE id = ${product_id}`;
@@ -114,3 +114,52 @@ module.exports.dbGetProductSoldQty = (id) => {
       });
   });
 };
+
+module.exports.dbCheckForProductSales = product_id => {
+  // takes product id, returns number of product sold(data.sold) and original_quantity (data.original_quantity)
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT count(op.product_id) as sold, p.original_quantity
+			FROM products p, orders o, ordersProducts op
+			WHERE  p.id = ${product_id}
+			AND p.id = op.product_id
+			AND op.order_id = o.id
+			AND o.payment_type_id != 'null'`,
+      (err, data) => {
+        if (err) return reject(err);
+        resolve(data);
+      }
+    );
+  });
+};
+
+module.exports.removeProductFromOpenOrders = () => { };
+
+module.exports.dbGetAllProductsByUser = userId => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM products WHERE seller_user_id = ${userId}`, (err, productdata) => {
+      if (err) return reject(err);
+      resolve(productdata);
+    });
+  });
+};
+
+/*
+	TODO - db currently has no products that have not sold, according to following query:
+	SELECT count(op.product_id) as sold, p.original_quantity
+	FROM products p, orders o, ordersProducts op
+	WHERE p.id = op.product_id
+	AND op.order_id = o.id
+	AND o.payment_type_id != 'null'
+	GROUP BY p.id
+	having count(p.id = op.product_id) = 0
+*/
+
+/*
+  dbDeleteRemainingProductQuantity
+  ARGS: product_id (from product table)
+  takes a product id, removes the remaining quantity
+  TODO: db product has original quantity, not quantity remaining.
+  new property? other way to display remaining after sales?
+*/
+// module.exports.dbDeleteRemainingProductQuantity = product_id => {};

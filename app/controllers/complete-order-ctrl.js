@@ -15,18 +15,13 @@ module.exports.promptCompleteOrder = userId => {
       .then(data => {
         //if there are no products in the customer's open order
         if (data == undefined) {
-          console.log('Please add some products to your order first. Press return to go back to main menu.');
-          prompt.get(
-            [
-              {
-                name: 'anyKey'
-              }
-            ],
-            function(err, results) {
-              if (err) return reject(err);
-              resolve('Return to main menu.');
-            }
-          );
+          console.log('Please add some products to your order first. Press any key to return to main menu.');
+          //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
+          process.stdin.setRawMode(true);
+          process.stdin.resume();
+          process.stdin.on('data', () => {
+            resolve('Return to main menu.');
+          });
         } else {
           //if there are products in the customers open order
           let orderId = data.id;

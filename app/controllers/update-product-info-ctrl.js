@@ -1,7 +1,7 @@
 'use strict';
 
 const prompt = require('prompt');
-const { dbGetAllProductsBySellerID, dbGetSingleProduct, dbPutProduct } = require('../models/Product');
+const { dbGetAllProductsBySellerID, dbGetSingleProduct, dbPutProduct, dbCheckForProductSales } = require('../models/Product');
 
 
 /**
@@ -9,7 +9,8 @@ const { dbGetAllProductsBySellerID, dbGetSingleProduct, dbPutProduct } = require
  * @param {number} seller_ID - userId from users table representing current active user
  */
 module.exports.promptUpdateProdInfo = seller_ID => {
-  let productUpdate = { body: {} };
+  let productUpdate = {};
+  let productID = null;
   return new Promise((resolve, reject) => {
     dbGetAllProductsBySellerID(seller_ID)
       .then(sellerProdsArray => {
@@ -26,14 +27,18 @@ module.exports.promptUpdateProdInfo = seller_ID => {
           ],
           function (err, results) {
             if (err) return reject(err);
-            productUpdate.product_id = results.productId;
-            dbGetSingleProduct(results.productId)
+            productID = results.productId;
+            let soldQty = null;
+            dbCheckForProductSales(results.productId).then((productQty) => {
+              soldQty = productQty.sold;
+              return dbGetSingleProduct(results.productId);
+            })
               .then((productData) => {
                 console.log(`
 1. Change Title "${productData.title}"
 2. Change Description "${productData.description}"
 3. Change Price "${productData.price}"
-4. Change Quantity "${productData.original_quantity}"
+4. Change Available Quantity "${productData.original_quantity - soldQty}" (${productData.original_quantity} original qty)
                 `);
                 prompt.get(
                   [
@@ -46,8 +51,8 @@ module.exports.promptUpdateProdInfo = seller_ID => {
                     if (err) return reject(err);
                     results.productProperty--;
                     let columnNameArr = ['title', 'description', 'price', 'original_quantity'];
-                    productUpdate.body[columnNameArr[results.productProperty]] = ' ';
-                    // console.log('productUpdate', productUpdate);
+                    productUpdate[columnNameArr[results.productProperty]] = null;
+                    console.log('productUpdate', productUpdate);
                     let columnToUpdate = columnNameArr[results.productProperty];
                     let choiceTextArr = ['Title', 'Description', 'Price', 'Quantity'];
                     prompt.get(
@@ -59,9 +64,14 @@ module.exports.promptUpdateProdInfo = seller_ID => {
                       ],
                       function (err, results) {
                         if (err) return reject(err);
-                        productUpdate.body[columnToUpdate] = results.productPropertyValue;
+                        console.log('results', results);
+                        if (productUpdate.hasOwnProperty('original_quantity')) {
+                          productUpdate.original_quantity = parseInt(results.productPropertyValue) + parseInt(soldQty);
+                        } else {
+                          productUpdate[columnToUpdate] = results.productPropertyValue;
+                        }
                         // console.log(productUpdate);
-                        dbPutProduct(productUpdate, productUpdate.product_id)
+                        dbPutProduct(productUpdate, productID)
                           .then((updateMsg) => {
                             resolve(updateMsg);
                           })
