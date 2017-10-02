@@ -99,3 +99,18 @@ module.exports.dbGetAllProductsBySellerID = seller_ID => {
     });
   });
 };
+
+module.exports.dbGetProductSoldQty = (id) => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT p.id, p.product_type_id, p.price, p.title, p.description, p.original_quantity, count(op.id) as sold_quantity, p.seller_user_id
+            FROM products p
+            JOIN ordersProducts op ON p.id = op.product_id
+            JOIN orders o ON op.order_id = o.id
+            WHERE p.id = ${id}
+            AND o.payment_type_id != 'null'
+            GROUP BY p.id`, (err, rows) => {
+
+
+      });
+  });
+};
