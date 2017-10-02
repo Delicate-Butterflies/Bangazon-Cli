@@ -45,28 +45,33 @@ describe('Show stale products', () => {
       assert.isFunction(dbGetStaleProductsByCriteriaTwo);
     });
     it('returns an array', () => {
-      return dbGetStaleProductsByCriteriaTwo().then(response => {
+      return dbGetStaleProductsByCriteriaTwo(1).then(response => {
         assert.isArray(response);
       });
     });
     it('returns an array of objects', () => {
-      return dbGetAllProductsByUser(1).then(response => {
+      return dbGetStaleProductsByCriteriaTwo(1).then(response => {
         response.forEach(product => {
           assert.isObject(product);
         });
       });
     });
-    it('returns an array of product objects', () => {
-      return dbGetAllProductsByUser(1).then(response => {
+    it('returns an array of objects with product titles', () => {
+      return dbGetStaleProductsByCriteriaTwo(1).then(response => {
         response.forEach(product => {
-          assert.hasAllKeys(
-            product,
-            ['id', 'product_type_id', 'price', 'title', 'description', 'original_quantity', 'seller_user_id'],
-            'wheres this message end up'
-          );
+          assert.hasAllKeys(product, ['title'], 'wheres this message end up');
         });
       });
     });
-    // it("returns an array of user's objects that have been added to an order", () => {});
+    it("returns an array of user's objects that have been added to an order", () => {
+      return dbGetStaleProductsByCriteriaTwo(1).then(response => {
+        assert.deepEqual(response, [{ title: 'Small Wooden Cheese' }, { title: 'Practical Soft Fish' }]);
+      });
+    });
+    it("returns an array of user's objects that have been added to an incomplete order", () => {
+      return dbGetStaleProductsByCriteriaTwo(1).then(response => {
+        assert.deepEqual(response, [{ title: 'Practical Soft Fish' }]);
+      });
+    });
   });
 });
