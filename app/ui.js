@@ -4,7 +4,6 @@
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
-const colors = require('colors/safe');
 prompt.message = colors.blue('Bangazon Corp');
 
 // app modules

@@ -2,6 +2,7 @@ require('dotenv').config();
 let TIMEOUT = process.env.TIMEOUT;
 
 const { assert } = require('chai');
+const { red } = require('chalk');
 
 const { createTables, insertRows } = require('../db/buildDB');
 
@@ -58,33 +59,33 @@ describe('Removing user product:', () => {
 		it('should be a function', () => {
 			assert.isFunction(removeUserProduct);
 		});
-		// the following will not currently return any products with current db setup - see models/Products
-		it('should return confirmation message on delete', () => {
-			let newProduct = {
-				product_type_id: 1,
-				price: 10.1,
-				title: 'Tasty Test Product',
-				description: 'This new product is super tasty',
-				original_quantity: 5,
-				seller_user_id: 1
-			};
-			return dbPostProduct(newProduct).then(({ id }) => {
-				let expected = `Product id ${id} removed`;
-				return removeUserProduct(id).then(data => {
-					assert.equal(data, expected);
-				});
-			});
-		});
-		it('should not remove product attached to closed order', () => {
-			let expected = `Cannot remove product, it is associated with orders`;
-			return removeUserProduct(2).then(data => {
-				assert.equal(data, expected);
-			});
-		});
-		it('should delete any ordersProducts rows from open order', () => {
-			return dbDeleteOpenOrderByProduct(4).then(data => {
-				assert.equal(data.rows_deleted, 5);
-			});
-		});
+		// 	// the following will not currently return any products with current db setup - see models/Products
+		// 	it('should return confirmation message on delete', () => {
+		// 		let newProduct = {
+		// 			product_type_id: 1,
+		// 			price: 10.1,
+		// 			title: 'Tasty Test Product',
+		// 			description: 'This new product is super tasty',
+		// 			original_quantity: 5,
+		// 			seller_user_id: 1
+		// 		};
+		// 		return dbPostProduct(newProduct).then(({ id }) => {
+		// 			let expected = `Product id ${id} removed`;
+		// 			return removeUserProduct(id).then(data => {
+		// 				assert.equal(data, expected);
+		// 			});
+		// 		});
+		// 	});
+		// 	it('should not remove product attached to closed order', () => {
+		// 		let expected = `Cannot remove product, it is associated with orders`;
+		// 		return removeUserProduct(2).then(data => {
+		// 			assert.equal(data, expected);
+		// 		});
+		// 	});
+		// 	it('should delete any ordersProducts rows from open order', () => {
+		// 		return dbDeleteOpenOrderByProduct(4).then(data => {
+		// 			assert.equal(data.rows_deleted, 5);
+		// 		});
+		// 	});
 	});
 });
