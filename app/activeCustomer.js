@@ -1,5 +1,7 @@
 'use strict';
 
+/** @module Active Customer */
+
 let activeCustomer = {
   id: null,
   name: null

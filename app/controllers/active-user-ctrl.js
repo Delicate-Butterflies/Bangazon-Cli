@@ -3,6 +3,8 @@
 const prompt = require('prompt');
 const { dbGetAllUsers } = require('../models/User');
 
+/** @module Active User Controller */
+
 module.exports.promptPrintUsers = () => {
   let activeUserIDs = [];
   return new Promise((resolve, reject) => {
@@ -18,7 +20,7 @@ module.exports.promptPrintUsers = () => {
             description: 'Which customer will be active?'
           }
         ],
-        function (err, results) {
+        function(err, results) {
           if (err) return reject(err);
           results.activeUser = parseInt(results.activeUser);
           if (activeUserIDs.indexOf(results.activeUser) > -1) {

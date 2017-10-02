@@ -3,14 +3,15 @@
     "allowUnknownTags": true
   },
   "source": {
-    "include": [
-      "app/models/Order-Product.js",
-      "app/models/Order.js",
-      "app/models/Payment-Types.js",
-      "app/models/Product-Type.js",
-      "app/models/Product.js",
-      "app/models/User.js"
-    ],
+    // "include": [
+    //   "app/models/Order-Product.js",
+    //   "app/models/Order.js",
+    //   "app/models/Payment-Types.js",
+    //   "app/models/Product-Type.js",
+    //   "app/models/Product.js",
+    //   "app/models/User.js",
+    //   "app/controllers/complete-order-ctrl.js"
+    // ],
     "includePattern": ".+\\.js(doc|x)?$",
     "excludePattern": "(^|\\/|\\\\)_"
   },
@@ -23,6 +24,7 @@
     }
   },
   "opts": {
-    "destination": "./docs/" // same as -d ./docs/
+    "destination": "./docs/", // same as -d ./docs/
+    "recurse": true // same as -r
   }
 }

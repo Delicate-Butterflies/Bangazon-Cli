@@ -5,6 +5,8 @@ const { dbGetAllProducts } = require('../models/Product');
 const { dbPostOrderProduct } = require('../models/Order-Product');
 const { dbGetOpenOrderByUser, dbPostOrder } = require('../models/Order');
 
+/** @module Add to Order Controller */
+
 //gets all products, lists them, and prompts user to type an id and then quantity
 //TODO: Doing way too much in this one function
 module.exports.promptAddToOrder = userId => {

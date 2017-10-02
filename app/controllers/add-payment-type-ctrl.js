@@ -3,6 +3,8 @@
 const prompt = require('prompt');
 const { dbPostPaymentType } = require('../models/Payment-Types');
 
+/** @module Add Payment Type Controller */
+
 module.exports.promptAddPayment = () => {
   return new Promise((resolve, reject) => {
     prompt.get(

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Home</title>
+    <title>JSDoc: Source: controllers/add-payment-type-ctrl.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,32 +17,61 @@
 
 <div id="main">
 
-    <h1 class="page-title">Home</h1>
+    <h1 class="page-title">Source: controllers/add-payment-type-ctrl.js</h1>
 
     
 
 
 
     
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
+/* eslint-disable no-console */
+const prompt = require('prompt');
+const { dbPostPaymentType } = require('../models/Payment-Types');
 
+/** @module Add Payment Type Controller */
 
-    <h3> </h3>
+module.exports.promptAddPayment = () => {
+  return new Promise((resolve, reject) => {
+    prompt.get(
+      [
+        {
+          name: 'paymentType',
+          pattern: /^[a-zA-Z]+$/, //takes only letters
+          description: 'Enter payment type (visa, amex, etc)',
+          message: 'payment type must be letters only',
+          type: 'string',
+          required: true
+        },
+        {
+          name: 'accountNumber',
+          description: 'Enter Account Number(16 digits)',
+          pattern: /^(\d{16})$/, //takes only digits and exactly 16
+          type: 'string',
+          message: 'account number must be digits only and 16 characters long',
+          required: true
+        }
+      ],
+      function(err, results) {
+        if (err) return reject(err);
+        resolve(results);
+      }
+    );
+  });
+};
 
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
+module.exports.addPaymentType = paymentObj => {
+  return new Promise((resolve, reject) => {
+    dbPostPaymentType(paymentObj).then(data => {
+      resolve(data);
+    });
+  });
+};
+</code></pre>
+        </article>
+    </section>
 
 
 

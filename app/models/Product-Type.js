@@ -4,6 +4,8 @@ const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/bangazon.sqlite');
 db.run(`PRAGMA foreign_keys = ON`);
 
+/** @module Product Type Model */
+
 module.exports.dbGetAllProductTypes = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM product_types`, (err, productTypeData) => {

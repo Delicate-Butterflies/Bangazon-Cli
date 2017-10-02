@@ -3,6 +3,8 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/bangazon.sqlite');
 
+/** @module Payment Type Model */
+
 module.exports.dbGetAllPaymentTypes = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM payment_types`, (err, allPaymentTypesData) => {

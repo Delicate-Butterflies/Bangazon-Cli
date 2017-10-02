@@ -1,6 +1,9 @@
 'use strict';
 /* eslint-disable no-console */
 const { getPopularProducts } = require('../models/Order-Product');
+
+/** @module Popular Product Controller */
+
 module.exports.displayPopularProducts = () => {
   let orderTotal = 0;
   let purchasersTotal = 0;
