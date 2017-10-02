@@ -84,7 +84,7 @@ function promptChoosePaymentOption(userId, orderId) {
         ],
         function(err, results) {
           if (err) return reject(err);
-          dbPutOrder(orderId, { payment_type_id: results.paymentChoice })
+          dbPutOrder(orderId, { payment_type_id: results.paymentChoice, order_date: new Date().toISOString() })
             .then(data => {
               resolve(data);
             })

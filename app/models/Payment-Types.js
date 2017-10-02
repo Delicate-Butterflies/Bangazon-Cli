@@ -24,7 +24,7 @@ module.exports.dbGetOnePaymentType = id => {
 module.exports.dbPutPaymentType = (req, payment_type_id) => {
   let payment_type = req.body;
   return new Promise((resolve, reject) => {
-    let query = `UPDATE payment_types SET `;
+    let query = `UPDATE payment_types SET`;
     let keys = Object.keys(payment_type);
     keys.forEach(key => {
       query += `"${key}" = "${payment_type[key]}",`;
