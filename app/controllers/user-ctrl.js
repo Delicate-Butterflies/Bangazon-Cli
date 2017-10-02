@@ -1,6 +1,7 @@
 'use strict';
 
 const prompt = require('prompt');
+const keypress = require('keypress');
 
 /* prompt info:
   description: 'Enter your password',     // Prompt displayed to the user. If not supplied name will be used.
@@ -18,6 +19,18 @@ let { dbPostUser } = require('../models/User.js');
 
 module.exports.promptNewUser = () => {
   return new Promise((resolve, reject) => {
+    console.log('Press esc to exit...');
+    process.stdin.setRawMode(true);
+    process.stdin.resume(); //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
+    process.stdin.on('data', key => {
+      let newKey = process.stdin.read(key);
+      console.log(newKey);
+      if (key.toString('utf-8') == null) {
+        prompt.stop();
+        resolve('You have returned to the main menu!');
+        // process.stdin.setRawMode(true);
+      }
+    });
     prompt.get(
       [
         {
