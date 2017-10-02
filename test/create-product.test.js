@@ -19,7 +19,7 @@ const productObj = {
 // start of testing
 describe('Adding a product', () => {
   // Reset the db
-  before(function() {
+  before(function () {
     this.timeout(TIMEOUT);
     return createTables().then(() => {
       return insertRows();
@@ -37,7 +37,7 @@ describe('Adding a product', () => {
     });
     it('returns a product object', () => {
       return dbGetSingleProduct(1).then(data => {
-        assert.hasAllKeys(data, productObj);
+        assert.containsAllKeys(data, productObj);
       });
     });
   });
@@ -59,8 +59,15 @@ describe('Adding a product', () => {
     it('posts to the db', () => {
       return dbPostProduct(productObj).then(response => {
         productObj.id = response.id;
-        return dbGetSingleProduct(response.id).then(response => {
-          assert.deepEqual(response, productObj);
+        console.log('response.id', response.id);
+        return dbGetSingleProduct(response.id).then(response2 => {
+          console.log('response2', response2);
+          assert.propertyVal(response2, 'product_type_id', 3);
+          assert.propertyVal(response2, 'price', 5);
+          assert.propertyVal(response2, 'title', 'Rubber Duck');
+          assert.propertyVal(response2, 'description', 'Its a duck');
+          assert.propertyVal(response2, 'original_quantity', 5);
+          assert.propertyVal(response2, 'seller_user_id', 3);
         });
       });
     });
