@@ -58,23 +58,25 @@ module.exports.removeUserProduct = user_id => {
 									});
 							} else if (data.sold > 0) {
 								let productUpdate = { original_quantity: data.sold };
+								console.log('productUpdate', productUpdate);
 								dbPutProduct(productUpdate, productId)
 									.then(updateData => {
-										console.log(updateData);
+										console.log('updateData', updateData);
+										// remove from all open orders (remove open order ordersProducts rows)
+										dbDeleteOpenOrderByProduct(productId)
+											.then(OPdata => {
+												console.log('OPdata', OPdata);
+												resolve(
+													`${blue(`\n >>Removed available quantity of #${productId} and removed from open orders<<`)}`
+												);
+											})
+											.catch(err => {
+												return reject(err);
+											});
 									})
 									.catch(err => {
 										return reject(err);
 									});
-								// remove from all open orders (remove open order ordersProducts rows)
-								dbDeleteOpenOrderByProduct(productId)
-									.then(OPdata => {
-										console.log(OPdata);
-									})
-									.catch(err => {
-										return reject(err);
-									});
-								// resolve (`${blue(`\n Removed product ${} from open orders, available quantity to zero`)}`);
-								resolve(`${red(`\n >>Cannot remove product id #${productId}, it is associated with orders<<`)}`);
 							} else {
 								return reject(`${red('\n >>Removing product unsuccessfull; database error, please contact admin<<')}`);
 							}
