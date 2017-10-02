@@ -4,7 +4,7 @@
 const prompt = require('prompt');
 const { red, blue } = require('chalk');
 
-let { dbCheckForProductSales, dbDeleteProduct, dbGetAllProductsByUser } = require('../models/Product.js');
+let { dbCheckForProductSales, dbDeleteProduct, dbGetAllProductsByUser, dbPutProduct } = require('../models/Product.js');
 let { dbDeleteOpenOrderByProduct } = require('../models/Order-Product.js');
 
 /**
@@ -39,10 +39,9 @@ module.exports.removeUserProduct = user_id => {
 						return reject(`${red(`\n  >>No product #${choice.number} listed<<`)}`);
 					} else {
 						let productId = productArr[choice.number - 1].id;
-						// this will change to dbGetSingleProduct
 						dbCheckForProductSales(productId).then(data => {
-							// let data.sold ==> data.original_q - data.sold_quantity
-							if (data.sold === 0) {
+							if (data.sold == 0 || data.sold == undefined) {
+								console.log('no products sold');
 								// TODO add sold < original quantity case
 								dbDeleteProduct(productId)
 									.then(() => {
@@ -58,9 +57,22 @@ module.exports.removeUserProduct = user_id => {
 										return reject(err);
 									});
 							} else if (data.sold > 0) {
-								// TODO - change original quantity to # sold? (available)
-								// change original_quantity to sold_quantity
+								let productUpdate = { original_quantity: data.sold };
+								dbPutProduct(productUpdate, productId)
+									.then(updateData => {
+										console.log(updateData);
+									})
+									.catch(err => {
+										return reject(err);
+									});
 								// remove from all open orders (remove open order ordersProducts rows)
+								dbDeleteOpenOrderByProduct(productId)
+									.then(OPdata => {
+										console.log(OPdata);
+									})
+									.catch(() => {
+										return reject(err);
+									});
 								// resolve (`${blue(`\n Removed product ${} from open orders, available quantity to zero`)}`);
 								resolve(`${red(`\n >>Cannot remove product id #${productId}, it is associated with orders<<`)}`);
 							} else {
