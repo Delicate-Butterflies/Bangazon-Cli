@@ -20,16 +20,14 @@ module.exports.promptPrintUsers = () => {
 				],
 				function(err, results) {
 					if (err) return reject(err);
-					if (activeUserIDs.indexOf(parseInt(results.activeUser)) > -1) {
+					results.activeUser = parseInt(results.activeUser);
+					if (activeUserIDs.indexOf(results.activeUser) > -1) {
 						results.exists = true;
 						for (let i = 0; i < data.length; i++) {
 							if (data[i].id == results.activeUser) results.userName = `${data[i].first_name} ${data[i].last_name}`;
 						}
-						resolve(results);
-					} else {
-						results.exists = false;
-						resolve(results);
-					}
+					} else results.exists = false;
+					resolve(results);
 				}
 			);
 		});

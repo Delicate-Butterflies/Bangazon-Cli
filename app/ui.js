@@ -4,8 +4,7 @@
 // 3rd party libs
 const { red, magenta } = require('chalk');
 const prompt = require('prompt');
-const colors = require('colors/safe');
-prompt.message = colors.blue('Bangazon Corp');
+prompt.message = blue('Bangazon Corp');
 
 // app modules
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
@@ -186,6 +185,7 @@ module.exports.displayWelcome = () => {
   ${magenta('10.')} Show customer revenue report
   ${magenta('11.')} Show overall product popularity
   ${magenta('12.')} Leave Bangazon!\n`);
+<<<<<<< HEAD
 		prompt.get(
 			[
 				{
@@ -199,4 +199,19 @@ module.exports.displayWelcome = () => {
 			}
 		);
 	});
+=======
+    prompt.get(
+      [
+        {
+          name: 'choice',
+          description: 'Please make a selection'
+        }
+      ],
+      function(err, choice) {
+        if (err) return reject(err);
+        else mainMenuHandler(choice);
+      }
+    );
+  });
+>>>>>>> master
 };
