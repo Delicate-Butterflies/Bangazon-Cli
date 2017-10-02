@@ -29,7 +29,7 @@ module.exports.removeUserProduct = user_id => {
 				function(err, choice) {
 					if (err) {
 						return reject(err);
-					} else if (choice.number > productArr.length) {
+					} else if (parseInt(choice.number) < 1 || choice.number > productArr.length) {
 						return reject(`${red(`\n  >>No product #${choice.number} listed<<`)}`);
 					} else {
 						let productId = productArr[choice.number - 1].id;
