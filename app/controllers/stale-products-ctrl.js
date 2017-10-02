@@ -1,13 +1,34 @@
-// 'use strict';
-// /* eslint-disable no-console */
+'use strict';
+/* eslint-disable no-console */
 
-// // require modules
-// const prompt = require('prompt');
-// const { dbGetAllProductTypes } = require('../models/Product-Type');
-// const { dbPostProduct } = require('../models/Product');
-// const { getActiveCustomer } = require('../activeCustomer');
+// require modules
+const prompt = require('prompt');
 
-// // start prompt
+const { dbGetAllStaleProducts, dbGetUsersStaleProducts } = require('../app/models/Product');
+
+// start prompt
+module.exports.promptStaleProductsChoice = () => {
+  return new Promise((resolve, reject) => {
+    console.log('What whould you like to view?');
+    console.log('01. All stale products.');
+    console.log('2. Your stale products.');
+    prompt.get(
+      [
+        {
+          name: 'stale_products_choice',
+          description: 'Enter 1 or 2',
+          pattern: '^([1-2])$',
+          message: 'Answer must be a 1 or 2',
+          required: true
+        }
+      ],
+      function(err, results) {
+        console.log('stale products choice', results.stale_products_choice);
+      }
+    );
+  });
+};
+
 // module.exports.promptNewProduct = () => {
 //   return new Promise((resolve, reject) => {
 //     // console logs to make the prompt look prettier
