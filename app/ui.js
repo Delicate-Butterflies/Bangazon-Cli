@@ -110,7 +110,7 @@ let mainMenuHandler = userInput => {
 		case '7':
 			if (getActiveCustomer() == null) {
 				noActiveCustomerError();
-			} else
+			} else {
 				removeUserProduct(getActiveCustomer())
 					.then(data => {
 						console.log(data);
@@ -120,6 +120,7 @@ let mainMenuHandler = userInput => {
 						console.log(err);
 						module.exports.displayWelcome();
 					});
+				}
 
 			break;
 
