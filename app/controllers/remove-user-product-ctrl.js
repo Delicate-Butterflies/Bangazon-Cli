@@ -8,10 +8,10 @@ let { dbCheckForProductSales, dbDeleteProduct, dbGetAllProductsByUser } = requir
 let { dbDeleteOpenOrderByProduct } = require('../models/Order-Product.js');
 
 /**
- * Updates the current order with the user's selected payment type. This action completes the order.
- * @param {number} - order ID from order table representing current active user's open order
- * @param {object} - object containing key/value to be updated in the order object
- * @return {promise} - resolves with a message that the order has been successfully updated
+ * Removes a users product from database, or if there are closed orders with product, set original_quantity to # sold (available = 0).
+ * @param {user_id} - order ID from order table representing current active user's open order
+ * @param {productId} - selected from prompt choice.number inside function: the id of product to remove
+ * @return {promise} - resolves with a message that the product has been successfully updated, or rejects with error
  */
 module.exports.removeUserProduct = user_id => {
 	return new Promise((resolve, reject) => {
