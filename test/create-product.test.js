@@ -13,7 +13,8 @@ const productObj = {
 	title: 'Rubber Duck',
 	description: 'Its a duck',
 	original_quantity: 5,
-	seller_user_id: 3
+	seller_user_id: 3,
+	created_on: '2017-05-24T03:04:11.035Z'
 };
 
 // start of testing
@@ -37,6 +38,7 @@ describe('Adding a product', () => {
 		});
 		it('returns a product object', () => {
 			return dbGetSingleProduct(1).then(data => {
+				console.log(data);
 				assert.hasAllKeys(data, productObj);
 			});
 		});
