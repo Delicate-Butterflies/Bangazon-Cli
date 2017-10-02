@@ -38,7 +38,7 @@ module.exports.removeUserProduct = user_id => {
 								dbDeleteProduct(productId)
 									.then(() => {
 										dbDeleteOpenOrderByProduct(productId)
-											.then(data => {
+											.then(() => {
 												resolve(`${blue(`Product id ${productId} removed`)}`);
 											})
 											.catch(err => {

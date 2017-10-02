@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 
 // 3rd party libs
-const { red, magenta, blue } = require('chalk');
+const { red, magenta } = require('chalk');
 const prompt = require('prompt');
 const colors = require('colors/safe');
 prompt.message = colors.blue('Bangazon Corp');

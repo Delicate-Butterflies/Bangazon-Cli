@@ -2,17 +2,16 @@ require('dotenv').config();
 let TIMEOUT = process.env.TIMEOUT;
 
 const { assert } = require('chai');
-const { red } = require('chalk');
 
 const { createTables, insertRows } = require('../db/buildDB');
 
 const {
 	dbCheckForProductSales,
 	dbDeleteProduct,
-	dbGetSingleProduct,
-	dbPostProduct
+	dbGetSingleProduct
+	// dbPostProduct
 } = require('../app/models/Product.js');
-const { dbDeleteOpenOrderByProduct } = require('../app/models/Order-Product');
+// const { dbDeleteOpenOrderByProduct } = require('../app/models/Order-Product');
 const { removeUserProduct } = require('../app/controllers/remove-user-product-ctrl.js');
 
 describe('Removing user product:', () => {
