@@ -88,6 +88,7 @@ module.exports.dbSellerRevenue = user_id => {
 			GROUP BY o.id, p.id`,
 			(err, revenueData) => {
 				if (err) return reject(err);
+				console.log(revenueData);
 				resolve(revenueData);
 			}
 		);
