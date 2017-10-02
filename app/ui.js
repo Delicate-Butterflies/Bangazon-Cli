@@ -4,8 +4,7 @@
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
-const colors = require('colors/safe');
-prompt.message = colors.blue('Bangazon Corp');
+prompt.message = blue('Bangazon Corp');
 
 // app modules
 const { promptPrintUsers } = require('./controllers/active-user-ctrl');
@@ -169,7 +168,7 @@ module.exports.displayWelcome = () => {
           description: 'Please make a selection'
         }
       ],
-      function (err, choice) {
+      function(err, choice) {
         if (err) return reject(err);
         else mainMenuHandler(choice);
       }

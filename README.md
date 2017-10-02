@@ -170,13 +170,13 @@ Enter new price:
 ```
 
 ### Show Stale Products (#9)
-Users access this prompt to show stale products. A stale product:
+Users access this prompt to show stale products by selecting option 9. A stale product:
 1. Has never been added to an order, and has been in the system for more than 180 days
 2. Has been added to an order, but the order hasn't been completed, and the order was created more than 90 days ago
 3. Has been added to one, or more orders, and the order were completed, but there is remaining quantity for the product, and the product has been in the system for more than 180 days
 
 ### Show Customer Revenue Report (#10)
-Users access this prompt to show the current active customer's revenue report.
+Users access this prompt to show the current active customer's revenue report by selecting option 10.
 
 ```
 Revenue report for Svetlana:
@@ -194,7 +194,7 @@ Total Revenue: $32.07
 ```
 
 ### Show Overall Product Popularity (#11)
-Users access this prompt to show the overall product poplarity.
+Users access this prompt to show the overall product poplarity by selecting option 11.
 ```
 Product             Orders      Purchasers    Revenue
 *******************************************************
@@ -207,11 +207,14 @@ Totals:             190         60            $1,902.81
 -> Press any key to return to main menu
 ```
 
+### Leave Bangazon! (#12)
+Users access this prompt to leave the Bangazon CLI by selecting option 12.
+
 ## Credits
 ### Project Manager
 - [Jufe Brown-Tsai](https://github.com/Jufebrown)
 
-### API Developers
+### CLI Developers
 - [Megan Brown](https://github.com/megbrown)
 - [Arwa Kuterwadliwala](https://github.com/Arwask)
 - [Jon Roberts](https://github.com/thejonroberts)
@@ -221,7 +224,6 @@ Totals:             190         60            $1,902.81
 
 ## Contribute to CLI
 - fork - issue tickets and pull requests are welcome
-- use [airbnb style](https://github.com/airbnb/javascript)
 - follow the template for PR requests
 - tab size 2
 
