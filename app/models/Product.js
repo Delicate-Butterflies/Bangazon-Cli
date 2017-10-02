@@ -67,9 +67,23 @@ module.exports.dbPutProduct = (req, product_id) => {
 
 module.exports.dbGetAllProductsByUser = userId => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM products WHERE seller_user_id = ${userId}`, (err, productdata) => {
+    db.all(`SELECT * FROM products WHERE seller_user_id = ${userId}`, (err, productData) => {
       if (err) return reject(err);
-      resolve(productdata);
+      resolve(productData);
     });
+  });
+};
+
+module.exports.dbGetStaleProductsByCriteriaTwo = userId => {
+  return new Promise((resolve, reject) => {
+    db.all(
+      `SELECT DISTINCT products.title FROM ordersProducts, products
+      WHERE products.id = ordersProducts.product_id
+      AND products.seller_user_id = ${userId}`,
+      (err, productData) => {
+        if (err) return reject(err);
+        resolve(productData);
+      }
+    );
   });
 };
