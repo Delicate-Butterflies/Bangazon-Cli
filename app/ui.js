@@ -42,13 +42,14 @@ let mainMenuHandler = userInput => {
 			});
 
 			break;
+
 		case '3':
 			if (getActiveCustomer() == null) {
 				console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
 				module.exports.displayWelcome();
 			} else {
 				promptAddPayment().then(custData => {
-					let activeUser = getActiveCustomer().id;
+					let activeUser = getActiveCustomer();
 					let userObj = {
 						customer_user_id: activeUser,
 						type: custData.paymentType,
@@ -60,6 +61,7 @@ let mainMenuHandler = userInput => {
 				});
 			}
 			break;
+
 		case '4':
 			// check if there is an active user
 			if (getActiveCustomer() == null) {
