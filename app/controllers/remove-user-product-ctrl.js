@@ -59,8 +59,8 @@ module.exports.removeUserProduct = user_id => {
 									});
 							} else if (data.sold > 0) {
 								// TODO - change original quantity to # sold? (available)
-								// change original_quantity to sold_quantity (remove open order ordersProducts rows)
-								// remove from all open orders
+								// change original_quantity to sold_quantity
+								// remove from all open orders (remove open order ordersProducts rows)
 								// resolve (`${blue(`\n Removed product ${} from open orders, available quantity to zero`)}`);
 								resolve(`${red(`\n >>Cannot remove product id #${productId}, it is associated with orders<<`)}`);
 							} else {
