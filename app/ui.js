@@ -4,6 +4,7 @@
 // 3rd party libs
 const { red, magenta, blue } = require('chalk');
 const prompt = require('prompt');
+const colors = require('colors/safe');
 prompt.message = colors.blue('Bangazon Corp');
 
 // app modules
@@ -45,8 +46,7 @@ let mainMenuHandler = userInput => {
 
 		case '3':
 			if (getActiveCustomer() == null) {
-				console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
-				module.exports.displayWelcome();
+				noActiveCustomerError();
 			} else {
 				promptAddPayment().then(custData => {
 					let activeUser = getActiveCustomer();
@@ -65,8 +65,7 @@ let mainMenuHandler = userInput => {
 		case '4':
 			// check if there is an active user
 			if (getActiveCustomer() == null) {
-				console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
-				module.exports.displayWelcome();
+				noActiveCustomerError();
 			} else {
 				// else run the prompt
 				console.log();
@@ -80,8 +79,7 @@ let mainMenuHandler = userInput => {
 
 		case '5':
 			if (getActiveCustomer() === null) {
-				console.log('no active customer, please select option 2 at the main menu');
-				module.exports.displayWelcome();
+				noActiveCustomerError();
 			} else {
 				promptAddToOrder(getActiveCustomer())
 					.then(resolutionData => {
@@ -96,8 +94,7 @@ let mainMenuHandler = userInput => {
 			break;
 		case '6':
 			if (getActiveCustomer() == null) {
-				console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
-				module.exports.displayWelcome();
+				noActiveCustomerError();
 			} else {
 				promptCompleteOrder(getActiveCustomer())
 					.then(data => {
@@ -128,15 +125,19 @@ let mainMenuHandler = userInput => {
 			break;
 
 		case '10':
-			sellerRevenueReport(getActiveCustomer())
-				.then(data => {
-					console.log(data);
-					module.exports.displayWelcome();
-				})
-				.catch(err => {
-					console.log(err);
-					module.exports.displayWelcome();
-				});
+			if (getActiveCustomer() == null) {
+				noActiveCustomerError();
+			} else {
+				sellerRevenueReport(getActiveCustomer())
+					.then(data => {
+						console.log(data);
+						module.exports.displayWelcome();
+					})
+					.catch(err => {
+						console.log(err);
+						module.exports.displayWelcome();
+					});
+			}
 			break;
 		case '11':
 			displayPopularProducts()
