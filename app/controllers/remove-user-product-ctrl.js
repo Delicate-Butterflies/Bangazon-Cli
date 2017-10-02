@@ -33,8 +33,9 @@ module.exports.removeUserProduct = user_id => {
 						return reject(`${red(`\n  >>No product #${choice.number} listed<<`)}`);
 					} else {
 						let productId = productArr[choice.number - 1].id;
+						// this will change to dbGetSingleProduct
 						dbCheckForProductSales(productId).then(data => {
-							// if product has sold - reject (change to adjust quantity at some point)
+							// let data.sold ==> data.original_q - data.sold_quantity
 							if (data.sold === 0) {
 								// TODO add sold < original quantity case
 								dbDeleteProduct(productId)
@@ -44,7 +45,7 @@ module.exports.removeUserProduct = user_id => {
 												resolve(`${blue(`\n Product id ${productId} removed`)}`);
 											})
 											.catch(err => {
-												reject(err);
+												return reject(err);
 											});
 									})
 									.catch(err => {
@@ -52,7 +53,9 @@ module.exports.removeUserProduct = user_id => {
 									});
 							} else if (data.sold > 0) {
 								// TODO - change original quantity to # sold? (available)
-								// TODO - OR remove from all open orders, but do not delete product or closed orderProduct
+								// change original_quantity to sold_quantity (remove open order ordersProducts rows)
+								// remove from all open orders
+								// resolve (`${blue(`\n Removed product ${} from open orders, available quantity to zero`)}`);
 								resolve(`${red(`\n >>Cannot remove product id #${productId}, it is associated with orders<<`)}`);
 							} else {
 								resolve(`${red('\n >>Removing product unsuccessfull<<')}`);
