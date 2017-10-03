@@ -43,12 +43,18 @@ let mainMenuHandler = userInput => {
         });
       break;
     case '2':
-      promptPrintUsers().then(userData => {
-        if (userData.exists == true) {
-          setActiveCustomer(userData.activeUser, userData.userName);
-        } else console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
-        module.exports.displayWelcome();
-      });
+      promptPrintUsers()
+        .then(userData => {
+          if (userData.exists == true) {
+            setActiveCustomer(userData.activeUser, userData.userName);
+          } else
+            console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
+          module.exports.displayWelcome();
+        })
+        .catch(err => {
+          console.log(err);
+          module.exports.displayWelcome();
+        });
 
       break;
 
