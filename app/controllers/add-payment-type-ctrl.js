@@ -5,6 +5,7 @@ const { dbPostPaymentType } = require('../models/Payment-Types');
 
 module.exports.promptAddPayment = () => {
   return new Promise((resolve, reject) => {
+    console.log("Press ctrl+'c' to go back to main menu at any point");
     prompt.get(
       [
         {
@@ -25,7 +26,7 @@ module.exports.promptAddPayment = () => {
         }
       ],
       function(err, results) {
-        if (err) return reject(err);
+        if (err) return reject('\nBack to main Menu', err);
         resolve(results);
       }
     );
@@ -35,7 +36,8 @@ module.exports.promptAddPayment = () => {
 module.exports.addPaymentType = paymentObj => {
   return new Promise((resolve, reject) => {
     dbPostPaymentType(paymentObj).then(data => {
-      resolve(data);
+      if (data) resolve(data);
+      else reject('No data');
     });
   });
 };

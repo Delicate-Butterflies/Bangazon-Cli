@@ -9,6 +9,7 @@ const { dbGetOpenOrderByUser, dbPostOrder } = require('../models/Order');
 //TODO: Doing way too much in this one function
 module.exports.promptAddToOrder = userId => {
   return new Promise((resolve, reject) => {
+    console.log("Press ctrl+'c' to go back to main menu at any point");
     dbGetAllProducts().then(prodArr => {
       for (let i = 0; i < prodArr.length; i++) {
         console.log(`${prodArr[i].id}: ${prodArr[i].title}, ${prodArr[i].description}`);
@@ -25,7 +26,7 @@ module.exports.promptAddToOrder = userId => {
           }
         ],
         function(err, results) {
-          if (err) return reject(err);
+          if (err) return reject('\nBack to Main Menu', err);
           dbGetOpenOrderByUser(userId)
             .then(openOrderObj => {
               if (!openOrderObj) {
