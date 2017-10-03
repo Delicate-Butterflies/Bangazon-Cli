@@ -108,6 +108,10 @@ module.exports.dbGetAllProductsByUser = userId => {
   });
 };
 
+module.exports.dbGetAllStaleProducts = () => {};
+
+module.exports.dbGetUsersStaleProducts = () => {};
+
 /*
 	TODO - db currently has no products that have not sold, according to following query:
 	SELECT count(op.product_id) as sold, p.original_quantity

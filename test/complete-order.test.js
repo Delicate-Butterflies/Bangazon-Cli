@@ -49,7 +49,7 @@ describe('user can complete customer order', () => {
       assert.isFunction(dbGetUsersPaymentTypes);
     });
 
-    it('should be an array', () => {
+    it('should return an array', () => {
       return dbGetUsersPaymentTypes(3).then(data => {
         assert.isArray(data);
       });

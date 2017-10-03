@@ -17,7 +17,7 @@ const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
 const { removeUserProduct } = require('./controllers/remove-user-product-ctrl');
-const { promptStaleProductChoice } = require('./controllers/stale-products-ctrl.js');
+const { promptStaleProductsChoice } = require('./controllers/stale-products-ctrl.js');
 
 prompt.start();
 
@@ -126,7 +126,7 @@ let mainMenuHandler = userInput => {
       if (getActiveCustomer() == null) {
         noActiveCustomerError();
       } else {
-        promptStaleProductChoice(getActiveCustomer())
+        promptStaleProductsChoice(getActiveCustomer())
           .then(data => {
             console.log(data);
             module.exports.displayWelcome();
