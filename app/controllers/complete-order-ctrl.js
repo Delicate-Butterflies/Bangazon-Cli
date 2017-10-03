@@ -83,13 +83,13 @@ function promptChoosePaymentOption(userId, orderId) {
           }
         ],
         function(err, results) {
-          if (err) return reject('Back to Main Menu', err);
-          dbPutOrder(orderId, { payment_type_id: results.paymentChoice })
+          if (err) return reject(err);
+          dbPutOrder(orderId, { payment_type_id: results.paymentChoice, order_date: new Date().toISOString() })
             .then(data => {
               resolve(data);
             })
             .catch(error => {
-              console.log(error);
+              return reject(error);
             });
         }
       );

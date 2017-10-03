@@ -157,11 +157,11 @@ let mainMenuHandler = userInput => {
         module.exports.displayWelcome();
       } else {
         promptUpdateProdInfo(getActiveCustomer())
-          .then((resolveFromUpdate) => {
+          .then(resolveFromUpdate => {
             console.log(`${resolveFromUpdate.message}`);
             module.exports.displayWelcome();
           })
-          .catch((err) => {
+          .catch(err => {
             console.log(err);
           });
       }
@@ -236,7 +236,7 @@ module.exports.displayWelcome = () => {
           description: 'Please make a selection'
         }
       ],
-      function (err, choice) {
+      function(err, choice) {
         if (err) return reject('\nBye!', err);
         else mainMenuHandler(choice);
       }
