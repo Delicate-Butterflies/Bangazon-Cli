@@ -62,7 +62,8 @@ module.exports.createTables = () => {
         street_address TEXT,
         city_address TEXT,
         state_code TEXT,
-        zip_code TEXT )`);
+				zip_code TEXT,
+				phone_number TEXT )`);
 
       // product types table creation
       db.run(`DROP TABLE IF EXISTS product_types`);
@@ -146,13 +147,14 @@ module.exports.insertRows = () => {
       street_address,
       city_address,
       state_code,
-      zip_code
+      zip_code,
+      phone_number
     }) => {
       return new Promise((resolve, reject) => {
         db.run(
-          `INSERT INTO users (first_name, last_name, account_created_date, last_login_date, street_address, city_address, state_code, zip_code)
+          `INSERT INTO users (first_name, last_name, account_created_date, last_login_date, street_address, city_address, state_code, zip_code, phone_number)
 
-              VALUES("${first_name}", "${last_name}", '${account_created_date}', '${last_login_date}', "${street_address}",  "${city_address}", '${state_code}', '${zip_code}')`,
+              VALUES("${first_name}", "${last_name}", '${account_created_date}', '${last_login_date}', "${street_address}",  "${city_address}", '${state_code}', '${zip_code}', '${phone_number}' )`,
           function(err) {
             if (err) return reject(err);
             resolve(this.lastID);
