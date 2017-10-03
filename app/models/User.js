@@ -32,7 +32,7 @@ module.exports.dbPostUser = user => {
 			`INSERT INTO users
       (first_name, last_name, account_created_date, last_login_date, street_address, city_address, state_code, zip_code)
       VALUES('${user.first_name}', '${user.last_name}', '${current_date}', '${current_date}', '${user.street_address}',  '${user.city_address}', '${user.state_code}', '${user.zip_code}')`,
-			function(err) {
+			function (err) {
 				if (err) return reject(err);
 				resolve({ message: 'new user', id: this.lastID });
 			}

@@ -20,7 +20,7 @@ const productObj = {
 // start of testing
 describe('Adding a product', () => {
 	// Reset the db
-	before(function() {
+	before(function () {
 		this.timeout(TIMEOUT);
 		return createTables().then(() => {
 			return insertRows();

@@ -12,6 +12,7 @@ const { setActiveCustomer, getActiveCustomer, getDetailedActiveCustomer } = requ
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { promptUpdateProdInfo } = require('./controllers/update-product-info-ctrl');
 const { displayPopularProducts } = require('./controllers/popular-product-ctrl');
 const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
@@ -147,7 +148,24 @@ let mainMenuHandler = userInput => {
           });
       }
       break;
-
+    case '8':
+      // Update product information
+      // Get active user
+      // If non-active user is selected, kick back to main menu for user to select an active user
+      if (getActiveCustomer() == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      } else {
+        promptUpdateProdInfo(getActiveCustomer())
+          .then((resolveFromUpdate) => {
+            console.log(`${resolveFromUpdate.message}`);
+            module.exports.displayWelcome();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+      break;
     case '10':
       if (getActiveCustomer() == null) {
         noActiveCustomerError();
@@ -178,6 +196,7 @@ let mainMenuHandler = userInput => {
       console.log(`Goodbye!`);
       process.exit();
       break;
+
     default:
       console.log('no such option');
       module.exports.displayWelcome();
@@ -217,7 +236,7 @@ module.exports.displayWelcome = () => {
           description: 'Please make a selection'
         }
       ],
-      function(err, choice) {
+      function (err, choice) {
         if (err) return reject('\nBye!', err);
         else mainMenuHandler(choice);
       }
