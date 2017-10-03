@@ -45,7 +45,8 @@ module.exports.createTables = () => {
         price REAL,
         title TEXT,
         description TEXT,
-        original_quantity INTEGER,
+				original_quantity INTEGER,
+				created_on TEXT NOT NULL,
         seller_user_id INTEGER,
         FOREIGN KEY(product_type_id) REFERENCES product_types(id))`);
 
@@ -122,11 +123,11 @@ module.exports.insertRows = () => {
 
   // products table rows
   let productsInsertPromises = products.map(
-    ({ product_type_id, price, title, description, original_quantity, seller_user_id }) => {
+    ({ product_type_id, price, title, description, original_quantity, created_on, seller_user_id }) => {
       return new Promise((resolve, reject) => {
         db.run(
-          `INSERT INTO products(product_type_id, price, title, description, original_quantity, seller_user_id)
-              VALUES('${product_type_id}', '${price}', '${title}', '${description}', '${original_quantity}', '${seller_user_id}')`,
+          `INSERT INTO products(product_type_id, price, title, description, original_quantity, created_on, seller_user_id)
+              VALUES('${product_type_id}', '${price}', '${title}', '${description}', '${original_quantity}', '${created_on}', '${seller_user_id}')`,
           function(err) {
             if (err) return reject(err);
             resolve(this.lastID);

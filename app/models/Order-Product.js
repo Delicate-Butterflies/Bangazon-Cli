@@ -83,7 +83,7 @@ module.exports.dbDeleteOpenOrderByProduct = product_id => {
       AND o.payment_type_id = 'null')`,
 			function(err) {
 				if (err) return reject(err);
-				resolve({ message: 'delete successful', rows_deleted: this.changes });
+				resolve({ message: 'removed product from open orders', rows_deleted: this.changes });
 			}
 		);
 	});

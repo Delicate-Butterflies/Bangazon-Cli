@@ -37,13 +37,11 @@ module.exports.dbPutOrder = (order_id, order) => {
   return new Promise((resolve, reject) => {
     let query = `UPDATE orders SET `;
     let keys = Object.keys(order);
-
     keys.forEach(key => {
       query += `'${key}' = '${order[key]}',`;
     });
     query = query.slice(0, -1);
     query += ` WHERE id = ${order_id}`;
-    console.log(query);
     db.run(query, function(err) {
       if (err) return reject(err);
       resolve('order updated');
@@ -96,7 +94,6 @@ module.exports.dbGetSellerOrders = user_id => {
 			GROUP BY o.id`,
       (err, orders) => {
         if (err) return reject(err);
-        console.log('model orders', orders);
         resolve(orders);
       }
     );
