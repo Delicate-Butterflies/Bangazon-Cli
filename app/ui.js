@@ -30,7 +30,10 @@ let mainMenuHandler = userInput => {
     case '1':
       promptNewUser()
         .then(data => {
-          console.log(data);
+          if (data == 'main') {
+            module.exports.displayWelcome();
+          }
+          // console.log(data);
           module.exports.displayWelcome();
           // saves customer to db
         })
@@ -53,17 +56,22 @@ let mainMenuHandler = userInput => {
       if (getActiveCustomer() == null) {
         noActiveCustomerError();
       } else {
-        promptAddPayment().then(custData => {
-          let activeUser = getActiveCustomer();
-          let userObj = {
-            customer_user_id: activeUser,
-            type: custData.paymentType,
-            account_number: custData.accountNumber
-          };
-          addPaymentType(userObj).then(() => {
+        promptAddPayment()
+          .then(custData => {
+            let activeUser = getActiveCustomer();
+            let userObj = {
+              customer_user_id: activeUser,
+              type: custData.paymentType,
+              account_number: custData.accountNumber
+            };
+            addPaymentType(userObj).then(() => {
+              module.exports.displayWelcome();
+            });
+          })
+          .catch(err => {
+            console.log(err);
             module.exports.displayWelcome();
           });
-        });
       }
       break;
 
@@ -74,11 +82,16 @@ let mainMenuHandler = userInput => {
       } else {
         // else run the prompt
         console.log();
-        promptNewProduct().then(() => {
-          console.log();
-          console.log(`Your product was added!\n`);
-          module.exports.displayWelcome();
-        });
+        promptNewProduct()
+          .then(() => {
+            console.log();
+            console.log(`Your product was added!\n`);
+            module.exports.displayWelcome();
+          })
+          .catch(err => {
+            console.log(err);
+            module.exports.displayWelcome();
+          });
       }
       break;
 
@@ -199,7 +212,7 @@ module.exports.displayWelcome = () => {
         }
       ],
       function(err, choice) {
-        if (err) return reject(err);
+        if (err) return reject('\nBye!', err);
         else mainMenuHandler(choice);
       }
     );
