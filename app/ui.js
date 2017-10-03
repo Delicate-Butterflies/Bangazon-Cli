@@ -18,6 +18,7 @@ const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
 const { promptCompleteOrder } = require('./controllers/complete-order-ctrl.js');
 const { removeUserProduct } = require('./controllers/remove-user-product-ctrl');
+const { promptStaleProductsChoice } = require('./controllers/stale-products-ctrl.js');
 
 prompt.start();
 
@@ -132,7 +133,6 @@ let mainMenuHandler = userInput => {
           });
       }
       break;
-
     case '7':
       if (getActiveCustomer() == null) {
         noActiveCustomerError();
@@ -166,6 +166,21 @@ let mainMenuHandler = userInput => {
           });
       }
       break;
+    case '9':
+      if (getActiveCustomer() == null) {
+        noActiveCustomerError();
+      } else {
+        promptStaleProductsChoice(getActiveCustomer())
+          .then(data => {
+            console.log(data);
+            module.exports.displayWelcome();
+          })
+          .catch(err => {
+            console.log(err);
+            module.exports.displayWelcome();
+          });
+      }
+      break;
     case '10':
       if (getActiveCustomer() == null) {
         noActiveCustomerError();
@@ -196,7 +211,6 @@ let mainMenuHandler = userInput => {
       console.log(`Goodbye!`);
       process.exit();
       break;
-
     default:
       console.log('no such option');
       module.exports.displayWelcome();
