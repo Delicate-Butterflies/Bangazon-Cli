@@ -177,6 +177,7 @@ let mainMenuHandler = userInput => {
           })
           .catch(err => {
             console.log(err);
+            module.exports.displayWelcome();
           });
       }
       break;

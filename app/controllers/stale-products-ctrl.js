@@ -9,6 +9,7 @@ const { dbGetAllStaleProducts, dbGetUsersStaleProducts } = require('../models/Pr
 // start prompt
 module.exports.promptStaleProductsChoice = userId => {
   return new Promise((resolve, reject) => {
+    console.log("Press ctrl+'c' to go back to main menu at any point");
     console.log('What whould you like to view?');
     console.log('1. All stale products.');
     console.log('2. Your stale products.');
@@ -43,11 +44,7 @@ module.exports.promptStaleProductsChoice = userId => {
           });
         } else {
           dbGetUsersStaleProducts(userId).then(data => {
-            if (data) {
-              for (let i = 0; i < data.length; i++) {
-                console.log(`${data[i].id}: ${data[i].title}`);
-              }
-            } else {
+            if (data.length == 0) {
               console.log('You have no stale products at this time. Press any key to return to main menu.');
               //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
               process.stdin.setRawMode(true);
@@ -55,6 +52,10 @@ module.exports.promptStaleProductsChoice = userId => {
               process.stdin.on('data', () => {
                 resolve('Return to main menu.');
               });
+            } else {
+              for (let i = 0; i < data.length; i++) {
+                console.log(`${data[i].id}: ${data[i].title}`);
+              }
             }
           });
         }
