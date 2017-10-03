@@ -26,12 +26,26 @@ module.exports.dbGetSingleProduct = id => {
   });
 };
 
+module.exports.dbGetSingleProductWithDetails = id => {
+  // TODO check that there is still inventory available
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT * FROM products
+            WHERE id = ${id}`,
+      (err, productdata) => {
+        if (err) return reject(err);
+        resolve(productdata);
+      }
+    );
+  });
+};
+
 module.exports.dbPostProduct = newProduct => {
   return new Promise((resolve, reject) => {
-    let { product_type_id, price, title, description, original_quantity, seller_user_id } = newProduct;
+    let { product_type_id, price, title, description, original_quantity, seller_user_id, created_on } = newProduct;
     db.run(
-      `INSERT INTO products(product_type_id, price, title, description, original_quantity, seller_user_id)
-      VALUES('${product_type_id}', '${price}', '${title}', '${description}', '${original_quantity}', '${seller_user_id}')`,
+      `INSERT INTO products(product_type_id, price, title, description, original_quantity, seller_user_id, created_on)
+      VALUES('${product_type_id}', '${price}', '${title}', '${description}', '${original_quantity}', '${seller_user_id}', '${created_on}')`,
       function(err) {
         if (err) return reject(err);
         resolve({ message: 'new product', id: this.lastID });
@@ -49,13 +63,12 @@ module.exports.dbDeleteProduct = id => {
   });
 };
 
-module.exports.dbPutProduct = (req, product_id) => {
-  let product = req.body;
+module.exports.dbPutProduct = (productObj, product_id) => {
   return new Promise((resolve, reject) => {
     let query = `UPDATE products SET `;
-    let keys = Object.keys(product);
+    let keys = Object.keys(productObj);
     keys.forEach(key => {
-      query += `"${key}" = "${product[key]}",`;
+      query += `"${key}" = "${productObj[key]}",`;
     });
     query = query.slice(0, -1);
     query += ` WHERE id = ${product_id}`;
