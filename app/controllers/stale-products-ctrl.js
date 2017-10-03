@@ -28,18 +28,44 @@ module.exports.promptStaleProductsChoice = userId => {
         let userChoice = results.stale_products_choice;
         if (userChoice == 1) {
           dbGetAllStaleProducts().then(data => {
-            for (let i = 0; i < data.length; i++) {
-              console.log(`${data[i].id}: ${data[i].title}`);
+            if (data == undefined) {
+              console.log('There are no stale products at this time. Press any key to return to main menu.');
+              //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
+              process.stdin.setRawMode(true);
+              process.stdin.resume();
+              process.stdin.on('data', () => {
+                resolve('Return to main menu.');
+              });
+            } else {
+              for (let i = 0; i < data.length; i++) {
+                console.log(`${data[i].id}: ${data[i].title}`);
+              }
             }
           });
         } else {
           dbGetUsersStaleProducts(userId).then(data => {
-            for (let i = 0; i < data.length; i++) {
-              console.log(`${data[i].id}: ${data[i].title}`);
+            if (data == undefined) {
+              console.log('You have no stale products at this time. Press any key to return to main menu.');
+              //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
+              process.stdin.setRawMode(true);
+              process.stdin.resume();
+              process.stdin.on('data', () => {
+                resolve('Return to main menu.');
+              });
+            } else {
+              for (let i = 0; i < data.length; i++) {
+                console.log(`${data[i].id}: ${data[i].title}`);
+              }
             }
           });
         }
-        console.log();
+        console.log('!!Press any key to return to main menu.');
+        //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
+        process.stdin.setRawMode(true);
+        process.stdin.resume();
+        process.stdin.on('data', () => {
+          resolve('Return to main menu.');
+        });
       }
     );
   });

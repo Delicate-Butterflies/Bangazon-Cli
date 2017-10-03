@@ -108,9 +108,23 @@ module.exports.dbGetAllProductsByUser = userId => {
   });
 };
 
-module.exports.dbGetAllStaleProducts = () => {};
+module.exports.dbGetAllStaleProducts = () => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM products`, (err, allStaleProducts) => {
+      if (err) return reject(err);
+      resolve(allStaleProducts);
+    });
+  });
+};
 
-module.exports.dbGetUsersStaleProducts = () => {};
+module.exports.dbGetUsersStaleProducts = userId => {
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM products WHERE seller_user_id = ${userId}`, (err, userStaleProducts) => {
+      if (err) return reject(err);
+      resolve(userStaleProducts);
+    });
+  });
+};
 
 /*
 	TODO - db currently has no products that have not sold, according to following query:
