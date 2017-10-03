@@ -10,6 +10,7 @@ const { getActiveCustomer } = require('../activeCustomer');
 // start prompt
 module.exports.promptNewProduct = () => {
   return new Promise((resolve, reject) => {
+    console.log("Press ctrl+'c' to go back to main menu at any point");
     // console logs to make the prompt look prettier
     console.log('Adding a new product!\n');
     console.log('Product-Types\n');
@@ -71,7 +72,7 @@ module.exports.promptNewProduct = () => {
         ],
         // callback
         function(err, results) {
-          if (err) return reject(err);
+          if (err) return reject('\nBack to Main Menu', err);
           results.seller_user_id = getActiveCustomer(); //active user becomes seller of new product
           dbPostProduct(results).then(prodData => {
             if (err) return reject(err);

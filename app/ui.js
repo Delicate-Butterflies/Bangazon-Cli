@@ -12,6 +12,7 @@ const { setActiveCustomer, getActiveCustomer, getDetailedActiveCustomer } = requ
 const { promptAddPayment, addPaymentType } = require('./controllers/add-payment-type-ctrl');
 const { promptNewUser } = require('./controllers/user-ctrl');
 const { promptNewProduct } = require('./controllers/user-add-product-ctrl');
+const { promptUpdateProdInfo } = require('./controllers/update-product-info-ctrl');
 const { displayPopularProducts } = require('./controllers/popular-product-ctrl');
 const { sellerRevenueReport } = require('./controllers/user-revenue-ctrl');
 const { promptAddToOrder } = require('./controllers/add-to-order-ctrl');
@@ -29,18 +30,33 @@ function noActiveCustomerError() {
 let mainMenuHandler = userInput => {
   switch (userInput.choice) {
     case '1':
-      promptNewUser().then(() => {
-        // saves customer to db
-        module.exports.displayWelcome();
-      });
+      promptNewUser()
+        .then(data => {
+          if (data == 'main') {
+            module.exports.displayWelcome();
+          }
+          // console.log(data);
+          module.exports.displayWelcome();
+          // saves customer to db
+        })
+        .catch(err => {
+          console.log(err);
+          module.exports.displayWelcome();
+        });
       break;
     case '2':
-      promptPrintUsers().then(userData => {
-        if (userData.exists == true) {
-          setActiveCustomer(userData.activeUser, userData.userName);
-        } else console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
-        module.exports.displayWelcome();
-      });
+      promptPrintUsers()
+        .then(userData => {
+          if (userData.exists == true) {
+            setActiveCustomer(userData.activeUser, userData.userName);
+          } else
+            console.log(`\n ${red('>> No such Customer. Please select from the list or create a new Customer <<')}`);
+          module.exports.displayWelcome();
+        })
+        .catch(err => {
+          console.log(err);
+          module.exports.displayWelcome();
+        });
 
       break;
 
@@ -48,17 +64,22 @@ let mainMenuHandler = userInput => {
       if (getActiveCustomer() == null) {
         noActiveCustomerError();
       } else {
-        promptAddPayment().then(custData => {
-          let activeUser = getActiveCustomer();
-          let userObj = {
-            customer_user_id: activeUser,
-            type: custData.paymentType,
-            account_number: custData.accountNumber
-          };
-          addPaymentType(userObj).then(() => {
+        promptAddPayment()
+          .then(custData => {
+            let activeUser = getActiveCustomer();
+            let userObj = {
+              customer_user_id: activeUser,
+              type: custData.paymentType,
+              account_number: custData.accountNumber
+            };
+            addPaymentType(userObj).then(() => {
+              module.exports.displayWelcome();
+            });
+          })
+          .catch(err => {
+            console.log(err);
             module.exports.displayWelcome();
           });
-        });
       }
       break;
 
@@ -69,11 +90,16 @@ let mainMenuHandler = userInput => {
       } else {
         // else run the prompt
         console.log();
-        promptNewProduct().then(() => {
-          console.log();
-          console.log(`Your product was added!\n`);
-          module.exports.displayWelcome();
-        });
+        promptNewProduct()
+          .then(() => {
+            console.log();
+            console.log(`Your product was added!\n`);
+            module.exports.displayWelcome();
+          })
+          .catch(err => {
+            console.log(err);
+            module.exports.displayWelcome();
+          });
       }
       break;
 
@@ -122,6 +148,24 @@ let mainMenuHandler = userInput => {
           });
       }
       break;
+    case '8':
+      // Update product information
+      // Get active user
+      // If non-active user is selected, kick back to main menu for user to select an active user
+      if (getActiveCustomer() == null) {
+        console.log(`${red('>> No active user. Please select option 2 and select active customer <<')}`);
+        module.exports.displayWelcome();
+      } else {
+        promptUpdateProdInfo(getActiveCustomer())
+          .then(resolveFromUpdate => {
+            console.log(`${resolveFromUpdate.message}`);
+            module.exports.displayWelcome();
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+      break;
     case '9':
       if (getActiveCustomer() == null) {
         noActiveCustomerError();
@@ -133,7 +177,6 @@ let mainMenuHandler = userInput => {
           })
           .catch(err => {
             console.log(err);
-            module.exports.displayWelcome();
           });
       }
       break;
@@ -207,7 +250,7 @@ module.exports.displayWelcome = () => {
         }
       ],
       function(err, choice) {
-        if (err) return reject(err);
+        if (err) return reject('\nBye!', err);
         else mainMenuHandler(choice);
       }
     );

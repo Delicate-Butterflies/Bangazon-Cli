@@ -1,7 +1,7 @@
 'use strict';
 
 const prompt = require('prompt');
-
+const keypress = require('keypress');
 /* prompt info:
   description: 'Enter your password',     // Prompt displayed to the user. If not supplied name will be used.
   type: 'string',                 // Specify the type of input to expect.
@@ -15,9 +15,10 @@ const prompt = require('prompt');
 */
 
 let { dbPostUser } = require('../models/User.js');
-
 module.exports.promptNewUser = () => {
   return new Promise((resolve, reject) => {
+    console.log("Press ctrl+'c' to go back to main menu at any point");
+
     prompt.get(
       [
         {
@@ -68,7 +69,7 @@ module.exports.promptNewUser = () => {
         }
       ],
       function(err, results) {
-        if (err) return reject(err);
+        if (err) return reject('\nBack to main Menu', err);
         dbPostUser(results)
           .then(data => {
             resolve(data);

@@ -10,6 +10,7 @@ const { dbGetUsersPaymentTypes } = require('../models/Payment-Types.js');
  */
 module.exports.promptCompleteOrder = userId => {
   return new Promise((resolve, reject) => {
+    console.log("Press ctrl+'c' to go back to main menu at any point");
     // returns order object, active user id is passed in
     dbGetOpenOrderByUser(userId)
       .then(data => {
@@ -39,15 +40,14 @@ module.exports.promptCompleteOrder = userId => {
                 }
               ],
               function(err, results) {
-                console.log('results', results.purchaseAnswer);
-                if (err) return reject(err);
+                if (err) return reject('\nBack to Main Menu', err);
                 if (results.purchaseAnswer == 'y' || results.purchaseAnswer == 'Y') {
                   promptChoosePaymentOption(userId, orderId)
                     .then(data => {
                       resolve(data);
                     })
                     .catch(error => {
-                      console.log(error);
+                      return reject('\nBack to Main Menu', error);
                     });
                 } else {
                   return reject('You selected no. Return to main menu.');
@@ -84,12 +84,12 @@ function promptChoosePaymentOption(userId, orderId) {
         ],
         function(err, results) {
           if (err) return reject(err);
-          dbPutOrder(orderId, { payment_type_id: results.paymentChoice })
+          dbPutOrder(orderId, { payment_type_id: results.paymentChoice, order_date: new Date().toISOString() })
             .then(data => {
               resolve(data);
             })
             .catch(error => {
-              console.log(error);
+              return reject(error);
             });
         }
       );

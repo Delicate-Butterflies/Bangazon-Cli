@@ -3,6 +3,10 @@
 const sqlite3 = require('sqlite3').verbose();
 const db = new sqlite3.Database('./db/bangazon.sqlite');
 
+/**
+ * Gets all products from the products table
+ * @param {} - no arguments
+ */
 module.exports.dbGetAllProducts = () => {
   return new Promise((resolve, reject) => {
     db.all(`SELECT * FROM products`, (err, productdata) => {
@@ -12,6 +16,10 @@ module.exports.dbGetAllProducts = () => {
   });
 };
 
+/**
+ * Gets a single product by its id
+ * @param {number} id - the primary key of the product
+ */
 module.exports.dbGetSingleProduct = id => {
   // TODO check that there is still inventory available
   return new Promise((resolve, reject) => {
@@ -54,6 +62,10 @@ module.exports.dbPostProduct = newProduct => {
   });
 };
 
+/**
+ * Deletes a product on the product table
+ * @param {number} id - Primary key of product to be deleted
+ */
 module.exports.dbDeleteProduct = id => {
   return new Promise((resolve, reject) => {
     db.run(`DELETE FROM products WHERE id = ${id}`, function(err) {
@@ -63,18 +75,37 @@ module.exports.dbDeleteProduct = id => {
   });
 };
 
-module.exports.dbPutProduct = (productObj, product_id) => {
+/**
+ * Modifies a product on the product table
+ * @param {object} req - Object with body that contains one or more keys:  price, title, description, original_quantity, seller_user_id
+ * @param {number} product_id - Primary key of the product to be modified
+ */
+module.exports.dbPutProduct = (productUpdateObj, product_id) => {
   return new Promise((resolve, reject) => {
     let query = `UPDATE products SET `;
-    let keys = Object.keys(productObj);
+    let keys = Object.keys(productUpdateObj);
     keys.forEach(key => {
-      query += `"${key}" = "${productObj[key]}",`;
+      query += `"${key}" = "${productUpdateObj[key]}",`;
     });
     query = query.slice(0, -1);
     query += ` WHERE id = ${product_id}`;
     db.run(query, function(err) {
       if (err) return reject(err);
       resolve({ message: 'product updated', rows_updated: this.changes });
+    });
+  });
+};
+
+/**
+ * Gets all products by one seller
+ * @param {number} seller_ID - User Id of the seller
+ */
+module.exports.dbGetAllProductsBySellerID = seller_ID => {
+  // Sends query to database to get all products with given seller's ID
+  return new Promise((resolve, reject) => {
+    db.all(`SELECT * FROM products WHERE seller_user_id = ${seller_ID}`, (err, rows) => {
+      if (err) return reject(err);
+      resolve(rows);
     });
   });
 };
@@ -121,6 +152,9 @@ module.exports.dbGetAllProductsByUser = userId => {
   });
 };
 
+/**
+ * Gets all stale products according to criteria
+ */
 module.exports.dbGetAllStaleProducts = () => {
   return new Promise((resolve, reject) => {
     db.all(
@@ -154,6 +188,10 @@ module.exports.dbGetAllStaleProducts = () => {
   });
 };
 
+/**
+ * Gets all stale products according to criteria by seller id
+ * @param {number} seller_ID - User Id of the seller
+ */
 module.exports.dbGetUsersStaleProducts = userId => {
   return new Promise((resolve, reject) => {
     db.all(
