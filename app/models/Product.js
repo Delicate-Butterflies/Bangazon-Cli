@@ -34,10 +34,20 @@ module.exports.dbGetSingleProduct = id => {
   });
 };
 
-/**
- * Creates a new product on the product table
- * @param {object} newProduct - Object with keys: product_type_id, price, title, description, original_quantity, seller_user_id
- */
+module.exports.dbGetSingleProductWithDetails = id => {
+  // TODO check that there is still inventory available
+  return new Promise((resolve, reject) => {
+    db.get(
+      `SELECT * FROM products
+            WHERE id = ${id}`,
+      (err, productdata) => {
+        if (err) return reject(err);
+        resolve(productdata);
+      }
+    );
+  });
+};
+
 module.exports.dbPostProduct = newProduct => {
   return new Promise((resolve, reject) => {
     let { product_type_id, price, title, description, original_quantity, seller_user_id, created_on } = newProduct;
@@ -97,21 +107,6 @@ module.exports.dbGetAllProductsBySellerID = seller_ID => {
       if (err) return reject(err);
       resolve(rows);
     });
-  });
-};
-
-module.exports.dbGetProductSoldQty = (id) => {
-  return new Promise((resolve, reject) => {
-    db.all(`SELECT p.id, p.product_type_id, p.price, p.title, p.description, p.original_quantity, count(op.id) as sold_quantity, p.seller_user_id
-            FROM products p
-            JOIN ordersProducts op ON p.id = op.product_id
-            JOIN orders o ON op.order_id = o.id
-            WHERE p.id = ${id}
-            AND o.payment_type_id != 'null'
-            GROUP BY p.id`, (err, rows) => {
-
-
-      });
   });
 };
 
