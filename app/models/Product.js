@@ -123,19 +123,70 @@ module.exports.dbGetAllProductsByUser = userId => {
 
 module.exports.dbGetAllStaleProducts = () => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM products`, (err, allStaleProducts) => {
-      if (err) return reject(err);
-      resolve(allStaleProducts);
-    });
+    db.all(
+      `SELECT DISTINCT p.id, p.title
+    FROM products p, ordersProducts o
+    WHERE p.id <> o.product_id
+    and p.created_on NOT BETWEEN strftime('%Y-%m-%d', date('now', '-180 day') ) AND strftime('%Y-%m-%d', date('now') )
+    union
+    SELECT DISTINCT p.id, p.title
+    FROM products p, ordersProducts op, orders o
+    WHERE p.id = op.product_id
+    AND  op.order_id = o.id
+    AND o.payment_type_id = "null"
+    AND o.order_date NOT BETWEEN strftime('%Y-%m-%d', date('now', '-90 day') ) AND strftime('%Y-%m-%d', date('now') )
+    union
+    SELECT DISTINCT p.id, p.title
+    FROM products p, ordersProducts op, orders o
+    WHERE p.id = op.product_id
+    AND  op.order_id = o.id
+    AND o.payment_type_id IS NOT "null"
+    AND p.original_quantity -
+    (SELECT COUNT(op.product_id)
+    FROM ordersProducts op
+    GROUP BY op.product_id) > 0
+    and p.created_on NOT BETWEEN strftime('%Y-%m-%d', date('now', '-180 day') ) AND strftime('%Y-%m-%d', date('now') )`,
+      (err, allStaleProducts) => {
+        if (err) return reject(err);
+        resolve(allStaleProducts);
+      }
+    );
   });
 };
 
 module.exports.dbGetUsersStaleProducts = userId => {
   return new Promise((resolve, reject) => {
-    db.all(`SELECT * FROM products WHERE seller_user_id = ${userId}`, (err, userStaleProducts) => {
-      if (err) return reject(err);
-      resolve(userStaleProducts);
-    });
+    db.all(
+      `SELECT DISTINCT p.id, p.title
+    FROM products p, ordersProducts o
+    WHERE p.id <> o.product_id
+    and p.created_on NOT BETWEEN strftime('%Y-%m-%d', date('now', '-180 day') ) AND strftime('%Y-%m-%d', date('now') )
+    and p.seller_user_id = ${userId}
+    union
+    SELECT DISTINCT p.id, p.title
+    FROM products p, ordersProducts op, orders o
+    WHERE p.id = op.product_id
+    AND  op.order_id = o.id
+    AND o.payment_type_id = "null"
+    AND o.order_date NOT BETWEEN strftime('%Y-%m-%d', date('now', '-90 day') ) AND strftime('%Y-%m-%d', date('now') )
+    and p.seller_user_id = ${userId}
+    union
+    SELECT DISTINCT p.id, p.title
+    FROM products p, ordersProducts op, orders o
+    WHERE p.id = op.product_id
+    AND  op.order_id = o.id
+    AND o.payment_type_id IS NOT "null"
+    AND p.original_quantity -
+    (SELECT COUNT(op.product_id)
+    FROM ordersProducts op
+    GROUP BY op.product_id) > 0
+    and p.created_on NOT BETWEEN strftime('%Y-%m-%d', date('now', '-180 day') ) AND strftime('%Y-%m-%d', date('now') )
+    and p.seller_user_id = ${userId}`,
+      (err, userStaleProducts) => {
+        if (err) return reject(err);
+        resolve(userStaleProducts);
+      }
+    );
   });
 };
 
