@@ -1,5 +1,10 @@
 const { assert } = require('chai');
-const { dbGetAllProductsBySellerID, dbGetSingleProduct, dbPutProduct, dbCheckForProductSales } = require('../app/models/Product');
+const {
+  dbGetAllProductsBySellerID,
+  dbGetSingleProduct,
+  dbPutProduct,
+  dbCheckForProductSales
+} = require('../app/models/Product');
 
 describe('Update product information', () => {
   describe('dbGetAllProductsBySellerID', () => {
@@ -11,16 +16,16 @@ describe('Update product information', () => {
         assert.isArray(data);
       });
     });
-    it('returns expexted content, which is products', () => {
+    it('returns expected content, which is products', () => {
       let expected = {
-        id: 31,
-        product_type_id: 10,
-        price: 98.3,
-        title: 'Rustic Fresh Gloves',
-        description: 'In nihil qui animi ipsa maiores non atque et.',
-        original_quantity: 51,
+        created_on: '2017-05-24T03:04:11.035Z',
+        description: 'Similique aspernatur ex soluta rerum quo est.',
+        id: 1,
+        original_quantity: 88,
+        price: 94.3,
+        product_type_id: 5,
         seller_user_id: 6,
-        created_on: '2017-02-11T03:07:21.035Z'
+        title: 'Awesome Wooden Chair'
       };
       return dbGetAllProductsBySellerID(6).then(data => {
         assert.deepEqual(data[0], expected);
@@ -49,11 +54,10 @@ describe('Update product information', () => {
   });
   describe('dbCheckForProductSales', () => {
     it('should get the original amount and ammount sold', () => {
-      return dbCheckForProductSales(10)
-        .then((productQuantities) => {
-          assert.propertyVal(productQuantities, 'original_quantity', 94);
-          assert.propertyVal(productQuantities, 'sold', 11);
-        });
+      return dbCheckForProductSales(10).then(productQuantities => {
+        assert.propertyVal(productQuantities, 'original_quantity', 94);
+        assert.propertyVal(productQuantities, 'sold', 11);
+      });
     });
   });
   describe('dbPutProduct', () => {
@@ -75,7 +79,7 @@ describe('Update product information', () => {
         .then(() => {
           return dbGetSingleProduct(10);
         })
-        .then((data) => {
+        .then(data => {
           assert.deepEqual(data, expected);
         });
     });
