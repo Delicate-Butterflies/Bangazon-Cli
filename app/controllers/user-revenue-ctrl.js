@@ -39,9 +39,8 @@ module.exports.sellerRevenueReport = user_id => {
 					process.stdin.setRawMode(true);
 					process.stdin.resume();
 					process.stdin.on('data', () => {
-						resolve('data');
+						resolve(`Revenue Report completed`);
 					});
-					resolve(`Revenue Report completed`);
 				}
 			})
 			.catch(err => {
