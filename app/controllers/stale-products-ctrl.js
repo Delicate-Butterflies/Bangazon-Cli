@@ -24,9 +24,8 @@ module.exports.promptStaleProductsChoice = userId => {
       ],
       function(err, results) {
         if (err) return reject(err);
-        console.log('stale products choice', results.stale_products_choice);
         let userChoice = results.stale_products_choice;
-        if (userChoice == 1) {
+        if (userChoice === '1') {
           dbGetAllStaleProducts().then(data => {
             if (data == undefined) {
               console.log('There are no stale products at this time. Press any key to return to main menu.');
@@ -44,7 +43,11 @@ module.exports.promptStaleProductsChoice = userId => {
           });
         } else {
           dbGetUsersStaleProducts(userId).then(data => {
-            if (data == undefined) {
+            if (data) {
+              for (let i = 0; i < data.length; i++) {
+                console.log(`${data[i].id}: ${data[i].title}`);
+              }
+            } else {
               console.log('You have no stale products at this time. Press any key to return to main menu.');
               //https://stackoverflow.com/questions/19687407/press-any-key-to-continue-in-nodejs
               process.stdin.setRawMode(true);
@@ -52,10 +55,6 @@ module.exports.promptStaleProductsChoice = userId => {
               process.stdin.on('data', () => {
                 resolve('Return to main menu.');
               });
-            } else {
-              for (let i = 0; i < data.length; i++) {
-                console.log(`${data[i].id}: ${data[i].title}`);
-              }
             }
           });
         }
